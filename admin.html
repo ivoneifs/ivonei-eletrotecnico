@@ -148,12 +148,86 @@
       </div>
 
       <!-- REQUESTS TAB -->
-      <div id="tab-requests" class="hidden space-y-4">
-        <div class="bg-white border border-slate-200 rounded-sm p-5 sm:p-6 shadow-sm space-y-4">
+      <div id="tab-requests" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-5 bg-white border border-slate-200 rounded-sm p-5 sm:p-6 space-y-4 shadow-sm">
+          <div class="flex items-center justify-between gap-3">
+            <h2 id="request-form-title" class="font-display text-lg uppercase text-[#003366]">Nova solicitação</h2>
+            <button type="button" id="request-new-btn" class="text-[10px] font-mono font-bold uppercase tracking-wider px-3 py-2 rounded-sm border border-[#FF8C00]/40 text-[#FF8C00] bg-[#FF8C00]/10 hover:bg-[#FF8C00]/20 cursor-pointer">
+              Nova solicitação
+            </button>
+          </div>
+          <p class="text-xs text-slate-500">CRUD completo · anexos no bucket <span class="font-mono">orcamentos</span></p>
+          <form id="request-form" class="space-y-3">
+            <input type="hidden" id="edit-request-id" value="" />
+            <div class="space-y-1">
+              <label class="text-[10px] font-mono uppercase font-bold text-slate-600" for="req-name">Nome *</label>
+              <input id="req-name" required class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-3 py-2.5 rounded-sm text-sm focus:outline-none" />
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="space-y-1">
+                <label class="text-[10px] font-mono uppercase font-bold text-slate-600" for="req-phone">Telefone</label>
+                <input id="req-phone" type="tel" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-3 py-2.5 rounded-sm text-sm focus:outline-none" />
+              </div>
+              <div class="space-y-1">
+                <label class="text-[10px] font-mono uppercase font-bold text-slate-600" for="req-email">E-mail</label>
+                <input id="req-email" type="email" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-3 py-2.5 rounded-sm text-sm focus:outline-none" />
+              </div>
+            </div>
+            <div class="space-y-1">
+              <label class="text-[10px] font-mono uppercase font-bold text-slate-600" for="req-service">Serviço</label>
+              <select id="req-service" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-3 py-2.5 rounded-sm text-sm focus:outline-none">
+                <option value="">Selecione…</option>
+                <option value="Adequação e Projeto Residencial">Instalações Elétricas Residenciais</option>
+                <option value="Sistemas Solares Fotovoltaicos">Sistemas Solares Fotovoltaicos (On-Grid / Off-Grid)</option>
+                <option value="Instalações Industriais">Serviços e Painéis Industriais</option>
+                <option value="Laudo com Documentações Técnicas">Projetos Elétricos e Emissão de CRT/ART</option>
+                <option value="Vistoria Técnica Preventiva">Outros Assuntos / Consultorias Especializadas</option>
+                <option value="__custom__">Outro (digitar)</option>
+              </select>
+            </div>
+            <div id="req-service-custom-wrap" class="hidden space-y-1">
+              <label class="text-[10px] font-mono uppercase font-bold text-slate-600" for="req-service-custom">Serviço (customizado)</label>
+              <input id="req-service-custom" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-3 py-2.5 rounded-sm text-sm focus:outline-none" />
+            </div>
+            <div class="space-y-1">
+              <label class="text-[10px] font-mono uppercase font-bold text-slate-600" for="req-message">Mensagem</label>
+              <textarea id="req-message" rows="3" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-3 py-2.5 rounded-sm text-sm focus:outline-none"></textarea>
+            </div>
+            <div class="space-y-1">
+              <label class="text-[10px] font-mono uppercase font-bold text-slate-600" for="req-status">Status</label>
+              <select id="req-status" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-3 py-2.5 rounded-sm text-sm focus:outline-none">
+                <option value="new">Novo</option>
+                <option value="in_review">Em análise</option>
+                <option value="answered">Respondido</option>
+                <option value="archived">Arquivado</option>
+              </select>
+            </div>
+            <div class="space-y-1">
+              <label class="text-[10px] font-mono uppercase font-bold text-slate-600" for="req-files">Anexos (opcional)</label>
+              <input id="req-files" type="file" multiple accept="image/jpeg,image/png,image/webp,image/gif,application/pdf" class="w-full text-xs file:mr-3 file:py-2 file:px-3 file:rounded-sm file:border-0 file:bg-[#003366] file:text-white file:text-[10px] file:font-bold file:uppercase" />
+              <p class="text-[10px] text-slate-400 font-mono">Até 3 arquivos · imagens ou PDF · máx. 5 MB</p>
+            </div>
+            <div id="req-attachments-editor" class="hidden space-y-2 border border-slate-100 bg-slate-50 rounded-sm p-3">
+              <p class="text-[10px] font-mono uppercase font-bold text-slate-500">Anexos atuais</p>
+              <ul id="req-attachments-list" class="space-y-1"></ul>
+            </div>
+            <p id="request-form-error" class="hidden text-xs text-red-600 font-semibold"></p>
+            <div class="flex flex-wrap gap-2 pt-1">
+              <button type="submit" class="bg-[#FF8C00] hover:bg-[#e07b00] text-white px-4 py-2.5 rounded-sm text-xs font-bold uppercase tracking-wider border-none cursor-pointer">
+                <span id="request-submit-label">Criar solicitação</span>
+              </button>
+              <button type="button" id="request-cancel-edit" class="hidden bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2.5 rounded-sm text-xs font-bold uppercase tracking-wider border border-slate-200 cursor-pointer">
+                Cancelar
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="lg:col-span-7 bg-white border border-slate-200 rounded-sm p-5 sm:p-6 shadow-sm space-y-4">
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
-              <h2 class="font-display text-lg uppercase text-[#003366]">Solicitações de orçamento</h2>
-              <p class="text-xs text-slate-500 mt-1">Recebidas pelo formulário público · leitura, status e exclusão (staff)</p>
+              <h2 class="font-display text-lg uppercase text-[#003366]">Solicitações</h2>
+              <p class="text-xs text-slate-500 mt-1">Filtros, detalhe, edição e exclusão</p>
             </div>
             <div class="flex flex-wrap items-center gap-2">
               <label class="sr-only" for="requests-status-filter">Filtrar status</label>
@@ -168,7 +242,7 @@
               <button type="button" id="refresh-requests" class="text-[10px] font-mono uppercase text-slate-500 hover:text-[#003366] bg-transparent border border-slate-200 px-3 py-2 rounded-sm cursor-pointer">Atualizar</button>
             </div>
           </div>
-          <div id="requests-list" class="space-y-3 max-h-[640px] overflow-y-auto"></div>
+          <div id="requests-list" class="space-y-3 max-h-[720px] overflow-y-auto"></div>
         </div>
       </div>
 
@@ -467,6 +541,17 @@
         { value: 'archived', label: 'Arquivado' }
       ];
 
+      var SERVICE_PRESETS = [
+        'Adequação e Projeto Residencial',
+        'Sistemas Solares Fotovoltaicos',
+        'Instalações Industriais',
+        'Laudo com Documentações Técnicas',
+        'Vistoria Técnica Preventiva'
+      ];
+
+      var cachedRequests = [];
+      var editingAttachmentUrls = [];
+
       function normalizeStatus(status) {
         if (status === 'contacted') return 'in_review';
         if (status === 'closed') return 'archived';
@@ -531,7 +616,93 @@
         );
       }
 
-      var cachedRequests = [];
+      function syncServiceCustomVisibility() {
+        var wrap = $('req-service-custom-wrap');
+        var isCustom = $('req-service').value === '__custom__';
+        wrap.classList.toggle('hidden', !isCustom);
+      }
+
+      function renderAttachmentsEditor() {
+        var box = $('req-attachments-editor');
+        var ul = $('req-attachments-list');
+        if (!editingAttachmentUrls.length) {
+          box.classList.add('hidden');
+          ul.innerHTML = '';
+          return;
+        }
+        box.classList.remove('hidden');
+        ul.innerHTML = editingAttachmentUrls.map(function (url, idx) {
+          return (
+            '<li class="flex items-start gap-2">' +
+              '<a class="text-[11px] text-[#FF8C00] break-all hover:underline flex-1" href="' +
+              escapeHtml(url) +
+              '" target="_blank" rel="noopener">Anexo ' +
+              (idx + 1) +
+              '</a>' +
+              '<button type="button" data-remove-att="' +
+              idx +
+              '" class="text-[10px] font-bold uppercase text-red-600 border border-red-200 bg-white px-2 py-1 rounded-sm cursor-pointer shrink-0">Remover</button>' +
+            '</li>'
+          );
+        }).join('');
+        ul.querySelectorAll('[data-remove-att]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var i = Number(btn.getAttribute('data-remove-att'));
+            editingAttachmentUrls.splice(i, 1);
+            renderAttachmentsEditor();
+          });
+        });
+      }
+
+      function resetRequestForm() {
+        $('edit-request-id').value = '';
+        $('request-form').reset();
+        $('req-status').value = 'new';
+        editingAttachmentUrls = [];
+        renderAttachmentsEditor();
+        syncServiceCustomVisibility();
+        $('request-form-title').textContent = 'Nova solicitação';
+        $('request-submit-label').textContent = 'Criar solicitação';
+        $('request-cancel-edit').classList.add('hidden');
+        $('request-form-error').classList.add('hidden');
+        if ($('req-files')) $('req-files').value = '';
+      }
+
+      function fillRequestForm(row) {
+        if (!row) return;
+        $('edit-request-id').value = row.id || '';
+        $('req-name').value = row.name || '';
+        $('req-phone').value = row.phone || '';
+        $('req-email').value = row.email || '';
+        $('req-message').value = row.message || '';
+        $('req-status').value = normalizeStatus(row.status);
+        var service = row.service || '';
+        if (service && SERVICE_PRESETS.indexOf(service) >= 0) {
+          $('req-service').value = service;
+          $('req-service-custom').value = '';
+        } else if (service) {
+          $('req-service').value = '__custom__';
+          $('req-service-custom').value = service;
+        } else {
+          $('req-service').value = '';
+          $('req-service-custom').value = '';
+        }
+        syncServiceCustomVisibility();
+        editingAttachmentUrls = (row.attachment_urls || row.attachmentUrls || []).slice();
+        renderAttachmentsEditor();
+        if ($('req-files')) $('req-files').value = '';
+        $('request-form-title').textContent = 'Editar solicitação';
+        $('request-submit-label').textContent = 'Atualizar';
+        $('request-cancel-edit').classList.remove('hidden');
+        $('request-form-error').classList.add('hidden');
+        $('req-name').focus();
+      }
+
+      function getServiceValue() {
+        var sel = $('req-service').value;
+        if (sel === '__custom__') return ($('req-service-custom').value || '').trim();
+        return sel || '';
+      }
 
       async function loadRequests() {
         var list = $('requests-list');
@@ -609,6 +780,9 @@
               '<div class="flex flex-wrap items-center gap-2 pt-1 border-t border-slate-200">' +
                 '<label class="text-[10px] font-mono uppercase text-slate-500 font-bold">Status</label>' +
                 statusSelectHtml(r.id, status) +
+                '<button type="button" data-edit-req="' +
+                escapeHtml(r.id) +
+                '" class="text-[10px] font-bold uppercase tracking-wider px-3 py-2 rounded-sm border border-slate-200 bg-white hover:border-[#FF8C00] cursor-pointer">Editar</button>' +
                 waBtn +
                 '<button type="button" data-copy-phone="' +
                 escapeHtml(r.phone || '') +
@@ -635,6 +809,17 @@
               alert((err && err.message) || 'Erro ao atualizar status');
               await loadRequests();
             }
+          });
+        });
+
+        list.querySelectorAll('[data-edit-req]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var id = btn.getAttribute('data-edit-req');
+            var row = cachedRequests.find(function (r) { return String(r.id) === String(id); });
+            if (!row) return;
+            fillRequestForm(row);
+            selectTab('requests');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
           });
         });
 
@@ -668,7 +853,9 @@
             if (!confirm('Excluir esta solicitação permanentemente?')) return;
             try {
               await api.requireStaff();
-              await api.deleteContactRequest(btn.getAttribute('data-del-req'));
+              var delId = btn.getAttribute('data-del-req');
+              await api.deleteContactRequest(delId);
+              if ($('edit-request-id').value === delId) resetRequestForm();
               toast('Solicitação removida');
               await loadRequests();
             } catch (err) {
@@ -680,6 +867,61 @@
 
       $('refresh-requests').addEventListener('click', loadRequests);
       $('requests-status-filter').addEventListener('change', renderRequests);
+      $('req-service').addEventListener('change', syncServiceCustomVisibility);
+      $('request-cancel-edit').addEventListener('click', resetRequestForm);
+      $('request-new-btn').addEventListener('click', function () {
+        resetRequestForm();
+        $('req-name').focus();
+      });
+
+      $('request-form').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        var errEl = $('request-form-error');
+        errEl.classList.add('hidden');
+        try {
+          await api.requireStaff();
+          var name = $('req-name').value.trim();
+          if (!name) throw new Error('Nome é obrigatório.');
+
+          var files = $('req-files').files ? Array.prototype.slice.call($('req-files').files) : [];
+          if (files.length > 3) throw new Error('Máximo de 3 arquivos por envio.');
+          for (var fi = 0; fi < files.length; fi++) {
+            if (files[fi].size > 5 * 1024 * 1024) {
+              throw new Error('Cada arquivo deve ter no máximo 5 MB.');
+            }
+          }
+
+          var newUrls = [];
+          if (files.length) {
+            newUrls = await api.uploadOrcamentoFiles(files);
+          }
+
+          var attachmentUrls = editingAttachmentUrls.concat(newUrls);
+          var payload = {
+            name: name,
+            phone: $('req-phone').value.trim(),
+            email: $('req-email').value.trim(),
+            service: getServiceValue(),
+            message: $('req-message').value.trim(),
+            status: $('req-status').value || 'new',
+            attachmentUrls: attachmentUrls
+          };
+
+          var editId = $('edit-request-id').value;
+          if (editId) {
+            await api.updateContactRequest(editId, payload);
+            toast('Solicitação atualizada');
+          } else {
+            await api.createContactRequest(payload);
+            toast('Solicitação criada');
+          }
+          resetRequestForm();
+          await loadRequests();
+        } catch (err) {
+          errEl.textContent = (err && err.message) || 'Falha ao salvar';
+          errEl.classList.remove('hidden');
+        }
+      });
 
       async function loadUsers() {
         var list = $('users-list');

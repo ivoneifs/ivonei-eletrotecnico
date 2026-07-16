@@ -234,18 +234,22 @@
     },
 
     async createContactRequest(request) {
+      var req = request || {};
       var payload = {
-        name: request.name,
-        phone: request.phone || '',
-        email: request.email || '',
-        service: request.service || '',
-        message: request.message || '',
-        status: request.status || 'new',
+        name: String(req.name || '').trim(),
+        phone: String(req.phone || '').trim(),
+        email: String(req.email || '').trim(),
+        service: String(req.service || '').trim(),
+        message: String(req.message || '').trim(),
+        status: req.status || 'new',
       };
-      if (Array.isArray(request.attachment_urls) && request.attachment_urls.length) {
-        payload.attachment_urls = request.attachment_urls;
-      } else if (Array.isArray(request.attachmentUrls) && request.attachmentUrls.length) {
-        payload.attachment_urls = request.attachmentUrls;
+      if (!payload.name) throw new Error('Nome é obrigatório.');
+
+      var attachments = null;
+      if (Array.isArray(req.attachment_urls)) attachments = req.attachment_urls;
+      else if (Array.isArray(req.attachmentUrls)) attachments = req.attachmentUrls;
+      if (attachments) {
+        payload.attachment_urls = attachments.filter(Boolean);
       }
 
       var result = await client
@@ -261,11 +265,29 @@
     },
 
     async updateContactRequest(id, updatedData) {
-      var payload = Object.assign({}, updatedData || {});
-      delete payload.id;
-      delete payload.created_at;
-      delete payload.createdAt;
-      delete payload.attachmentUrls;
+      var src = updatedData || {};
+      var payload = {};
+
+      if (src.name !== undefined) payload.name = String(src.name || '').trim();
+      if (src.phone !== undefined) payload.phone = String(src.phone || '').trim();
+      if (src.email !== undefined) payload.email = String(src.email || '').trim();
+      if (src.service !== undefined) payload.service = String(src.service || '').trim();
+      if (src.message !== undefined) payload.message = String(src.message || '').trim();
+      if (src.status !== undefined) payload.status = src.status;
+
+      if (Array.isArray(src.attachment_urls)) {
+        payload.attachment_urls = src.attachment_urls.filter(Boolean);
+      } else if (Array.isArray(src.attachmentUrls)) {
+        payload.attachment_urls = src.attachmentUrls.filter(Boolean);
+      }
+
+      if (payload.name !== undefined && !payload.name) {
+        throw new Error('Nome é obrigatório.');
+      }
+      if (!Object.keys(payload).length) {
+        throw new Error('Nenhum campo para atualizar.');
+      }
+
       var result = await client
         .from('contact_requests')
         .update(payload)

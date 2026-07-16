@@ -29,7 +29,8 @@ Site estático em `index.html` · repositório [ivonei-eletrotecnico](https://gi
 | `migrations/20260716130000_website_storage.sql` | Bucket público `website` (hospedagem do site) |
 | `migrations/20260716140000_admin_profiles_rls_downloads_bucket.sql` | `profiles` (admin/editor), RLS staff, bucket `downloads` |
 | `migrations/20260716150000_contact_requests_status_crud.sql` | Status de solicitações (new/in_review/answered/archived) |
-| `../admin.html` | Painel admin (Auth + downloads + solicitações + usuários) |
+| `migrations/20260716160000_contact_requests_staff_insert.sql` | Staff INSERT em `contact_requests` (CRUD admin) |
+| `../admin.html` | Painel admin (Auth + downloads + solicitações CRUD + usuários) |
 | `../.env.example` | Placeholders URL/anon para AppsBrasil |
 | `../js/supabase-config.js` | Lê `window.__ENV` / placeholders |
 | `../js/supabase-client.js` | Cliente CDN + `window.supabaseApi` |
