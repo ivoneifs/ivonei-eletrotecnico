@@ -13,6 +13,7 @@ Site estático em `index.html` · repositório [ivonei-eletrotecnico](https://gi
 | SQL Editor | https://supabase.appsbrasil.store/project/default/sql/new |
 | Project URL (API / Kong) | `https://supabase.appsbrasil.store` |
 | Site (Storage público) | https://supabase.appsbrasil.store/storage/v1/object/public/website/index.html |
+| Painel admin | https://supabase.appsbrasil.store/storage/v1/object/public/website/admin.html |
 | Candidato alternativo | `https://api.supabase.appsbrasil.store` (DNS pode não resolver) |
 | GitHub | https://github.com/ivoneifs/ivonei-eletrotecnico |
 
@@ -26,6 +27,9 @@ Site estático em `index.html` · repositório [ivonei-eletrotecnico](https://gi
 | `migrations/20260716090000_downloads_and_contact_requests.sql` | Tabelas + RLS + RPC |
 | `migrations/20260716120000_orcamentos_storage.sql` | Bucket `orcamentos` + coluna `attachment_urls` |
 | `migrations/20260716130000_website_storage.sql` | Bucket público `website` (hospedagem do site) |
+| `migrations/20260716140000_admin_profiles_rls_downloads_bucket.sql` | `profiles` (admin/editor), RLS staff, bucket `downloads` |
+| `migrations/20260716150000_contact_requests_status_crud.sql` | Status de solicitações (new/in_review/answered/archived) |
+| `../admin.html` | Painel admin (Auth + downloads + solicitações + usuários) |
 | `../.env.example` | Placeholders URL/anon para AppsBrasil |
 | `../js/supabase-config.js` | Lê `window.__ENV` / placeholders |
 | `../js/supabase-client.js` | Cliente CDN + `window.supabaseApi` |

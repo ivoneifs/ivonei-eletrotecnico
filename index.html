@@ -694,7 +694,7 @@
             Consulte e faça o download de normas, informativos, manuais e materiais de referência públicos para o seu projeto elétrico.
           </p>
           <p class="text-[11px] uppercase tracking-widest font-mono font-bold text-[#003366]">
-            Você controla tudo pelo painel administrativo
+            Gestão via painel administrativo com Supabase Auth
           </p>
         </div>
 
@@ -721,175 +721,22 @@
           <!-- Dynamic cards rendered by JS -->
         </div>
 
-        <!-- Controls Trigger & Admin Panel -->
-        <div class="mt-12 bg-white rounded-sm p-6 sm:p-8 shadow-sm border border-slate-200/80">
+        <!-- Admin CTA (real auth panel is admin.html) -->
+        <div id="admin-panel" class="mt-12 bg-white rounded-sm p-6 sm:p-8 shadow-sm border border-slate-200/80">
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
               <h4 class="font-display font-black text-sm text-[#003366] uppercase tracking-wider flex items-center gap-2">
-                <i data-lucide="folder-cog" class="h-5 w-5 text-[#FF8C00]"></i>
-                Gerenciar Biblioteca de Links
+                <i data-lucide="shield-check" class="h-5 w-5 text-[#FF8C00]"></i>
+                Painel administrativo
               </h4>
-              <p class="text-xs text-slate-500 font-light mt-1">
-                Adicione novos links de download ou remova os existentes. Os links modificados são salvos em lote no seu navegador.
+              <p class="text-xs text-slate-500 font-light mt-1 max-w-xl">
+                Login com Supabase Auth, CRUD de downloads (upload no Storage) e gestão de usuários. Acesso restrito à equipe.
               </p>
             </div>
-          <!-- Hidden Admin Panel Drawer -->
-          <div id="admin-panel" class="hidden mt-8 pt-8 border-t border-slate-100 max-w-4xl">
-            
-            <!-- 1. LOGIN STATE ROW (Shown when not logged in) -->
-            <div id="admin-login-sec" class="space-y-6">
-              <div class="flex items-center gap-2 text-[#003366]">
-                <i data-lucide="lock" class="h-5 w-5 text-[#FF8C00]"></i>
-                <h5 class="font-display font-black text-xs uppercase tracking-wider">
-                  Área Restrita - Login do Administrador
-                </h5>
-              </div>
-              <p class="text-[11px] uppercase tracking-widest font-mono font-bold text-slate-500">
-                Controle total dos downloads e solicitações
-              </p>
-              
-              <form id="admin-login-form" class="space-y-4 max-w-md">
-                <div class="space-y-1">
-                  <label class="text-[10px] font-mono uppercase text-slate-600 font-black block">E-mail do Administrador</label>
-                  <input type="email" id="login-email" required="" placeholder="ivonei.energia@gmail.com" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-slate-900">
-                </div>
-                
-                <div class="space-y-2">
-                  <label class="text-[10px] font-mono uppercase text-slate-600 font-black block">Senha de Acesso</label>
-                  <input type="password" id="login-password" required="" placeholder="••••••••" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-slate-900">
-                </div>
-
-                <div id="login-error-msg" class="hidden text-xs text-red-650 font-bold font-mono">
-                  Credenciais incorretas! Verifique o e-mail e a senha fornecidos.
-                </div>
-
-                <button type="submit" class="bg-[#003366] hover:bg-[#002244] text-white px-5 py-3 rounded-sm font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer transition-colors focus:outline-none border-none w-full sm:w-auto">
-                  <i data-lucide="log-in" class="h-4 w-4"></i>
-                  <span>Entrar no Painel</span>
-                </button>
-              </form>
-            </div>
-
-            <!-- 2. REAL MANAGEMENT TOOLS (Shown when logged in) -->
-            <div id="admin-tools-sec" class="hidden space-y-6">
-              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-4 gap-4">
-                <h5 class="font-display font-black text-xs text-[#003366] uppercase tracking-wider flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 bg-green-500 rounded-full animate-ping"></span>
-                  Sessão Ativa: Administrador Conectado
-                </h5>
-                <button id="admin-logout-btn" type="button" class="text-xs font-mono uppercase text-slate-500 hover:text-red-750 flex items-center gap-1.5 focus:outline-none cursor-pointer border-none bg-transparent">
-                  <i data-lucide="log-out" class="h-3.5 w-3.5"></i>
-                  <span>Encerrar Sessão (Sair)</span>
-                </button>
-              </div>
-
-              <!-- Dual layout for better context -->
-              <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-2">
-                
-                <!-- Left panel: Form to add new file -->
-                <div class="lg:col-span-5 space-y-4 border-b lg:border-b-0 lg:border-r border-slate-150 pb-6 lg:pb-0 lg:pr-8">
-                  <p class="text-[11px] uppercase tracking-widest font-mono font-bold text-[#003366]">
-                    Controle total de cadastro, edição e exclusão
-                  </p>
-                  <h5 id="download-form-title" class="font-display font-black text-xs text-[#003366] uppercase tracking-wider flex items-center gap-2">
-                    <span class="w-2 h-2 bg-[#FF8C00]"></span>
-                    Cadastrar Novo Arquivo
-                  </h5>
-                  
-                  <form id="add-download-form" class="space-y-4">
-                    <div class="space-y-1">
-                      <label class="text-[10px] font-mono uppercase text-slate-600 font-black block">Nome do Arquivo *</label>
-                      <input type="text" id="new-file-name" required="" placeholder="Ex: Manual de Instalações Residenciais" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-slate-900">
-                    </div>
-                    
-                    <div class="space-y-1">
-                      <label class="text-[10px] font-mono uppercase text-slate-600 font-black block">URL de Download *</label>
-                      <input type="url" id="new-file-url" required="" placeholder="Ex: https://exemplo.com/documento.pdf" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-slate-900">
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div class="space-y-1">
-                        <label class="text-[10px] font-mono uppercase text-slate-600 font-black block">Tipo do Arquivo *</label>
-                        <select id="new-file-type" required="" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-slate-900 cursor-pointer">
-                          <option value="pdf">PDF</option>
-                          <option value="xls">XLS</option>
-                          <option value="xlsx">XLSX</option>
-                          <option value="doc">DOC</option>
-                          <option value="docx">DOCX</option>
-                          <option value="zip">ZIP</option>
-                          <option value="rar">RAR</option>
-                          <option value="link">Link</option>
-                        </select>
-                      </div>
-
-                      <div class="space-y-1">
-                        <label class="text-[10px] font-mono uppercase text-slate-600 font-black block">Tamanho / Observação</label>
-                        <input type="text" id="new-file-size" placeholder="Ex: 2.4 MB" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-slate-900">
-                      </div>
-                    </div>
-
-                    <div class="space-y-1">
-                      <label class="text-[10px] font-mono uppercase text-slate-600 font-black block">Descrição Curta *</label>
-                      <input type="text" id="new-file-desc" required="" placeholder="Ex: Guia prático e ilustrativo de fiação técnica..." class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-slate-900">
-                    </div>
-
-                    <div class="flex flex-wrap gap-2 pt-2">
-                      <button type="submit" id="save-download-btn" class="bg-[#FF8C00] hover:bg-[#e07b00] text-white px-5 py-3 rounded-sm font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer transition-colors focus:outline-none border-none grow">
-                        <i data-lucide="save" class="h-4 w-4"></i>
-                        <span id="save-download-btn-label">Salvar</span>
-                      </button>
-                      <button type="button" id="cancel-edit-download-btn" class="hidden bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-3 rounded-sm font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer transition-colors focus:outline-none border border-slate-200">
-                        <i data-lucide="x" class="h-4 w-4"></i>
-                        <span>Cancelar edição</span>
-                      </button>
-                      <button type="button" id="reset-downloads-btn" class="bg-transparent hover:bg-slate-100 text-slate-500 px-4 py-3 rounded-sm font-mono text-[10px] uppercase hover:text-slate-800 transition-colors focus:outline-none border border-slate-300">
-                        Padrão
-                      </button>
-                    </div>
-                  </form>
-                </div>
-
-                <!-- Right panel: Quick list with edit/remove buttons in the panel -->
-                <div class="lg:col-span-7 space-y-4">
-                  <div class="flex items-center justify-between">
-                    <h5 class="font-display font-black text-xs text-[#003366] uppercase tracking-wider flex items-center gap-2">
-                      <i data-lucide="folder-check" class="h-4 w-4 text-[#FF8C00]"></i>
-                      Downloads Cadastrados no Sistema
-                    </h5>
-                  </div>
-                  <p class="text-[11px] text-slate-500 leading-relaxed font-light">
-                    Esses são os arquivos que aparecem publicamente na biblioteca de downloads acima. Você pode excluí-los diretamente clicando na lixeira.
-                  </p>
-
-                  <div id="admin-downloads-list" class="space-y-2 max-h-[300px] overflow-y-auto pr-1 divide-y divide-slate-100 select-none">
-                    <!-- Dynamic mini items rendered by JS -->
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="border-t border-slate-100 pt-6 space-y-4">
-                <div class="flex items-center justify-between gap-3">
-                  <h5 class="font-display font-black text-xs text-[#003366] uppercase tracking-wider flex items-center gap-2">
-                    <i data-lucide="inbox" class="h-4 w-4 text-[#FF8C00]"></i>
-                    Solicitações Recebidas
-                  </h5>
-                  <span id="admin-requests-count" class="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-1 rounded-sm border border-[#FF8C00]/20 bg-[#FF8C00]/10 text-[#FF8C00]">
-                    0
-                  </span>
-                </div>
-                <p class="text-[11px] text-slate-500 leading-relaxed font-light">
-                  Cada envio do formulário público aparece aqui com nome, telefone, e-mail, serviço e mensagem completa.
-                </p>
-                <p class="text-[11px] uppercase tracking-widest font-mono font-bold text-[#003366]">
-                  Controle total das solicitações do site
-                </p>
-                <div id="admin-requests-list" class="space-y-3 max-h-[360px] overflow-y-auto pr-1">
-                  <!-- Dynamic request cards rendered by JS -->
-                </div>
-              </div>
-            </div>
-
+            <a href="admin.html" class="inline-flex items-center justify-center gap-2 bg-[#003366] hover:bg-[#002244] text-white px-5 py-3 rounded-sm font-bold text-xs uppercase tracking-widest no-underline transition-colors">
+              <i data-lucide="log-in" class="h-4 w-4"></i>
+              <span>Abrir painel</span>
+            </a>
           </div>
         </div>
 
@@ -1114,6 +961,9 @@
               <div class="space-y-3 text-sm">
                 <a href="https://supabase.appsbrasil.store/storage/v1/object/public/website/index.html" target="_blank" rel="noopener noreferrer" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
                   Site (Supabase Storage)
+                </a>
+                <a href="https://supabase.appsbrasil.store/storage/v1/object/public/website/admin.html" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
+                  Painel administrativo
                 </a>
                 <a class="block text-white no-underline hover:text-[#FF8C00] transition-colors" href="https://supabase.appsbrasil.store/project/default" rel="noopener noreferrer" target="_blank">
                   Painel Supabase (Studio)
@@ -1794,149 +1644,12 @@
       
       let downloadsList = [];
       let contactRequestsList = [];
-      let editingDownloadId = null;
 
-      function isMasterAdmin() {
-        return sessionStorage.getItem('adminLoggedIn') === 'true';
-      }
-
-      function updateAdminPanelSecs() {
-        const loginSec = document.getElementById('admin-login-sec');
-        const toolsSec = document.getElementById('admin-tools-sec');
-        if (!loginSec || !toolsSec) return;
-
-        if (isMasterAdmin()) {
-          loginSec.classList.add('hidden');
-          toolsSec.classList.remove('hidden');
-        } else {
-          loginSec.classList.remove('hidden');
-          toolsSec.classList.add('hidden');
-        }
-
-        window.setTimeout(focusAdminPanelPrimaryControl, 0);
-      }
-
-      function focusAdminPanelPrimaryControl() {
-        const emailInput = document.getElementById('login-email');
-        const nameInput = document.getElementById('new-file-name');
-        const target = isMasterAdmin() ? nameInput : emailInput;
-
-        if (typeof target?.focus === 'function') {
-          target.focus({ preventScroll: true });
-          if (typeof target.select === 'function') {
-            target.select();
-          }
-        }
-      }
-
-      function getDownloadFormValues() {
-        const nameInput = document.getElementById('new-file-name');
-        const urlInput = document.getElementById('new-file-url');
-        const descInput = document.getElementById('new-file-desc');
-        const typeInput = document.getElementById('new-file-type');
-        const sizeInput = document.getElementById('new-file-size');
-
-        return {
-          name: nameInput?.value.trim() || '',
-          url: sanitizeUrl(urlInput?.value || ''),
-          description: descInput?.value.trim() || '',
-          type: (typeInput?.value || 'pdf').trim(),
-          size: (sizeInput?.value.trim() || 'Vária'),
-        };
-      }
-
-      function setDownloadFormMode(mode, download = null) {
-        const formTitle = document.getElementById('download-form-title');
-        const submitLabel = document.getElementById('save-download-btn-label');
-        const submitBtn = document.getElementById('save-download-btn');
-        const cancelBtn = document.getElementById('cancel-edit-download-btn');
-        const nameInput = document.getElementById('new-file-name');
-        const urlInput = document.getElementById('new-file-url');
-        const descInput = document.getElementById('new-file-desc');
-        const typeInput = document.getElementById('new-file-type');
-        const sizeInput = document.getElementById('new-file-size');
-
-        if (mode === 'edit' && download) {
-          editingDownloadId = download.id;
-          if (formTitle) formTitle.textContent = 'Editar Arquivo';
-          if (submitLabel) submitLabel.textContent = 'Atualizar';
-          if (submitBtn) submitBtn.classList.remove('grow');
-          if (cancelBtn) cancelBtn.classList.remove('hidden');
-          if (nameInput) nameInput.value = download.name || '';
-          if (urlInput) urlInput.value = download.url || '';
-          if (descInput) descInput.value = download.description || download.desc || '';
-          if (typeInput) typeInput.value = download.type || 'pdf';
-          if (sizeInput) sizeInput.value = download.size || '';
-          nameInput?.focus();
-          return;
-        }
-
-        editingDownloadId = null;
-        if (formTitle) formTitle.textContent = 'Cadastrar Novo Arquivo';
-        if (submitLabel) submitLabel.textContent = 'Salvar';
-        if (submitBtn) submitBtn.classList.add('grow');
-        if (cancelBtn) cancelBtn.classList.add('hidden');
-      }
-
-      function clearDownloadForm() {
-        const nameInput = document.getElementById('new-file-name');
-        const urlInput = document.getElementById('new-file-url');
-        const descInput = document.getElementById('new-file-desc');
-        const typeInput = document.getElementById('new-file-type');
-        const sizeInput = document.getElementById('new-file-size');
-
-        if (nameInput) nameInput.value = '';
-        if (urlInput) urlInput.value = '';
-        if (descInput) descInput.value = '';
-        if (typeInput) typeInput.value = 'pdf';
-        if (sizeInput) sizeInput.value = '';
-      }
-
-      function resetDownloadEditor() {
-        clearDownloadForm();
-        setDownloadFormMode('create');
-      }
-
-      // Programmatic triggers for single-page administration access
-      window.openAdminPanelDirectly = function() {
-        toggleAdminPanel(true);
+      // Admin CRUD moved to admin.html (Supabase Auth). Public page is read-only.
+      function updateAdminPanelSecs() { /* no-op: dedicated admin.html */ }
+      window.openAdminPanelDirectly = function () {
+        window.location.href = 'admin.html';
       };
-
-      function setAdminPanelState(isOpen) {
-        const adminPanel = document.getElementById('admin-panel');
-        const toggleAdminBtn = document.getElementById('toggle-admin-btn');
-
-        if (!adminPanel || !toggleAdminBtn) {
-          return;
-        }
-
-        adminPanel.classList.toggle('hidden', !isOpen);
-        toggleAdminBtn.innerHTML = isOpen
-          ? `<i data-lucide="minus-circle" class="h-4 w-4"></i> <span>Fechar Painel de Gestão</span>`
-          : `<i data-lucide="plus-circle" class="h-4 w-4"></i> <span>Abrir Painel de Gestão</span>`;
-        toggleAdminBtn.setAttribute('aria-expanded', String(isOpen));
-
-        if (isOpen) {
-          adminPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          window.setTimeout(focusAdminPanelPrimaryControl, 250);
-        }
-
-        if (window.lucide && typeof lucide.createIcons === 'function') {
-          lucide.createIcons();
-        }
-      }
-
-      function toggleAdminPanel(forceOpen = null) {
-        const adminPanel = document.getElementById('admin-panel');
-        if (!adminPanel) {
-          return;
-        }
-
-        const shouldOpen = forceOpen === null ? adminPanel.classList.contains('hidden') : Boolean(forceOpen);
-        setAdminPanelState(shouldOpen);
-      }
-
-      window.toggleAdminPanel = toggleAdminPanel;
 
       async function loadDownloads() {
         try {
@@ -1977,20 +1690,7 @@
           return;
         }
 
-        const isAdmin = isMasterAdmin();
-
         grid.innerHTML = listToRender.map(item => {
-          const deleteBtnHtml = isAdmin ? `
-                <!-- Delete Button -->
-                <button 
-                  onclick="confirmDeleteDownload('${item.id}')"
-                  title="Excluir Link"
-                  class="text-slate-400 hover:text-red-655 hover:bg-red-50 p-1.5 rounded-sm transition-all focus:outline-none cursor-pointer border-none bg-transparent"
-                >
-                  <i data-lucide="trash-2" class="h-4 w-4"></i>
-                </button>
-          ` : '';
-
           const fileType = item.type ? item.type.toUpperCase() : 'PDF';
           
           let badgeClass = 'bg-slate-100 text-slate-800';
@@ -2012,16 +1712,6 @@
                   <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-sm uppercase ${badgeClass}">
                     ${fileType}
                   </span>
-                  ${isAdmin ? `
-                  <button
-                    onclick="startEditDownload('${item.id}')"
-                    title="Editar Link"
-                    class="text-slate-400 hover:text-[#003366] hover:bg-slate-50 p-1.5 rounded-sm transition-all focus:outline-none cursor-pointer border-none bg-transparent"
-                  >
-                    <i data-lucide="pencil" class="h-4 w-4"></i>
-                  </button>
-                  ` : ''}
-                  ${deleteBtnHtml}
                 </div>
               </div>
 
@@ -2057,40 +1747,6 @@
           `;
         }).join('');
 
-        // Render current items in the admin control section list if shown
-        const adminListContainer = document.getElementById('admin-downloads-list');
-        if (adminListContainer) {
-          if (downloadsList.length === 0) {
-            adminListContainer.innerHTML = `
-              <div class="py-6 text-center text-slate-400 text-xs font-mono">
-                Nenhum arquivo cadastrado.
-              </div>
-            `;
-          } else {
-            adminListContainer.innerHTML = downloadsList.map(item => `
-              <div class="flex items-center justify-between gap-3 py-3 border-b border-slate-100 last:border-b-0 text-slate-705">
-                <div class="min-w-0 flex-1">
-                  <p class="text-[11px] font-bold text-[#003366] truncate uppercase tracking-tight">${escapeHtml(item.name)}</p>
-                  <p class="text-[10px] text-slate-500 truncate font-light">${escapeHtml(item.description || item.desc)}</p>
-                  <a href="${sanitizeUrl(item.url)}" target="_blank" rel="noopener noreferrer" class="text-[9px] text-[#FF8C00] hover:underline font-mono truncate block max-w-xs sm:max-w-md">
-                    ${escapeHtml(item.url)}
-                  </a>
-                </div>
-                <div class="flex items-center gap-2 flex-shrink-0">
-                  <button 
-                    onclick="confirmDeleteDownload('${item.id}')"
-                    title="Excluir"
-                    class="text-slate-400 hover:text-red-650 hover:bg-red-50 p-2 rounded-sm transition-all focus:outline-none cursor-pointer border-none bg-transparent"
-                  >
-                    <i data-lucide="trash-2" class="h-3.5 w-3.5 text-red-655"></i>
-                  </button>
-                </div>
-              </div>
-            `).join('');
-          }
-        }
-
-        // Re-initialize Lucide Icons for dynamic content
         lucide.createIcons();
       }
 
@@ -2340,172 +1996,9 @@
         }
       }
 
-      // Handle Authentication Form Submission
-      const loginForm = document.getElementById('admin-login-form');
-      if (loginForm) {
-        loginForm.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const emailInput = document.getElementById('login-email');
-          const passwordInput = document.getElementById('login-password');
-          const errorMsg = document.getElementById('login-error-msg');
+      // Admin mutations live in admin.html (Supabase Auth). Clear legacy fake session flag.
+      try { sessionStorage.removeItem('adminLoggedIn'); sessionStorage.removeItem('adminEmail'); } catch (e) {}
 
-          if (!emailInput || !passwordInput || !errorMsg) return;
-
-          const emailVal = emailInput.value.trim().toLowerCase();
-          const passwordVal = passwordInput.value;
-
-          if (emailVal === 'ivonei.energia@gmail.com' && (passwordVal === 'Miguel151230@#@#@()' || passwordVal === 'Miguel151230@' || passwordVal === 'Miguel151@')) {
-            sessionStorage.setItem('adminLoggedIn', 'true');
-            sessionStorage.setItem('adminEmail', emailVal);
-            errorMsg.classList.add('hidden');
-            emailInput.value = '';
-            passwordInput.value = '';
-            resetDownloadEditor();
-            updateAdminPanelSecs();
-            await loadDownloads();
-            await loadContactRequests();
-          } else {
-            errorMsg.classList.remove('hidden');
-          }
-        });
-      }
-
-      // Handle Authentication Logout Click
-      const logoutBtn = document.getElementById('admin-logout-btn');
-      if (logoutBtn) {
-        logoutBtn.addEventListener('click', async () => {
-          sessionStorage.removeItem('adminLoggedIn');
-          sessionStorage.removeItem('adminEmail');
-          resetDownloadEditor();
-          updateAdminPanelSecs();
-          await loadDownloads();
-          await loadContactRequests();
-        });
-      }
-
-      // Add new link / update existing link
-      const addForm = document.getElementById('add-download-form');
-      if (addForm) {
-        addForm.addEventListener('submit', async (e) => {
-          e.preventDefault();
-
-          if (!isMasterAdmin()) {
-            showCustomAlert("Acesso Restrito", "Acesso restrito apenas ao administrador!");
-            return;
-          }
-
-          const formData = getDownloadFormValues();
-
-          if (!formData.name || !formData.description || !formData.url) {
-            showCustomAlert("Campos obrigatórios", "Preencha nome, URL e descrição antes de salvar.");
-            return;
-          }
-
-          if (formData.url === '#') {
-            showCustomAlert("URL Inválida", "Informe um link válido começando com http, https, mailto ou tel.");
-            return;
-          }
-
-          const payload = {
-            name: formData.name,
-            description: formData.description,
-            type: formData.type || 'pdf',
-            size: formData.size || 'Vária',
-            url: formData.url
-          };
-
-          const isEditing = editingDownloadId !== null;
-          const savedDownload = isEditing
-            ? await updateDownload(Number(editingDownloadId) || editingDownloadId, payload)
-            : await addDownload(payload);
-
-          if (!savedDownload) {
-            showCustomAlert("Erro", "Não foi possível salvar o arquivo. Tente novamente.");
-            return;
-          }
-
-          resetDownloadEditor();
-          await loadDownloads();
-
-          const btn = addForm.querySelector('button[type="submit"]');
-          const originalHTML = btn.innerHTML;
-          btn.innerHTML = `<i data-lucide="check" class="h-4 w-4"></i> <span>${isEditing ? 'Atualizado!' : 'Cadastrado!'}</span>`;
-          lucide.createIcons();
-          setTimeout(() => {
-            btn.innerHTML = originalHTML;
-            lucide.createIcons();
-          }, 1500);
-        });
-      }
-
-      window.startEditDownload = function(id) {
-        if (!isMasterAdmin()) {
-          showCustomAlert("Acesso Restrito", "Acesso restrito apenas ao administrador!");
-          return;
-        }
-
-        const targetId = Number(id) || id;
-        const download = getDownloadById(targetId);
-        if (!download) {
-          showCustomAlert("Arquivo não encontrado", "O item selecionado não existe mais.");
-          return;
-        }
-
-        setDownloadFormMode('edit', download);
-        document.getElementById('add-download-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      };
-
-      // Delete link
-      window.confirmDeleteDownload = function(id) {
-        if (!isMasterAdmin()) {
-          showCustomAlert("Acesso Restrito", "Acesso restrito apenas ao administrador!");
-          return;
-        }
-
-        showCustomConfirm("Remover Download", "Deseja realmente remover este link de download?", "Sim, Remover", async () => {
-          await deleteDownload(Number(id) || id);
-          if (editingDownloadId !== null && Number(editingDownloadId) === Number(id)) {
-            resetDownloadEditor();
-          }
-          await loadDownloads();
-        });
-      };
-
-      window.confirmDeleteContactRequest = function(id) {
-        if (!isMasterAdmin()) {
-          showCustomAlert("Acesso Restrito", "Acesso restrito apenas ao administrador!");
-          return;
-        }
-
-        showCustomConfirm("Remover Solicitação", "Deseja realmente remover esta solicitação recebida?", "Sim, Remover", async () => {
-          await deleteContactRequest(Number(id) || id);
-          await loadContactRequests();
-        });
-      };
-
-      const cancelEditBtn = document.getElementById('cancel-edit-download-btn');
-      if (cancelEditBtn) {
-        cancelEditBtn.addEventListener('click', () => {
-          resetDownloadEditor();
-        });
-      }
-
-      // Reset standard values
-      const resetBtn = document.getElementById('reset-downloads-btn');
-      if (resetBtn) {
-        resetBtn.addEventListener('click', async () => {
-          if (!isMasterAdmin()) {
-            showCustomAlert("Acesso Restrito", "Acesso restrito apenas ao administrador!");
-            return;
-          }
-
-          showCustomConfirm("Restaurar Biblioteca", "Deseja restaurar a biblioteca de links para o padrão original?", "Sim, Restaurar", async () => {
-            await requestDownloads('POST', { action: 'reset' });
-            resetDownloadEditor();
-            await loadDownloads();
-          });
-        });
-      }
       // Real-time synchronization when database changes in another window/tab
       window.addEventListener('storage', (e) => {
         if (e.key === DOWNLOADS_CACHE_KEY) {

@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel Admin · Ivonei Eletrotécnico</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="canonical" href="https://supabase.appsbrasil.store/storage/v1/object/public/website/admin.html" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #003366;
+      --navy-deep: #001c37;
+      --accent: #FF8C00;
+    }
+    body {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(255, 140, 0, 0.12), transparent 55%),
+        radial-gradient(900px 500px at 100% 0%, rgba(0, 51, 102, 0.18), transparent 50%),
+        linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+      min-height: 100vh;
+    }
+    .font-display { font-family: 'Oswald', Impact, sans-serif; }
+    .tab-btn[aria-selected="true"] {
+      color: var(--navy);
+      border-color: var(--accent);
+      background: #fff;
+    }
+  </style>
+</head>
+<body class="text-slate-800">
+  <header class="border-b border-slate-200/80 bg-white/80 backdrop-blur sticky top-0 z-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <p class="font-display text-xl tracking-wide text-[#003366] uppercase">Ivonei Eletrotécnico</p>
+        <p class="text-[11px] font-mono uppercase tracking-widest text-slate-500">Painel administrativo</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-[#FF8C00] no-underline">← Voltar ao site</a>
+        <div id="session-chip" class="hidden text-[11px] font-mono text-slate-600 bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-sm"></div>
+        <button id="logout-btn" type="button" class="hidden bg-transparent border border-slate-300 hover:border-red-400 hover:text-red-700 text-slate-600 px-3 py-2 text-[11px] font-bold uppercase tracking-wider rounded-sm cursor-pointer">
+          Sair
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+    <!-- LOGIN -->
+    <section id="login-view" class="max-w-md mx-auto">
+      <div class="bg-white border border-slate-200 shadow-sm rounded-sm p-6 sm:p-8 space-y-5">
+        <div class="space-y-1">
+          <h1 class="font-display text-2xl uppercase text-[#003366] tracking-wide">Acesso restrito</h1>
+          <p class="text-sm text-slate-500">Entre com sua conta Supabase Auth para gerenciar downloads e usuários.</p>
+        </div>
+        <form id="login-form" class="space-y-4">
+          <div class="space-y-1">
+            <label for="login-email" class="text-[10px] font-mono uppercase font-bold text-slate-600">E-mail</label>
+            <input id="login-email" type="email" required autocomplete="username" placeholder="seu@email.com"
+              class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-sm focus:outline-none" />
+          </div>
+          <div class="space-y-1">
+            <label for="login-password" class="text-[10px] font-mono uppercase font-bold text-slate-600">Senha</label>
+            <input id="login-password" type="password" required autocomplete="current-password" placeholder="••••••••"
+              class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-sm focus:outline-none" />
+          </div>
+          <p id="login-error" class="hidden text-xs text-red-600 font-semibold"></p>
+          <button type="submit" class="w-full bg-[#003366] hover:bg-[#002244] text-white px-5 py-3 rounded-sm font-bold text-xs uppercase tracking-widest border-none cursor-pointer">
+            Entrar
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="dashboard-view" class="hidden space-y-6">
+      <div class="flex flex-wrap gap-2 border-b border-slate-200 pb-1">
+        <button type="button" class="tab-btn px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 border-transparent text-slate-500 cursor-pointer bg-transparent" data-tab="downloads" aria-selected="true">Downloads</button>
+        <button type="button" class="tab-btn px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 border-transparent text-slate-500 cursor-pointer bg-transparent" data-tab="requests" aria-selected="false">Solicitações</button>
+        <button type="button" id="users-tab-btn" class="tab-btn hidden px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 border-transparent text-slate-500 cursor-pointer bg-transparent" data-tab="users" aria-selected="false">Usuários</button>
+      </div>
+
+      <!-- DOWNLOADS TAB -->
+      <div id="tab-downloads" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-5 bg-white border border-slate-200 rounded-sm p-5 sm:p-6 space-y-4 shadow-sm">
+          <h2 id="download-form-title" class="font-display text-lg uppercase text-[#003366]">Novo download</h2>
+          <form id="download-form" class="space-y-3">
+            <input type="hidden" id="edit-download-id" value="" />
+            <div class="space-y-1">
+              <label class="text-[10px] font-mono uppercase font-bold text-slate-600" for="dl-name">Nome *</label>
+              <input id="dl-name" required class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-3 py-2.5 rounded-sm text-sm focus:outline-none" />
+            </div>
+            <div class="space-y-1">
+              <label class="text-[10px] font-mono uppercase font-bold text-slate-600" for="dl-desc">Descrição *</label>
+              <textarea id="dl-desc" required rows="2" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-3 py-2.5 rounded-sm text-sm focus:outline-none"></textarea>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="space-y-1">
+                <label class="text-[10px] font-mono uppercase font-bold text-slate-600" for="dl-type">Tipo</label>
+                <select id="dl-type" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-3 py-2.5 rounded-sm text-sm focus:outline-none">
+                  <option value="pdf">PDF</option>
+                  <option value="xls">XLS</option>
+                  <option value="xlsx">XLSX</option>
+                  <option value="doc">DOC</option>
+                  <option value="docx">DOCX</option>
+                  <option value="zip">ZIP</option>
+                  <option value="rar">RAR</option>
+                  <option value="link">Link</option>
+                </select>
+              </div>
+              <div class="space-y-1">
+                <label class="text-[10px] font-mono uppercase font-bold text-slate-600" for="dl-size">Tamanho</label>
+                <input id="dl-size" placeholder="Auto no upload" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-3 py-2.5 rounded-sm text-sm focus:outline-none" />
+              </div>
+            </div>
+            <div class="space-y-1">
+              <label class="text-[10px] font-mono uppercase font-bold text-slate-600" for="dl-file">Arquivo (bucket downloads)</label>
+              <input id="dl-file" type="file" class="w-full text-xs file:mr-3 file:py-2 file:px-3 file:rounded-sm file:border-0 file:bg-[#003366] file:text-white file:text-[10px] file:font-bold file:uppercase" />
+            </div>
+            <div class="space-y-1">
+              <label class="text-[10px] font-mono uppercase font-bold text-slate-600" for="dl-url">URL (ou preencha via upload)</label>
+              <input id="dl-url" type="url" placeholder="https://..." class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-3 py-2.5 rounded-sm text-sm focus:outline-none" />
+            </div>
+            <p id="download-form-error" class="hidden text-xs text-red-600 font-semibold"></p>
+            <div class="flex flex-wrap gap-2 pt-1">
+              <button type="submit" class="bg-[#FF8C00] hover:bg-[#e07b00] text-white px-4 py-2.5 rounded-sm text-xs font-bold uppercase tracking-wider border-none cursor-pointer">
+                <span id="download-submit-label">Salvar</span>
+              </button>
+              <button type="button" id="download-cancel-edit" class="hidden bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2.5 rounded-sm text-xs font-bold uppercase tracking-wider border border-slate-200 cursor-pointer">
+                Cancelar
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="lg:col-span-7 bg-white border border-slate-200 rounded-sm p-5 sm:p-6 shadow-sm space-y-3">
+          <div class="flex items-center justify-between gap-3">
+            <h2 class="font-display text-lg uppercase text-[#003366]">Biblioteca</h2>
+            <button type="button" id="refresh-downloads" class="text-[10px] font-mono uppercase text-slate-500 hover:text-[#003366] bg-transparent border-none cursor-pointer">Atualizar</button>
+          </div>
+          <div id="downloads-list" class="divide-y divide-slate-100 max-h-[560px] overflow-y-auto"></div>
+        </div>
+      </div>
+
+      <!-- REQUESTS TAB -->
+      <div id="tab-requests" class="hidden space-y-4">
+        <div class="bg-white border border-slate-200 rounded-sm p-5 sm:p-6 shadow-sm space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div>
+              <h2 class="font-display text-lg uppercase text-[#003366]">Solicitações de orçamento</h2>
+              <p class="text-xs text-slate-500 mt-1">Recebidas pelo formulário público · leitura, status e exclusão (staff)</p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <label class="sr-only" for="requests-status-filter">Filtrar status</label>
+              <select id="requests-status-filter" class="text-xs border border-slate-200 rounded-sm px-3 py-2 bg-slate-50 focus:outline-none focus:border-[#FF8C00]">
+                <option value="all">Todos os status</option>
+                <option value="new">Novo</option>
+                <option value="in_review">Em análise</option>
+                <option value="answered">Respondido</option>
+                <option value="archived">Arquivado</option>
+              </select>
+              <span id="requests-count" class="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-1 rounded-sm border border-[#FF8C00]/20 bg-[#FF8C00]/10 text-[#FF8C00]">0</span>
+              <button type="button" id="refresh-requests" class="text-[10px] font-mono uppercase text-slate-500 hover:text-[#003366] bg-transparent border border-slate-200 px-3 py-2 rounded-sm cursor-pointer">Atualizar</button>
+            </div>
+          </div>
+          <div id="requests-list" class="space-y-3 max-h-[640px] overflow-y-auto"></div>
+        </div>
+      </div>
+
+      <!-- USERS TAB (admin only) -->
+      <div id="tab-users" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-5 bg-white border border-slate-200 rounded-sm p-5 sm:p-6 space-y-4 shadow-sm">
+          <h2 class="font-display text-lg uppercase text-[#003366]">Criar usuário</h2>
+          <form id="user-form" class="space-y-3">
+            <div class="space-y-1">
+              <label class="text-[10px] font-mono uppercase font-bold text-slate-600" for="user-email">E-mail *</label>
+              <input id="user-email" type="email" required class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-3 py-2.5 rounded-sm text-sm focus:outline-none" />
+            </div>
+            <div class="space-y-1">
+              <label class="text-[10px] font-mono uppercase font-bold text-slate-600" for="user-password">Senha *</label>
+              <input id="user-password" type="password" required minlength="8" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-3 py-2.5 rounded-sm text-sm focus:outline-none" />
+            </div>
+            <div class="space-y-1">
+              <label class="text-[10px] font-mono uppercase font-bold text-slate-600" for="user-role">Função</label>
+              <select id="user-role" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-3 py-2.5 rounded-sm text-sm focus:outline-none">
+                <option value="editor">Editor</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+            <p id="user-form-error" class="hidden text-xs text-red-600 font-semibold"></p>
+            <p id="user-form-ok" class="hidden text-xs text-green-700 font-semibold"></p>
+            <button type="submit" class="bg-[#003366] hover:bg-[#002244] text-white px-4 py-2.5 rounded-sm text-xs font-bold uppercase tracking-wider border-none cursor-pointer">
+              Criar usuário
+            </button>
+          </form>
+        </div>
+        <div class="lg:col-span-7 bg-white border border-slate-200 rounded-sm p-5 sm:p-6 shadow-sm space-y-3">
+          <div class="flex items-center justify-between">
+            <h2 class="font-display text-lg uppercase text-[#003366]">Equipe</h2>
+            <button type="button" id="refresh-users" class="text-[10px] font-mono uppercase text-slate-500 hover:text-[#003366] bg-transparent border-none cursor-pointer">Atualizar</button>
+          </div>
+          <div id="users-list" class="divide-y divide-slate-100 max-h-[560px] overflow-y-auto"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="hidden fixed bottom-4 right-4 z-50 max-w-sm bg-[#003366] text-white text-sm px-4 py-3 rounded-sm shadow-lg"></div>
+
+  <script>
+    window.__ENV = window.__ENV || {
+      SUPABASE_URL: 'https://supabase.appsbrasil.store',
+      SUPABASE_ANON_KEY: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc4Mjk0NTM2MCwiZXhwIjo0OTM4NjE4OTYwLCJyb2xlIjoiYW5vbiJ9.e7p-Y4Un7z2oyKwrIX5NytQrntTgcqyUT9PLoyU3ZaU'
+    };
+  </script>
+  <script src="js/supabase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-client.js"></script>
+  <script>
+    (function () {
+      var api = window.supabaseApi;
+      var currentProfile = null;
+
+      function $(id) { return document.getElementById(id); }
+
+      function toast(msg) {
+        var el = $('toast');
+        el.textContent = msg;
+        el.classList.remove('hidden');
+        clearTimeout(toast._t);
+        toast._t = setTimeout(function () { el.classList.add('hidden'); }, 3200);
+      }
+
+      function escapeHtml(str) {
+        return String(str == null ? '' : str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function showLogin() {
+        $('login-view').classList.remove('hidden');
+        $('dashboard-view').classList.add('hidden');
+        $('logout-btn').classList.add('hidden');
+        $('session-chip').classList.add('hidden');
+      }
+
+      function showDashboard(profile) {
+        currentProfile = profile;
+        $('login-view').classList.add('hidden');
+        $('dashboard-view').classList.remove('hidden');
+        $('logout-btn').classList.remove('hidden');
+        var chip = $('session-chip');
+        chip.textContent = (profile.email || '') + ' · ' + profile.role;
+        chip.classList.remove('hidden');
+        var usersTab = $('users-tab-btn');
+        if (profile.role === 'admin') {
+          usersTab.classList.remove('hidden');
+        } else {
+          usersTab.classList.add('hidden');
+          if (usersTab.getAttribute('aria-selected') === 'true') {
+            selectTab('downloads');
+          }
+        }
+      }
+
+      function selectTab(name) {
+        ['downloads', 'requests', 'users'].forEach(function (tab) {
+          var panel = $('tab-' + tab);
+          if (panel) panel.classList.toggle('hidden', tab !== name);
+        });
+        document.querySelectorAll('.tab-btn').forEach(function (btn) {
+          btn.setAttribute('aria-selected', btn.getAttribute('data-tab') === name ? 'true' : 'false');
+        });
+      }
+
+      document.querySelectorAll('.tab-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          selectTab(btn.getAttribute('data-tab'));
+        });
+      });
+
+      async function boot() {
+        if (!api) {
+          $('login-error').textContent = 'Supabase não configurado (anon key / SDK).';
+          $('login-error').classList.remove('hidden');
+          return;
+        }
+        try {
+          var session = await api.getSession();
+          if (!session) {
+            showLogin();
+            return;
+          }
+          var staff = await api.requireStaff();
+          showDashboard(staff.profile);
+          await Promise.all([loadDownloads(), loadRequests(), staff.profile.role === 'admin' ? loadUsers() : Promise.resolve()]);
+        } catch (err) {
+          console.warn(err);
+          showLogin();
+        }
+      }
+
+      $('login-form').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        var errEl = $('login-error');
+        errEl.classList.add('hidden');
+        if (!api) {
+          errEl.textContent = 'Cliente Supabase indisponível.';
+          errEl.classList.remove('hidden');
+          return;
+        }
+        try {
+          await api.signIn($('login-email').value, $('login-password').value);
+          var staff = await api.requireStaff();
+          $('login-password').value = '';
+          showDashboard(staff.profile);
+          await Promise.all([loadDownloads(), loadRequests(), staff.profile.role === 'admin' ? loadUsers() : Promise.resolve()]);
+          toast('Sessão iniciada');
+        } catch (err) {
+          errEl.textContent = (err && err.message) || 'Falha no login';
+          errEl.classList.remove('hidden');
+        }
+      });
+
+      $('logout-btn').addEventListener('click', async function () {
+        try { await api.signOut(); } catch (e) {}
+        currentProfile = null;
+        showLogin();
+        toast('Sessão encerrada');
+      });
+
+      function resetDownloadForm() {
+        $('edit-download-id').value = '';
+        $('download-form').reset();
+        $('download-form-title').textContent = 'Novo download';
+        $('download-submit-label').textContent = 'Salvar';
+        $('download-cancel-edit').classList.add('hidden');
+        $('download-form-error').classList.add('hidden');
+      }
+
+      $('download-cancel-edit').addEventListener('click', resetDownloadForm);
+
+      async function loadDownloads() {
+        var list = $('downloads-list');
+        list.innerHTML = '<p class="text-xs text-slate-400 py-6 text-center font-mono">Carregando…</p>';
+        try {
+          var rows = await api.listDownloads();
+          if (!rows.length) {
+            list.innerHTML = '<p class="text-xs text-slate-400 py-6 text-center font-mono">Nenhum download cadastrado.</p>';
+            return;
+          }
+          list.innerHTML = rows.map(function (row) {
+            return (
+              '<div class="py-3 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">' +
+                '<div class="min-w-0 space-y-1">' +
+                  '<p class="text-sm font-bold text-[#003366]">' + escapeHtml(row.name) + '</p>' +
+                  '<p class="text-xs text-slate-500">' + escapeHtml(row.description || '') + '</p>' +
+                  '<p class="text-[10px] font-mono uppercase text-slate-400">' +
+                    escapeHtml(row.type || '') + ' · ' + escapeHtml(row.size || '') +
+                    ' · ' + Number(row.downloads || 0) + ' downloads</p>' +
+                  '<a class="text-[11px] text-[#FF8C00] break-all" href="' + escapeHtml(row.url) + '" target="_blank" rel="noopener">' + escapeHtml(row.url) + '</a>' +
+                '</div>' +
+                '<div class="flex gap-2 shrink-0">' +
+                  '<button type="button" data-edit="' + row.id + '" class="text-[10px] font-bold uppercase tracking-wider px-3 py-2 border border-slate-200 rounded-sm bg-white hover:border-[#FF8C00] cursor-pointer">Editar</button>' +
+                  '<button type="button" data-del="' + row.id + '" class="text-[10px] font-bold uppercase tracking-wider px-3 py-2 border border-red-200 text-red-700 rounded-sm bg-white hover:bg-red-50 cursor-pointer">Excluir</button>' +
+                '</div>' +
+              '</div>'
+            );
+          }).join('');
+
+          list.querySelectorAll('[data-edit]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+              var id = btn.getAttribute('data-edit');
+              var row = rows.find(function (r) { return String(r.id) === String(id); });
+              if (!row) return;
+              $('edit-download-id').value = row.id;
+              $('dl-name').value = row.name || '';
+              $('dl-desc').value = row.description || '';
+              $('dl-type').value = row.type || 'pdf';
+              $('dl-size').value = row.size || '';
+              $('dl-url').value = row.url || '';
+              $('download-form-title').textContent = 'Editar download';
+              $('download-submit-label').textContent = 'Atualizar';
+              $('download-cancel-edit').classList.remove('hidden');
+              $('dl-name').focus();
+            });
+          });
+
+          list.querySelectorAll('[data-del]').forEach(function (btn) {
+            btn.addEventListener('click', async function () {
+              if (!confirm('Excluir este download?')) return;
+              try {
+                await api.deleteDownload(btn.getAttribute('data-del'));
+                toast('Download removido');
+                await loadDownloads();
+              } catch (err) {
+                alert((err && err.message) || 'Erro ao excluir');
+              }
+            });
+          });
+        } catch (err) {
+          list.innerHTML = '<p class="text-xs text-red-600 py-6 text-center">' + escapeHtml(err.message || 'Erro') + '</p>';
+        }
+      }
+
+      $('refresh-downloads').addEventListener('click', loadDownloads);
+
+      $('download-form').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        var errEl = $('download-form-error');
+        errEl.classList.add('hidden');
+        try {
+          await api.requireStaff();
+          var name = $('dl-name').value.trim();
+          var description = $('dl-desc').value.trim();
+          var type = $('dl-type').value;
+          var size = $('dl-size').value.trim();
+          var url = $('dl-url').value.trim();
+          var file = $('dl-file').files && $('dl-file').files[0];
+
+          if (file) {
+            var uploaded = await api.uploadDownloadFile(file);
+            url = uploaded.url;
+            if (!size) size = uploaded.size;
+            if (type === 'pdf' || !type) type = uploaded.type;
+          }
+
+          if (!url) throw new Error('Envie um arquivo ou informe a URL.');
+
+          var editId = $('edit-download-id').value;
+          if (editId) {
+            await api.updateDownload(editId, { name: name, description: description, type: type, size: size || 'Vária', url: url });
+            toast('Download atualizado');
+          } else {
+            await api.createDownload({ name: name, description: description, type: type, size: size || 'Vária', url: url });
+            toast('Download criado');
+          }
+          resetDownloadForm();
+          await loadDownloads();
+        } catch (err) {
+          errEl.textContent = (err && err.message) || 'Falha ao salvar';
+          errEl.classList.remove('hidden');
+        }
+      });
+
+      var STATUS_LABELS = {
+        new: 'Novo',
+        in_review: 'Em análise',
+        answered: 'Respondido',
+        archived: 'Arquivado',
+        contacted: 'Em análise',
+        closed: 'Arquivado'
+      };
+
+      var STATUS_OPTIONS = [
+        { value: 'new', label: 'Novo' },
+        { value: 'in_review', label: 'Em análise' },
+        { value: 'answered', label: 'Respondido' },
+        { value: 'archived', label: 'Arquivado' }
+      ];
+
+      function normalizeStatus(status) {
+        if (status === 'contacted') return 'in_review';
+        if (status === 'closed') return 'archived';
+        return status || 'new';
+      }
+
+      function formatDatePt(value) {
+        if (!value) return '—';
+        try {
+          return new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(value));
+        } catch (e) {
+          return String(value);
+        }
+      }
+
+      function statusBadgeClass(status) {
+        var s = normalizeStatus(status);
+        if (s === 'new') return 'bg-amber-50 text-[#FF8C00] border-amber-100';
+        if (s === 'in_review') return 'bg-blue-50 text-blue-700 border-blue-100';
+        if (s === 'answered') return 'bg-emerald-50 text-emerald-700 border-emerald-100';
+        return 'bg-slate-100 text-slate-600 border-slate-200';
+      }
+
+      function renderAttachmentLinks(urls) {
+        var list = Array.isArray(urls) ? urls : [];
+        if (!list.length) {
+          return '<p class="text-[11px] text-slate-400 font-mono">Sem anexos</p>';
+        }
+        return (
+          '<ul class="space-y-1">' +
+          list.map(function (url, idx) {
+            return (
+              '<li><a class="text-[11px] text-[#FF8C00] break-all hover:underline" href="' +
+              escapeHtml(url) +
+              '" target="_blank" rel="noopener">Anexo ' +
+              (idx + 1) +
+              '</a></li>'
+            );
+          }).join('') +
+          '</ul>'
+        );
+      }
+
+      function statusSelectHtml(id, current) {
+        var normalized = normalizeStatus(current);
+        return (
+          '<select data-status="' +
+          escapeHtml(id) +
+          '" class="text-xs border border-slate-200 rounded-sm px-2 py-1.5 bg-white focus:outline-none focus:border-[#FF8C00]">' +
+          STATUS_OPTIONS.map(function (opt) {
+            return (
+              '<option value="' +
+              opt.value +
+              '"' +
+              (normalized === opt.value ? ' selected' : '') +
+              '>' +
+              opt.label +
+              '</option>'
+            );
+          }).join('') +
+          '</select>'
+        );
+      }
+
+      var cachedRequests = [];
+
+      async function loadRequests() {
+        var list = $('requests-list');
+        list.innerHTML = '<p class="text-xs text-slate-400 py-6 text-center font-mono">Carregando…</p>';
+        try {
+          cachedRequests = await api.listContactRequests();
+          renderRequests();
+        } catch (err) {
+          list.innerHTML = '<p class="text-xs text-red-600 py-6 text-center">' + escapeHtml(err.message || 'Erro') + '</p>';
+        }
+      }
+
+      function renderRequests() {
+        var list = $('requests-list');
+        var filter = ($('requests-status-filter') && $('requests-status-filter').value) || 'all';
+        var rows = cachedRequests.filter(function (r) {
+          if (filter === 'all') return true;
+          return normalizeStatus(r.status) === filter;
+        });
+
+        $('requests-count').textContent = String(rows.length);
+
+        if (!rows.length) {
+          list.innerHTML = '<p class="text-xs text-slate-400 py-6 text-center font-mono">Nenhuma solicitação neste filtro.</p>';
+          return;
+        }
+
+        list.innerHTML = rows.map(function (r) {
+          var status = normalizeStatus(r.status);
+          var attachments = r.attachment_urls || r.attachmentUrls || [];
+          var waDigits = String(r.phone || '').replace(/\D/g, '');
+          var waBtn = waDigits
+            ? '<a href="https://wa.me/' +
+              escapeHtml(waDigits) +
+              '" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-3 py-2 rounded-sm border border-[#FF8C00]/30 text-[#FF8C00] no-underline hover:bg-[#FF8C00]/10">WhatsApp</a>'
+            : '';
+
+          return (
+            '<article class="border border-slate-200 rounded-sm p-4 sm:p-5 space-y-3 bg-slate-50" data-req-id="' +
+            escapeHtml(r.id) +
+            '">' +
+              '<div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">' +
+                '<div class="min-w-0 space-y-1">' +
+                  '<p class="text-sm font-bold text-[#003366]">' + escapeHtml(r.name || 'Sem nome') + '</p>' +
+                  '<p class="text-[10px] font-mono uppercase tracking-widest text-slate-400">' +
+                    escapeHtml(r.service || 'Sem serviço') +
+                    ' · ' +
+                    escapeHtml(formatDatePt(r.created_at || r.createdAt)) +
+                  '</p>' +
+                '</div>' +
+                '<span class="inline-flex self-start text-[9px] font-mono font-bold px-2 py-1 rounded-sm uppercase border ' +
+                statusBadgeClass(status) +
+                '">' +
+                escapeHtml(STATUS_LABELS[status] || status) +
+                '</span>' +
+              '</div>' +
+              '<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">' +
+                '<p class="text-slate-700"><span class="font-bold text-slate-500 uppercase tracking-wider text-[10px] block">Telefone</span>' +
+                escapeHtml(r.phone || '—') +
+                '</p>' +
+                '<p class="text-slate-700"><span class="font-bold text-slate-500 uppercase tracking-wider text-[10px] block">E-mail</span>' +
+                escapeHtml(r.email || '—') +
+                '</p>' +
+              '</div>' +
+              '<div class="space-y-1">' +
+                '<p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Mensagem</p>' +
+                '<p class="text-sm text-slate-700 leading-relaxed whitespace-pre-line">' +
+                escapeHtml(r.message || '—') +
+                '</p>' +
+              '</div>' +
+              '<div class="space-y-1">' +
+                '<p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Anexos</p>' +
+                renderAttachmentLinks(attachments) +
+              '</div>' +
+              '<div class="flex flex-wrap items-center gap-2 pt-1 border-t border-slate-200">' +
+                '<label class="text-[10px] font-mono uppercase text-slate-500 font-bold">Status</label>' +
+                statusSelectHtml(r.id, status) +
+                waBtn +
+                '<button type="button" data-copy-phone="' +
+                escapeHtml(r.phone || '') +
+                '" class="text-[10px] font-bold uppercase tracking-wider px-3 py-2 rounded-sm border border-slate-200 bg-white cursor-pointer">Copiar telefone</button>' +
+                '<button type="button" data-del-req="' +
+                escapeHtml(r.id) +
+                '" class="text-[10px] font-bold uppercase tracking-wider px-3 py-2 rounded-sm border border-red-200 text-red-700 bg-white cursor-pointer ml-auto">Excluir</button>' +
+              '</div>' +
+              '<p class="text-[10px] font-mono text-slate-400 uppercase tracking-wider">ID ' +
+              escapeHtml(String(r.id)) +
+              '</p>' +
+            '</article>'
+          );
+        }).join('');
+
+        list.querySelectorAll('[data-status]').forEach(function (sel) {
+          sel.addEventListener('change', async function () {
+            try {
+              await api.requireStaff();
+              await api.updateContactRequestStatus(sel.getAttribute('data-status'), sel.value);
+              toast('Status atualizado');
+              await loadRequests();
+            } catch (err) {
+              alert((err && err.message) || 'Erro ao atualizar status');
+              await loadRequests();
+            }
+          });
+        });
+
+        list.querySelectorAll('[data-copy-phone]').forEach(function (btn) {
+          btn.addEventListener('click', async function () {
+            var phone = btn.getAttribute('data-copy-phone') || '';
+            if (!phone) {
+              alert('Telefone ausente');
+              return;
+            }
+            try {
+              if (navigator.clipboard && navigator.clipboard.writeText) {
+                await navigator.clipboard.writeText(phone);
+              } else {
+                var tmp = document.createElement('textarea');
+                tmp.value = phone;
+                document.body.appendChild(tmp);
+                tmp.select();
+                document.execCommand('copy');
+                tmp.remove();
+              }
+              toast('Telefone copiado');
+            } catch (e) {
+              alert('Não foi possível copiar');
+            }
+          });
+        });
+
+        list.querySelectorAll('[data-del-req]').forEach(function (btn) {
+          btn.addEventListener('click', async function () {
+            if (!confirm('Excluir esta solicitação permanentemente?')) return;
+            try {
+              await api.requireStaff();
+              await api.deleteContactRequest(btn.getAttribute('data-del-req'));
+              toast('Solicitação removida');
+              await loadRequests();
+            } catch (err) {
+              alert((err && err.message) || 'Erro');
+            }
+          });
+        });
+      }
+
+      $('refresh-requests').addEventListener('click', loadRequests);
+      $('requests-status-filter').addEventListener('change', renderRequests);
+
+      async function loadUsers() {
+        var list = $('users-list');
+        list.innerHTML = '<p class="text-xs text-slate-400 py-6 text-center font-mono">Carregando…</p>';
+        try {
+          var rows = await api.listProfiles();
+          if (!rows.length) {
+            list.innerHTML = '<p class="text-xs text-slate-400 py-6 text-center font-mono">Nenhum usuário.</p>';
+            return;
+          }
+          list.innerHTML = rows.map(function (u) {
+            var activeLabel = u.is_active ? 'Ativo' : 'Desativado';
+            return (
+              '<div class="py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">' +
+                '<div>' +
+                  '<p class="text-sm font-bold text-[#003366]">' + escapeHtml(u.email) + '</p>' +
+                  '<p class="text-[10px] font-mono uppercase text-slate-400">' + escapeHtml(u.role) + ' · ' + activeLabel + '</p>' +
+                '</div>' +
+                '<div class="flex flex-wrap gap-2">' +
+                  '<select data-role="' + escapeHtml(u.id) + '" class="text-xs border border-slate-200 rounded-sm px-2 py-1.5 bg-white">' +
+                    '<option value="editor"' + (u.role === 'editor' ? ' selected' : '') + '>Editor</option>' +
+                    '<option value="admin"' + (u.role === 'admin' ? ' selected' : '') + '>Admin</option>' +
+                  '</select>' +
+                  '<button type="button" data-toggle="' + escapeHtml(u.id) + '" data-active="' + (u.is_active ? '1' : '0') + '" class="text-[10px] font-bold uppercase tracking-wider px-3 py-2 border border-slate-200 rounded-sm bg-white cursor-pointer">' +
+                    (u.is_active ? 'Desativar' : 'Reativar') +
+                  '</button>' +
+                  '<button type="button" data-del-user="' + escapeHtml(u.id) + '" class="text-[10px] font-bold uppercase tracking-wider px-3 py-2 border border-red-200 text-red-700 rounded-sm bg-white cursor-pointer">Excluir</button>' +
+                '</div>' +
+              '</div>'
+            );
+          }).join('');
+
+          list.querySelectorAll('[data-role]').forEach(function (sel) {
+            sel.addEventListener('change', async function () {
+              try {
+                await api.setUserRole(sel.getAttribute('data-role'), sel.value);
+                toast('Função atualizada');
+                await loadUsers();
+              } catch (err) {
+                alert((err && err.message) || 'Erro');
+                await loadUsers();
+              }
+            });
+          });
+
+          list.querySelectorAll('[data-toggle]').forEach(function (btn) {
+            btn.addEventListener('click', async function () {
+              var active = btn.getAttribute('data-active') === '1';
+              try {
+                await api.setUserActive(btn.getAttribute('data-toggle'), !active);
+                toast(active ? 'Usuário desativado' : 'Usuário reativado');
+                await loadUsers();
+              } catch (err) {
+                alert((err && err.message) || 'Erro');
+              }
+            });
+          });
+
+          list.querySelectorAll('[data-del-user]').forEach(function (btn) {
+            btn.addEventListener('click', async function () {
+              if (!confirm('Excluir permanentemente este usuário?')) return;
+              try {
+                await api.deleteUser(btn.getAttribute('data-del-user'));
+                toast('Usuário excluído');
+                await loadUsers();
+              } catch (err) {
+                alert((err && err.message) || 'Erro ao excluir (tente desativar)');
+              }
+            });
+          });
+        } catch (err) {
+          list.innerHTML = '<p class="text-xs text-red-600 py-6 text-center">' + escapeHtml(err.message || 'Erro') + '</p>';
+        }
+      }
+
+      $('refresh-users').addEventListener('click', loadUsers);
+
+      $('user-form').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        var errEl = $('user-form-error');
+        var okEl = $('user-form-ok');
+        errEl.classList.add('hidden');
+        okEl.classList.add('hidden');
+        try {
+          await api.createStaffUser(
+            $('user-email').value,
+            $('user-password').value,
+            $('user-role').value
+          );
+          $('user-form').reset();
+          okEl.textContent = 'Usuário criado com sucesso.';
+          okEl.classList.remove('hidden');
+          toast('Usuário criado');
+          await loadUsers();
+        } catch (err) {
+          errEl.textContent = (err && err.message) || 'Falha ao criar usuário';
+          errEl.classList.remove('hidden');
+        }
+      });
+
+      if (window.lucide) lucide.createIcons();
+      boot();
+    })();
+  </script>
+</body>
+</html>

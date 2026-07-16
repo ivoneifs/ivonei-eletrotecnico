@@ -8,9 +8,8 @@
  *   2. @supabase/supabase-js@2 (CDN)
  *   3. this file
  *
- * If URL/anon key/SDK are missing, window.supabaseApi stays undefined and
- * index.html keeps using Netlify functions / localStorage fallback.
- * Do not use the service_role key in the browser.
+ * Frontend uses anon key + user JWT after login.
+ * Never put service_role in the browser.
  */
 (function () {
   var config = window.__SUPABASE_CONFIG__ || {};
@@ -24,10 +23,98 @@
     return;
   }
 
-  var client = window.supabase.createClient(url, anonKey);
+  var client = window.supabase.createClient(url, anonKey, {
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: true,
+      storage: window.localStorage,
+    },
+  });
   window.supabaseClient = client;
 
+  function formatFileSize(bytes) {
+    if (!bytes || bytes <= 0) return 'Vária';
+    var units = ['B', 'KB', 'MB', 'GB'];
+    var i = 0;
+    var n = bytes;
+    while (n >= 1024 && i < units.length - 1) {
+      n /= 1024;
+      i++;
+    }
+    return (i === 0 ? n : n.toFixed(1)) + ' ' + units[i];
+  }
+
+  function guessTypeFromName(name) {
+    var ext = String(name || '')
+      .split('.')
+      .pop()
+      .toLowerCase();
+    var known = ['pdf', 'xls', 'xlsx', 'doc', 'docx', 'zip', 'rar'];
+    return known.indexOf(ext) >= 0 ? ext : 'link';
+  }
+
+  function storagePathFromPublicUrl(publicUrl, bucket) {
+    if (!publicUrl) return null;
+    var marker = '/storage/v1/object/public/' + bucket + '/';
+    var idx = String(publicUrl).indexOf(marker);
+    if (idx < 0) return null;
+    return decodeURIComponent(String(publicUrl).slice(idx + marker.length));
+  }
+
   window.supabaseApi = {
+    client: client,
+
+    async getSession() {
+      var result = await client.auth.getSession();
+      if (result.error) throw result.error;
+      return result.data.session || null;
+    },
+
+    async getUser() {
+      var result = await client.auth.getUser();
+      if (result.error) throw result.error;
+      return result.data.user || null;
+    },
+
+    async signIn(email, password) {
+      var result = await client.auth.signInWithPassword({
+        email: String(email || '').trim(),
+        password: String(password || ''),
+      });
+      if (result.error) throw result.error;
+      return result.data;
+    },
+
+    async signOut() {
+      var result = await client.auth.signOut();
+      if (result.error) throw result.error;
+      return true;
+    },
+
+    async getMyProfile() {
+      var user = await this.getUser();
+      if (!user) return null;
+      var result = await client
+        .from('profiles')
+        .select('*')
+        .eq('id', user.id)
+        .maybeSingle();
+      if (result.error) throw result.error;
+      return result.data;
+    },
+
+    async requireStaff() {
+      var session = await this.getSession();
+      if (!session) throw new Error('Faça login para continuar.');
+      var profile = await this.getMyProfile();
+      if (!profile || !profile.is_active || (profile.role !== 'admin' && profile.role !== 'editor')) {
+        await this.signOut();
+        throw new Error('Conta sem permissão de equipe.');
+      }
+      return { session: session, profile: profile, user: session.user };
+    },
+
     async listDownloads() {
       var result = await client
         .from('downloads')
@@ -56,9 +143,12 @@
     },
 
     async updateDownload(id, updatedData) {
+      var payload = Object.assign({}, updatedData);
+      delete payload.id;
+      delete payload.created_at;
       var result = await client
         .from('downloads')
-        .update(updatedData)
+        .update(payload)
         .eq('id', id)
         .select()
         .single();
@@ -67,8 +157,22 @@
     },
 
     async deleteDownload(id) {
+      var existing = await client.from('downloads').select('*').eq('id', id).maybeSingle();
+      if (existing.error) throw existing.error;
+
       var result = await client.from('downloads').delete().eq('id', id);
       if (result.error) throw result.error;
+
+      if (existing.data && existing.data.url) {
+        var path = storagePathFromPublicUrl(existing.data.url, 'downloads');
+        if (path) {
+          try {
+            await client.storage.from('downloads').remove([path]);
+          } catch (e) {
+            console.warn('[supabase] falha ao remover arquivo do storage:', e);
+          }
+        }
+      }
       return true;
     },
 
@@ -76,6 +180,46 @@
       var result = await client.rpc('increment_download_count', { p_id: id });
       if (result.error) throw result.error;
       return result.data;
+    },
+
+    /**
+     * Upload a file to the public `downloads` bucket and return metadata.
+     * @param {File} file
+     */
+    async uploadDownloadFile(file) {
+      if (!file) throw new Error('Arquivo obrigatório');
+      var safeName = String(file.name || 'arquivo')
+        .replace(/[^a-zA-Z0-9._-]+/g, '_')
+        .slice(0, 120);
+      var path =
+        'files/' +
+        new Date().toISOString().slice(0, 10) +
+        '/' +
+        Date.now() +
+        '-' +
+        Math.random().toString(36).slice(2, 8) +
+        '-' +
+        safeName;
+
+      var uploadResult = await client.storage.from('downloads').upload(path, file, {
+        cacheControl: '3600',
+        upsert: false,
+        contentType: file.type || undefined,
+      });
+      if (uploadResult.error) throw uploadResult.error;
+
+      var publicResult = client.storage.from('downloads').getPublicUrl(path);
+      var publicUrl =
+        publicResult && publicResult.data && publicResult.data.publicUrl;
+      if (!publicUrl) throw new Error('Não foi possível obter URL pública do arquivo');
+
+      return {
+        url: publicUrl,
+        path: path,
+        size: formatFileSize(file.size),
+        type: guessTypeFromName(file.name),
+        name: file.name,
+      };
     },
 
     async listContactRequests() {
@@ -116,18 +260,35 @@
       });
     },
 
+    async updateContactRequest(id, updatedData) {
+      var payload = Object.assign({}, updatedData || {});
+      delete payload.id;
+      delete payload.created_at;
+      delete payload.createdAt;
+      delete payload.attachmentUrls;
+      var result = await client
+        .from('contact_requests')
+        .update(payload)
+        .eq('id', id)
+        .select()
+        .single();
+      if (result.error) throw result.error;
+      return Object.assign({}, result.data, {
+        createdAt: result.data.created_at,
+        attachmentUrls: result.data.attachment_urls || [],
+      });
+    },
+
+    async updateContactRequestStatus(id, status) {
+      return this.updateContactRequest(id, { status: status });
+    },
+
     async deleteContactRequest(id) {
       var result = await client.from('contact_requests').delete().eq('id', id);
       if (result.error) throw result.error;
       return true;
     },
 
-    /**
-     * Upload quote attachments to the public `orcamentos` bucket.
-     * Returns public object URLs. Throws if Storage is unavailable.
-     * @param {FileList|File[]} files
-     * @returns {Promise<string[]>}
-     */
     async uploadOrcamentoFiles(files) {
       var list = Array.prototype.slice.call(files || []);
       if (!list.length) return [];
@@ -148,23 +309,113 @@
           '-' +
           safeName;
 
-        var uploadResult = await client.storage
-          .from('orcamentos')
-          .upload(path, file, {
-            cacheControl: '3600',
-            upsert: false,
-            contentType: file.type || undefined,
-          });
+        var uploadResult = await client.storage.from('orcamentos').upload(path, file, {
+          cacheControl: '3600',
+          upsert: false,
+          contentType: file.type || undefined,
+        });
         if (uploadResult.error) throw uploadResult.error;
 
         var publicResult = client.storage.from('orcamentos').getPublicUrl(path);
         var publicUrl =
-          publicResult &&
-          publicResult.data &&
-          publicResult.data.publicUrl;
+          publicResult && publicResult.data && publicResult.data.publicUrl;
         if (publicUrl) urls.push(publicUrl);
       }
       return urls;
+    },
+
+    async listProfiles() {
+      var result = await client
+        .from('profiles')
+        .select('*')
+        .order('created_at', { ascending: false });
+      if (result.error) throw result.error;
+      return result.data || [];
+    },
+
+    /**
+     * Create a staff user (email+password+role) while keeping the admin session.
+     * Uses signUp then restores the previous session (no service_role in browser).
+     */
+    async createStaffUser(email, password, role) {
+      var staff = await this.requireStaff();
+      if (staff.profile.role !== 'admin') {
+        throw new Error('Apenas administradores podem criar usuários.');
+      }
+
+      var chosenRole = role === 'admin' ? 'admin' : 'editor';
+      var saved = staff.session;
+
+      var signUpResult = await client.auth.signUp({
+        email: String(email || '').trim(),
+        password: String(password || ''),
+        options: {
+          data: { role: chosenRole },
+        },
+      });
+      if (signUpResult.error) throw signUpResult.error;
+
+      // Restore admin session (signUp may replace it)
+      if (saved && saved.access_token && saved.refresh_token) {
+        var restore = await client.auth.setSession({
+          access_token: saved.access_token,
+          refresh_token: saved.refresh_token,
+        });
+        if (restore.error) throw restore.error;
+      }
+
+      var newUser = signUpResult.data && signUpResult.data.user;
+      if (!newUser) throw new Error('Usuário não foi criado.');
+
+      // Ensure role/email on profile (trigger may have set editor)
+      var upsert = await client
+        .from('profiles')
+        .upsert(
+          {
+            id: newUser.id,
+            email: newUser.email || String(email || '').trim(),
+            role: chosenRole,
+            is_active: true,
+          },
+          { onConflict: 'id' }
+        )
+        .select()
+        .single();
+
+      // If RLS blocks upsert for role change, use RPC
+      if (upsert.error) {
+        var roleResult = await client.rpc('admin_set_user_role', {
+          target_id: newUser.id,
+          new_role: chosenRole,
+        });
+        if (roleResult.error) throw roleResult.error;
+        return roleResult.data;
+      }
+      return upsert.data;
+    },
+
+    async setUserRole(userId, role) {
+      var result = await client.rpc('admin_set_user_role', {
+        target_id: userId,
+        new_role: role,
+      });
+      if (result.error) throw result.error;
+      return result.data;
+    },
+
+    async setUserActive(userId, active) {
+      var result = await client.rpc('admin_set_user_active', {
+        target_id: userId,
+        active: !!active,
+      });
+      if (result.error) throw result.error;
+      return result.data;
+    },
+
+    async deleteUser(userId) {
+      var result = await client.rpc('admin_delete_user', { target_id: userId });
+      if (result.error) throw result.error;
+      return true;
     },
   };
 })();
