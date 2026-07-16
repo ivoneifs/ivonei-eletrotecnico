@@ -62,6 +62,15 @@
       .font-mono {
         font-family: 'JetBrains Mono', monospace;
       }
+      .service-card-media {
+        aspect-ratio: 16 / 10;
+      }
+      .service-card-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
     </style>
   </head>
   <body class="min-h-screen flex flex-col font-sans bg-slate-50 selection:bg-[#FF8C00] selection:text-white text-slate-900" id="inicio">
@@ -72,7 +81,8 @@
         <div class="flex justify-between items-center h-20">
           
           <!-- Logo -->
-          <a href="#inicio" class="flex items-center cursor-pointer no-underline transition-transform hover:scale-105">
+          <a href="#inicio" class="flex items-center gap-3 cursor-pointer no-underline transition-transform hover:scale-105">
+            <img src="images/logo-ivonei-ferreira.png" alt="Logo Ivonei Ferreira" width="48" height="48" class="h-11 w-11 sm:h-12 sm:w-12 object-contain shrink-0 rounded-sm bg-white/5 p-0.5" loading="eager">
             <div>
               <span class="font-display font-black text-lg sm:text-xl tracking-tight leading-tight uppercase block text-white">
                 Ivonei Ferreira
@@ -211,7 +221,7 @@
           <!-- Flyer image -->
           <div class="lg:col-span-5">
             <div class="rounded-sm overflow-hidden border-l-4 border-[#FF8C00] border-t border-r border-b border-slate-800 shadow-2xl bg-black">
-              <img src="images/ivonei-sistema-solar.png" alt="Ivonei O Eletrotécnico — Instalação elétrica e sistema solar com qualidade" class="w-full h-auto object-cover object-top max-h-[70vh]">
+              <img src="images/ivonei-flyer.png" alt="Ivonei O Eletrotécnico — Flyer institucional com serviços e contato" class="w-full h-auto object-cover object-top max-h-[70vh]" loading="eager">
             </div>
           </div>
 
@@ -356,7 +366,11 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           
           <!-- Card 1: Instalações Residenciais -->
-          <div class="bg-white rounded-sm p-6 sm:p-8 h-full shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
+          <div class="bg-white rounded-sm overflow-hidden h-full shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
+            <div class="service-card-media w-full overflow-hidden bg-slate-200">
+              <img src="images/services/instalacao-eletrica-residencial.jpg" alt="Instalações elétricas residenciais — fiação e quadro de distribuição" class="w-full h-full object-cover" loading="lazy" width="1200" height="750">
+            </div>
+            <div class="p-6 sm:p-8 flex flex-col justify-between flex-1 gap-6">
             <div class="space-y-4">
               <div class="bg-[#003366]/5 text-[#003366] group-hover:bg-[#FF8C00] group-hover:text-white p-3.5 rounded-sm w-14 h-14 flex items-center justify-center transition-colors duration-300">
                 <i data-lucide="zap" class="h-7 w-7"></i>
@@ -383,17 +397,22 @@
               </p>
             </div>
 
-            <div class="border-t border-slate-100 pt-6 mt-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
+            <div class="border-t border-slate-100 pt-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
               <span>PADRÃO: ABNT NBR 5410</span>
               <button onclick="handleWhatsAppRedirect('Olá Ivonei, gostaria de solicitar um orçamento para Instalações Elétricas Residenciais.')" class="text-[#003366] hover:text-[#FF8C00] hover:underline cursor-pointer flex items-center space-x-1 border-none bg-none p-0 focus:outline-none">
                 <span>Orçar via WhatsApp</span>
                 <i data-lucide="arrow-right" class="h-3 w-3"></i>
               </button>
             </div>
+            </div>
           </div>
 
           <!-- Card 2: Sistemas Solares Fotovoltaicos -->
-          <div class="bg-white rounded-sm p-6 sm:p-8 h-full shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
+          <div class="bg-white rounded-sm overflow-hidden h-full shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
+            <div class="service-card-media w-full overflow-hidden bg-slate-200">
+              <img src="images/services/sistema-solar-fotovoltaico.png" alt="Sistemas solares fotovoltaicos — painéis e instalação On-Grid / Off-Grid" class="w-full h-full object-cover" loading="lazy" width="1200" height="750">
+            </div>
+            <div class="p-6 sm:p-8 flex flex-col justify-between flex-1 gap-6">
             <div class="space-y-4">
               <div class="bg-[#003366]/5 text-[#003366] group-hover:bg-[#FF8C00] group-hover:text-white p-3.5 rounded-sm w-14 h-14 flex items-center justify-center transition-colors duration-300">
                 <i data-lucide="sun" class="h-7 w-7"></i>
@@ -425,17 +444,22 @@
               </p>
             </div>
 
-            <div class="border-t border-slate-100 pt-6 mt-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
+            <div class="border-t border-slate-100 pt-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
               <span>ENERGIA SOLAR FOTOVOLTAICA</span>
               <button onclick="handleWhatsAppRedirect('Olá Ivonei, gostaria de solicitar um orçamento para Sistemas Solares Fotovoltaicos (On-Grid / Off-Grid).')" class="text-[#003366] hover:text-[#FF8C00] hover:underline cursor-pointer flex items-center space-x-1 border-none bg-none p-0 focus:outline-none">
                 <span>Orçar via WhatsApp</span>
                 <i data-lucide="arrow-right" class="h-3 w-3"></i>
               </button>
             </div>
+            </div>
           </div>
 
           <!-- Card 3: Instalações Industriais -->
-          <div class="bg-white rounded-sm p-6 sm:p-8 h-full shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
+          <div class="bg-white rounded-sm overflow-hidden h-full shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
+            <div class="service-card-media w-full overflow-hidden bg-slate-200">
+              <img src="images/services/instalacao-eletrica-industrial.jpg" alt="Instalações elétricas industriais — painéis de força e automação" class="w-full h-full object-cover" loading="lazy" width="1200" height="750">
+            </div>
+            <div class="p-6 sm:p-8 flex flex-col justify-between flex-1 gap-6">
             <div class="space-y-4">
               <div class="bg-[#003366]/5 text-[#003366] group-hover:bg-[#FF8C00] group-hover:text-white p-3.5 rounded-sm w-14 h-14 flex items-center justify-center transition-colors duration-300">
                 <i data-lucide="building-2" class="h-7 w-7"></i>
@@ -465,17 +489,22 @@
               </p>
             </div>
 
-            <div class="border-t border-slate-100 pt-6 mt-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
+            <div class="border-t border-slate-100 pt-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
               <span>PADRÃO DE POTÊNCIA</span>
               <button onclick="handleWhatsAppRedirect('Olá Ivonei, gostaria de solicitar um orçamento para Montagem e Instalações Elétricas Industriais.')" class="text-[#003366] hover:text-[#FF8C00] hover:underline cursor-pointer flex items-center space-x-1 border-none bg-none p-0 focus:outline-none">
                 <span>Orçar via WhatsApp</span>
                 <i data-lucide="arrow-right" class="h-3 w-3"></i>
               </button>
             </div>
+            </div>
           </div>
 
           <!-- Card 4: Projetos Elétricos -->
-          <div class="bg-white rounded-sm p-6 sm:p-8 h-full shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
+          <div class="bg-white rounded-sm overflow-hidden h-full shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
+            <div class="service-card-media w-full overflow-hidden bg-slate-200">
+              <img src="images/services/projetos-eletricos-laudos.jpg" alt="Projetos elétricos e laudos — documentação técnica e CRT/ART" class="w-full h-full object-cover" loading="lazy" width="1200" height="750">
+            </div>
+            <div class="p-6 sm:p-8 flex flex-col justify-between flex-1 gap-6">
             <div class="space-y-4">
               <div class="bg-[#003366]/5 text-[#003366] group-hover:bg-[#FF8C00] group-hover:text-white p-3.5 rounded-sm w-14 h-14 flex items-center justify-center transition-colors duration-300">
                 <i data-lucide="file-text" class="h-7 w-7"></i>
@@ -508,12 +537,13 @@
               </p>
             </div>
 
-            <div class="border-t border-slate-100 pt-6 mt-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
+            <div class="border-t border-slate-100 pt-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
               <span>NR10 RESPEITADA</span>
               <button onclick="handleWhatsAppRedirect('Olá Ivonei, gostaria de conversar sobre Projetos Elétricos, Laudos ou emissão de CRT/ART.')" class="text-[#003366] hover:text-[#FF8C00] hover:underline cursor-pointer flex items-center space-x-1 border-none bg-none p-0 focus:outline-none">
                 <span>Orçar via WhatsApp</span>
                 <i data-lucide="arrow-right" class="h-3 w-3"></i>
               </button>
+            </div>
             </div>
           </div>
 
@@ -1003,13 +1033,16 @@
           
           <div class="lg:col-span-4 space-y-6">
             <!-- Brand name details -->
-            <div>
-              <span class="font-display font-black text-base tracking-tight leading-tight uppercase block text-white">
-                Ivonei Ferreira
-              </span>
-              <span class="text-[#FF8C00] font-mono text-[10px] tracking-wider font-semibold block uppercase">
-                Especialista Técnico em Elétrica e Automação
-              </span>
+            <div class="flex items-center gap-3">
+              <img src="images/logo-ivonei-ferreira.png" alt="Logo Ivonei Ferreira" width="44" height="44" class="h-11 w-11 object-contain shrink-0 rounded-sm bg-white/5 p-0.5" loading="lazy">
+              <div>
+                <span class="font-display font-black text-base tracking-tight leading-tight uppercase block text-white">
+                  Ivonei Ferreira
+                </span>
+                <span class="text-[#FF8C00] font-mono text-[10px] tracking-wider font-semibold block uppercase">
+                  Especialista Técnico em Elétrica e Automação
+                </span>
+              </div>
             </div>
             
             <p class="text-blue-105/60 text-xs sm:text-sm leading-relaxed font-light">
@@ -1065,7 +1098,7 @@
                 <a class="block text-white no-underline hover:text-[#FF8C00] transition-colors" href="https://ivonei-eletrotecnico.netlify.app/admin-login" rel="noopener noreferrer" target="_blank">
                   Painel de Gestão
                 </a>
-                <a href="https://github.com/eletrotcnico151230/ivonei-eletrotecnico" target="_blank" rel="noopener noreferrer" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
+                <a href="https://github.com/ivoneifs/ivonei-eletrotecnico" target="_blank" rel="noopener noreferrer" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
                   Repositório no GitHub
                 </a>
               </div>
@@ -1503,7 +1536,9 @@
       window.deleteContactRequest = deleteContactRequest;
 
       // Initialize Lucide Icons in the browser DOM
-      lucide.createIcons();
+      if (window.lucide && typeof lucide.createIcons === 'function') {
+        lucide.createIcons();
+      }
 
       // Mobile Menu functionality
       const mobileMenuBtn = document.getElementById('mobile-menu-btn');
