@@ -71,6 +71,13 @@
         object-fit: cover;
         display: block;
       }
+      .service-card-media--contain {
+        background-color: #001f3f;
+      }
+      .service-card-media--contain img {
+        object-fit: contain;
+        object-position: center;
+      }
     </style>
   </head>
   <body class="min-h-screen flex flex-col font-sans bg-slate-50 selection:bg-[#FF8C00] selection:text-white text-slate-900" id="inicio">
@@ -163,10 +170,10 @@
 
     <!-- 2. HERO SECTION -->
     <section class="relative min-h-[85vh] flex items-center bg-[#001f3f] text-white overflow-hidden">
-      <!-- Background Image Overlay -->
-      <div class="absolute inset-0 z-0">
-        <img src="images/ivonei-sistema-solar.png" alt="Ivonei O Eletrotécnico — Sistema solar fotovoltaico" class="w-full h-full object-cover object-left opacity-40">
-        <div class="absolute inset-0 bg-gradient-to-r from-[#002244]/95 via-[#001f3f]/90 to-[#001f3f]/55"></div>
+      <!-- Atmosphere: solid navy + soft gradient (full flyer shown only in side panel) -->
+      <div class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+        <div class="absolute inset-0 bg-gradient-to-br from-[#002244] via-[#001f3f] to-[#001529]"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-[#001f3f] via-[#001f3f]/85 to-[#001f3f]/40"></div>
       </div>
 
       <!-- Hero Content -->
@@ -218,10 +225,10 @@
             </div>
           </div>
 
-          <!-- Flyer image -->
+          <!-- Flyer image — object-contain so the ENTIRE flyer stays visible -->
           <div class="lg:col-span-5">
-            <div class="rounded-sm overflow-hidden border-l-4 border-[#FF8C00] border-t border-r border-b border-slate-800 shadow-2xl bg-black">
-              <img src="images/ivonei-flyer.png" alt="Ivonei O Eletrotécnico — Flyer institucional com serviços e contato" class="w-full h-auto object-cover object-top max-h-[70vh]" loading="eager">
+            <div class="rounded-sm overflow-hidden border-l-4 border-[#FF8C00] border-t border-r border-b border-slate-800 shadow-2xl bg-[#001f3f] flex items-center justify-center">
+              <img src="images/ivonei-sistema-solar.png" alt="Ivonei O Eletrotécnico — Sistema solar fotovoltaico (flyer completo)" class="w-full h-auto max-h-[min(78vh,720px)] object-contain object-center" loading="eager">
             </div>
           </div>
 
@@ -409,8 +416,8 @@
 
           <!-- Card 2: Sistemas Solares Fotovoltaicos -->
           <div class="bg-white rounded-sm overflow-hidden h-full shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
-            <div class="service-card-media w-full overflow-hidden bg-slate-200">
-              <img src="images/services/sistema-solar-fotovoltaico.png" alt="Sistemas solares fotovoltaicos — painéis e instalação On-Grid / Off-Grid" class="w-full h-full object-cover" loading="lazy" width="1200" height="750">
+            <div class="service-card-media service-card-media--contain w-full overflow-hidden">
+              <img src="images/services/sistema-solar-fotovoltaico.png" alt="Sistemas solares fotovoltaicos — painéis e instalação On-Grid / Off-Grid" class="w-full h-full object-contain" loading="lazy" width="1200" height="750">
             </div>
             <div class="p-6 sm:p-8 flex flex-col justify-between flex-1 gap-6">
             <div class="space-y-4">
