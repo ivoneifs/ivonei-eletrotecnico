@@ -1,7 +1,8 @@
-# Supabase local config — logical name: ivonei-eletrotecnico
+# Supabase local config — logical/GitHub name: ivonei-eletrotecnico
 # Remote (AppsBrasil self-hosted, not supabase.com cloud):
-#   Dashboard: https://supabase.appsbrasil.store/ivonei-eletrotecnico
-#   API URL:   https://supabase.appsbrasil.store  (Kong gateway)
+#   Studio:  https://supabase.appsbrasil.store/project/default
+#   API URL: https://supabase.appsbrasil.store  (Kong gateway)
+#   Do NOT use /ivonei-eletrotecnico as a Studio route (404)
 # Docs: https://supabase.com/docs/guides/cli/config
 
 project_id = "ivonei-eletrotecnico"

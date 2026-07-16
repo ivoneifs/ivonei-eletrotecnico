@@ -4,16 +4,18 @@ Site estático em `index.html` · repositório [ivonei-eletrotecnico](https://gi
 
 **Instância:** self-hosted AppsBrasil (não é supabase.com cloud).
 
+> **Nome ≠ rota do Studio:** `ivonei-eletrotecnico` é o nome do GitHub/site. No AppsBrasil Studio o project ref costuma ser `default`. Abrir `/ivonei-eletrotecnico` no Studio retorna 404 ("Looking for something?").
+
 | Recurso | URL |
 |---------|-----|
-| Dashboard | https://supabase.appsbrasil.store/ivonei-eletrotecnico |
-| Settings → API (anon key) | https://supabase.appsbrasil.store/ivonei-eletrotecnico/settings/api |
-| SQL Editor | https://supabase.appsbrasil.store/ivonei-eletrotecnico/sql/new |
+| Dashboard (Studio) | https://supabase.appsbrasil.store/project/default |
+| Settings → API (anon key) | https://supabase.appsbrasil.store/project/default/settings/api |
+| SQL Editor | https://supabase.appsbrasil.store/project/default/sql/new |
 | Project URL (API / Kong) | `https://supabase.appsbrasil.store` |
 | Candidato alternativo | `https://api.supabase.appsbrasil.store` (DNS pode não resolver) |
 | GitHub | https://github.com/ivoneifs/ivonei-eletrotecnico |
 
-> **Dashboard ≠ API:** o Studio fica em `/ivonei-eletrotecnico`; a API (PostgREST/Auth) continua no gateway Kong `https://supabase.appsbrasil.store` (sem o path do projeto).
+> **Dashboard ≠ API:** o Studio fica em `/project/default`; a API (PostgREST/Auth) continua no gateway Kong `https://supabase.appsbrasil.store` (sem path de projeto). Não use `SUPABASE_URL` apontando para uma página do Studio.
 
 ## Arquivos
 
@@ -28,7 +30,7 @@ Site estático em `index.html` · repositório [ivonei-eletrotecnico](https://gi
 
 ## 1) Colar a anon key (obrigatório no browser)
 
-1. Abra https://supabase.appsbrasil.store/ivonei-eletrotecnico/settings/api
+1. Abra https://supabase.appsbrasil.store/project/default/settings/api
 2. Copie a chave **anon** / **public** (nunca a `service_role`)
 3. Cole em um destes lugares:
    - `index.html` → `window.__ENV.SUPABASE_ANON_KEY`
@@ -41,7 +43,7 @@ Sem a anon key, o site continua com fallback Netlify / localStorage.
 
 **Caminho rápido (um clique / colar SQL):**
 
-1. Abra o SQL Editor: https://supabase.appsbrasil.store/ivonei-eletrotecnico/sql/new
+1. Abra o SQL Editor: https://supabase.appsbrasil.store/project/default/sql/new
 2. Cole e execute, nesta ordem:
    - `migrations/20260716090000_downloads_and_contact_requests.sql`
    - `migrations/20260716120000_orcamentos_storage.sql`
@@ -73,9 +75,10 @@ O formulário **Solicitar Orçamento** abre o WhatsApp (`wa.me/5574988259925`) c
 
 | Endpoint | Resultado observado |
 |----------|---------------------|
+| `GET https://supabase.appsbrasil.store/projects` | 401 — `"Unauthorized"` (Studio atrás do Kong; login necessário) |
+| `GET https://supabase.appsbrasil.store/project/default` | 401 — `"Unauthorized"` (rota correta do Studio) |
+| `GET https://supabase.appsbrasil.store/project/default/settings/api` | 401 — `"Unauthorized"` (Settings → API) |
+| `GET https://supabase.appsbrasil.store/ivonei-eletrotecnico` | 401 Kong / após login: 404 do Studio (não é project ref) |
 | `GET https://supabase.appsbrasil.store/auth/v1/health` | 401 — `"No API key found in request"` (API Kong correta) |
 | `GET https://supabase.appsbrasil.store/rest/v1/` | 401 — `"No API key found in request"` (PostgREST ativo) |
-| `GET https://supabase.appsbrasil.store/ivonei-eletrotecnico/rest/v1/` | 401 — `"Unauthorized"` (não usar como base da API) |
-| `GET https://supabase.appsbrasil.store/ivonei-eletrotecnico` | 401 Kong Basic (dashboard; exige login) |
-| `GET https://supabase.appsbrasil.store/project/default` | 401 Kong Basic (path antigo; substituído) |
-| `https://api.supabase.appsbrasil.store` | DNS não resolveu neste ambiente |
+| `https://api.supabase.appsbrasil.store` | DNS pode não resolver neste ambiente |

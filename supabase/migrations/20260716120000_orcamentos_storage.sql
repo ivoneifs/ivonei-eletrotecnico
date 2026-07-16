@@ -1,6 +1,6 @@
 -- Storage bucket + attachment URLs for quote form (orçamentos)
 -- Apply after 20260716090000_downloads_and_contact_requests.sql
--- SQL Editor: https://supabase.appsbrasil.store/ivonei-eletrotecnico/sql/new
+-- SQL Editor: https://supabase.appsbrasil.store/project/default/sql/new
 
 -- ---------------------------------------------------------------------------
 -- contact_requests: optional file attachments (public URLs after upload)

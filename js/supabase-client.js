@@ -1,7 +1,7 @@
 /**
  * Supabase JS client for Ivonei Eletrotécnico (CDN).
- * Logical project: ivonei-eletrotecnico
- * Dashboard: https://supabase.appsbrasil.store/ivonei-eletrotecnico
+ * Logical/GitHub name: ivonei-eletrotecnico
+ * Studio: https://supabase.appsbrasil.store/project/default
  *
  * Requires (in order):
  *   1. js/supabase-config.js
