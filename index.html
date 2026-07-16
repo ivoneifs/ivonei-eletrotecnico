@@ -6,7 +6,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <meta name="ivonei-build" content="20260716c">
+    <meta name="ivonei-build" content="20260716d">
     <title>Ivonei Ferreira | Especialista Técnico em Elétrica e Automação</title>
     
     <!-- Google Fonts Connectivity -->
@@ -54,6 +54,14 @@
       }
       .animate-fadeIn {
         animation: fadeIn 0.4s ease-out forwards;
+      }
+
+      /* Staff-only Downloads: never visible to anonymous (beats Tailwind hidden/block conflicts) */
+      .staff-only:not(.staff-visible) {
+        display: none !important;
+      }
+      #nav-downloads-mobile.staff-visible {
+        display: block !important;
       }
       
       /* Active state animations and custom classes */
@@ -138,7 +146,7 @@
             <a href="#diferenciais" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
               Diferenciais
             </a>
-            <a href="#downloads" id="nav-downloads-desktop" class="hidden hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline font-semibold text-[#FF8C00]">
+            <a href="#downloads" id="nav-downloads-desktop" class="staff-only hidden hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline font-semibold text-[#FF8C00]">
               Downloads
             </a>
             <a href="#contato" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
@@ -182,7 +190,7 @@
         <a href="#diferenciais" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
           Diferenciais
         </a>
-        <a href="#downloads" id="nav-downloads-mobile" class="hidden block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-[#FF8C00] no-underline">
+        <a href="#downloads" id="nav-downloads-mobile" class="staff-only hidden w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-[#FF8C00] no-underline">
           Downloads
         </a>
         <a href="#contato" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
@@ -691,7 +699,7 @@
     </section>
 
     <!-- 5.5 DOWNLOADS — only visible when staff session is active (never signs out on navigate) -->
-    <section class="hidden py-20 sm:py-28 bg-[#f8fafc] border-t border-b border-slate-200 scroll-mt-20" id="downloads" aria-hidden="true">
+    <section class="staff-only hidden py-20 sm:py-28 bg-[#f8fafc] border-t border-b border-slate-200 scroll-mt-20" id="downloads" aria-hidden="true">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <span class="text-[#FF8C00] font-mono text-xs tracking-widest font-black uppercase block">
@@ -1067,9 +1075,9 @@
         SUPABASE_ANON_KEY: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc4Mjk0NTM2MCwiZXhwIjo0OTM4NjE4OTYwLCJyb2xlIjoiYW5vbiJ9.e7p-Y4Un7z2oyKwrIX5NytQrntTgcqyUT9PLoyU3ZaU'
       };
     </script>
-    <script src="js/supabase-config.js?v=20260716c"></script>
+    <script src="js/supabase-config.js?v=20260716d"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/supabase-client.js?v=20260716c"></script>
+    <script src="js/supabase-client.js?v=20260716d"></script>
 
     <!-- JavaScript Interactions Logic (public site + staff Downloads when session persists) -->
     <script>
@@ -1422,13 +1430,15 @@
         const navMob = document.getElementById('nav-downloads-mobile');
         const badgeDesk = document.getElementById('auth-badge-desktop');
         const badgeMob = document.getElementById('auth-badge-mobile');
+        const staffNodes = [section, navDesk, navMob].filter(Boolean);
 
+        staffNodes.forEach((el) => {
+          el.classList.toggle('hidden', !visible);
+          el.classList.toggle('staff-visible', visible);
+        });
         if (section) {
-          section.classList.toggle('hidden', !visible);
           section.setAttribute('aria-hidden', visible ? 'false' : 'true');
         }
-        if (navDesk) navDesk.classList.toggle('hidden', !visible);
-        if (navMob) navMob.classList.toggle('hidden', !visible);
         if (badgeDesk) {
           badgeDesk.classList.toggle('hidden', !visible);
           badgeDesk.classList.toggle('flex', visible);
@@ -1545,20 +1555,36 @@
       }
 
       async function syncStaffSessionUi() {
-        if (!window.supabaseApi || typeof window.supabaseApi.getStaffIfLoggedIn !== 'function') {
-          setStaffUiVisible(false);
+        // Default: keep Downloads hidden for anonymous visitors
+        setStaffUiVisible(false);
+        if (!window.supabaseApi || typeof window.supabaseApi.getSession !== 'function') {
           return;
         }
-        // Soft check only — never calls signOut
-        const staff = await window.supabaseApi.getStaffIfLoggedIn();
-        if (staff) {
-          setStaffUiVisible(true);
-          await loadStaffDownloads();
-        } else {
+        try {
+          const session = await window.supabaseApi.getSession();
+          if (!session) {
+            downloadsList = [];
+            const grid = document.getElementById('downloads-grid');
+            if (grid) grid.innerHTML = '';
+            return;
+          }
+          // Soft staff check (profile admin/editor active) — never calls signOut
+          const staff =
+            typeof window.supabaseApi.getStaffIfLoggedIn === 'function'
+              ? await window.supabaseApi.getStaffIfLoggedIn()
+              : null;
+          if (staff) {
+            setStaffUiVisible(true);
+            await loadStaffDownloads();
+          } else {
+            downloadsList = [];
+            const grid = document.getElementById('downloads-grid');
+            if (grid) grid.innerHTML = '';
+          }
+        } catch (e) {
+          console.warn('syncStaffSessionUi:', e);
           setStaffUiVisible(false);
           downloadsList = [];
-          const grid = document.getElementById('downloads-grid');
-          if (grid) grid.innerHTML = '';
         }
       }
 
@@ -1566,11 +1592,13 @@
 
       if (window.supabaseApi && typeof window.supabaseApi.onAuthStateChange === 'function') {
         window.supabaseApi.onAuthStateChange(function (event) {
-          // TOKEN_REFRESHED / INITIAL_SESSION / SIGNED_IN → keep UI; SIGNED_OUT → hide
+          // TOKEN_REFRESHED / INITIAL_SESSION / SIGNED_IN → re-check; SIGNED_OUT → hide
           // Never call signOut here.
           if (event === 'SIGNED_OUT') {
             setStaffUiVisible(false);
             downloadsList = [];
+            const grid = document.getElementById('downloads-grid');
+            if (grid) grid.innerHTML = '';
             return;
           }
           void syncStaffSessionUi();
