@@ -31,6 +31,7 @@ Site estático em `index.html` · repositório [ivonei-eletrotecnico](https://gi
 | `migrations/20260716150000_contact_requests_status_crud.sql` | Status de solicitações (new/in_review/answered/archived) |
 | `migrations/20260716160000_contact_requests_staff_insert.sql` | Staff INSERT em `contact_requests` (CRUD admin) |
 | `migrations/20260716170000_downloads_staff_only.sql` | Downloads só staff (sem SELECT anon) + bucket privado |
+| `migrations/20260716180000_downloads_id_default.sql` | DEFAULT/IDENTITY em `downloads.id` (corrige INSERT null id) |
 | `../admin.html` | Painel admin (Auth + downloads + solicitações CRUD + usuários) |
 | `../.env.example` | Placeholders URL/anon para AppsBrasil |
 | `../js/supabase-config.js` | Lê `window.__ENV` / placeholders |

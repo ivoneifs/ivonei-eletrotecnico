@@ -125,7 +125,8 @@
             </div>
             <div class="space-y-1">
               <label class="text-[10px] font-mono uppercase font-bold text-slate-600" for="dl-url">URL (ou preencha via upload)</label>
-              <input id="dl-url" type="url" placeholder="https://..." class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-3 py-2.5 rounded-sm text-sm focus:outline-none" />
+              <input id="dl-url" type="text" inputmode="url" placeholder="https://… ou link do Google Drive" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-3 py-2.5 rounded-sm text-sm focus:outline-none" />
+              <p class="text-[10px] text-slate-500 font-mono leading-snug">Aceita link externo (Drive, etc.) sem upload. Links do Drive são convertidos para download direto.</p>
             </div>
             <p id="download-form-error" class="hidden text-xs text-red-600 font-semibold"></p>
             <div class="flex flex-wrap gap-2 pt-1">
@@ -527,7 +528,12 @@
             if (type === 'pdf' || !type) type = uploaded.type;
           }
 
-          if (!url) throw new Error('Envie um arquivo ou informe a URL.');
+          if (!url) throw new Error('Envie um arquivo ou informe a URL (ex. Google Drive).');
+
+          // External link without file upload → prefer type "link" when still default pdf
+          if (!file && /drive\.google\.com|docs\.google\.com/i.test(url) && type === 'pdf') {
+            type = 'link';
+          }
 
           var editId = $('edit-download-id').value;
           if (editId) {

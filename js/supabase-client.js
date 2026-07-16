@@ -85,6 +85,31 @@
     return storagePathFromUrl(publicUrl, bucket);
   }
 
+  /**
+   * Normalize external download URLs (Google Drive view/share → direct download).
+   * Leaves Storage / other URLs unchanged.
+   */
+  function normalizeDownloadUrl(rawUrl) {
+    if (!rawUrl) return rawUrl;
+    var s = String(rawUrl).trim();
+    var fileId = null;
+    var m =
+      s.match(/drive\.google\.com\/file\/d\/([^/]+)/i) ||
+      s.match(/drive\.google\.com\/open\?[^#]*id=([^&]+)/i) ||
+      s.match(/drive\.google\.com\/uc\?[^#]*id=([^&]+)/i);
+    if (m && m[1]) fileId = m[1];
+    if (!fileId) {
+      var docs = s.match(
+        /docs\.google\.com\/(?:document|spreadsheets|presentation)\/d\/([^/]+)/i
+      );
+      if (docs && docs[1]) fileId = docs[1];
+    }
+    if (fileId) {
+      return 'https://drive.google.com/uc?export=download&id=' + encodeURIComponent(fileId);
+    }
+    return s;
+  }
+
   window.supabaseApi = {
     client: client,
 
@@ -192,19 +217,23 @@
 
     async createDownload(download) {
       await this.requireStaff();
-      var result = await client
-        .from('downloads')
-        .insert({
-          name: download.name,
-          description: download.description || '',
-          type: download.type || 'pdf',
-          url: download.url,
-          size: download.size || 'Vária',
-          downloads: download.downloads || 0,
-          date: download.date || new Date().toISOString().slice(0, 10),
-        })
-        .select()
-        .single();
+      var url = normalizeDownloadUrl(download.url);
+      if (!url) throw new Error('URL obrigatória (upload ou link externo, ex. Google Drive)');
+
+      // Do not send id — DB must supply DEFAULT/IDENTITY (see migration 20260716180000).
+      // Never pass id: null (PostgREST would insert NULL and fail NOT NULL).
+      var row = {
+        name: download.name,
+        description: download.description || '',
+        type: download.type || 'pdf',
+        url: url,
+        size: download.size || 'Vária',
+        downloads: download.downloads || 0,
+        date: download.date || new Date().toISOString().slice(0, 10),
+      };
+      if (download.order_index != null) row.order_index = download.order_index;
+
+      var result = await client.from('downloads').insert(row).select().single();
       if (result.error) throw result.error;
       return result.data;
     },
@@ -214,6 +243,7 @@
       var payload = Object.assign({}, updatedData);
       delete payload.id;
       delete payload.created_at;
+      if (payload.url != null) payload.url = normalizeDownloadUrl(payload.url);
       var result = await client
         .from('downloads')
         .update(payload)
