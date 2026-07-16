@@ -6,7 +6,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <meta name="ivonei-build" content="20260716d">
+    <meta name="ivonei-build" content="20260716e">
     <title>Ivonei Ferreira | Especialista Técnico em Elétrica e Automação</title>
     
     <!-- Google Fonts Connectivity -->
@@ -56,12 +56,27 @@
         animation: fadeIn 0.4s ease-out forwards;
       }
 
-      /* Staff-only Downloads: never visible to anonymous (beats Tailwind hidden/block conflicts) */
-      .staff-only:not(.staff-visible) {
+      /* Staff-only: never painted for anonymous (beats Tailwind conflicts) */
+      .staff-only:not(.staff-visible),
+      [hidden].staff-only {
         display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+      }
+      #nav-downloads-desktop.staff-visible {
+        display: inline-block !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
       }
       #nav-downloads-mobile.staff-visible {
         display: block !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+      }
+      #downloads.staff-visible {
+        display: block !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
       }
       
       /* Active state animations and custom classes */
@@ -146,9 +161,8 @@
             <a href="#diferenciais" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
               Diferenciais
             </a>
-            <a href="#downloads" id="nav-downloads-desktop" class="staff-only hidden hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline font-semibold text-[#FF8C00]">
-              Downloads
-            </a>
+            <!-- Downloads nav injected only after staff login (absent for anonymous) -->
+            <span id="nav-downloads-desktop-slot" class="contents" aria-hidden="true"></span>
             <a href="#contato" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
               Contato
             </a>
@@ -190,9 +204,8 @@
         <a href="#diferenciais" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
           Diferenciais
         </a>
-        <a href="#downloads" id="nav-downloads-mobile" class="staff-only hidden w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-[#FF8C00] no-underline">
-          Downloads
-        </a>
+        <!-- Downloads nav injected only after staff login (absent for anonymous) -->
+        <span id="nav-downloads-mobile-slot" class="contents" aria-hidden="true"></span>
         <a href="#contato" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
           Contato
         </a>
@@ -699,7 +712,7 @@
     </section>
 
     <!-- 5.5 DOWNLOADS — only visible when staff session is active (never signs out on navigate) -->
-    <section class="staff-only hidden py-20 sm:py-28 bg-[#f8fafc] border-t border-b border-slate-200 scroll-mt-20" id="downloads" aria-hidden="true">
+    <section class="staff-only py-20 sm:py-28 bg-[#f8fafc] border-t border-b border-slate-200 scroll-mt-20" id="downloads" hidden aria-hidden="true">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <span class="text-[#FF8C00] font-mono text-xs tracking-widest font-black uppercase block">
@@ -1075,9 +1088,9 @@
         SUPABASE_ANON_KEY: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc4Mjk0NTM2MCwiZXhwIjo0OTM4NjE4OTYwLCJyb2xlIjoiYW5vbiJ9.e7p-Y4Un7z2oyKwrIX5NytQrntTgcqyUT9PLoyU3ZaU'
       };
     </script>
-    <script src="js/supabase-config.js?v=20260716d"></script>
+    <script src="js/supabase-config.js?v=20260716e"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/supabase-client.js?v=20260716d"></script>
+    <script src="js/supabase-client.js?v=20260716e"></script>
 
     <!-- JavaScript Interactions Logic (public site + staff Downloads when session persists) -->
     <script>
@@ -1423,20 +1436,53 @@
         return '#';
       }
 
+      function ensureStaffNavLink(slotId, linkId, extraClass) {
+        const slot = document.getElementById(slotId);
+        if (!slot) return null;
+        let link = document.getElementById(linkId);
+        if (!link) {
+          link = document.createElement('a');
+          link.id = linkId;
+          link.href = '#downloads';
+          link.textContent = 'Downloads';
+          link.className =
+            'staff-only staff-visible hover:text-[#FF8C00] transition-colors text-[#FF8C00] no-underline font-semibold ' +
+            extraClass;
+          slot.appendChild(link);
+        }
+        return link;
+      }
+
+      function removeStaffNavLink(linkId) {
+        const link = document.getElementById(linkId);
+        if (link && link.parentNode) link.parentNode.removeChild(link);
+      }
+
       function setStaffUiVisible(visible) {
         staffLoggedIn = !!visible;
         const section = document.getElementById('downloads');
-        const navDesk = document.getElementById('nav-downloads-desktop');
-        const navMob = document.getElementById('nav-downloads-mobile');
         const badgeDesk = document.getElementById('auth-badge-desktop');
         const badgeMob = document.getElementById('auth-badge-mobile');
-        const staffNodes = [section, navDesk, navMob].filter(Boolean);
 
-        staffNodes.forEach((el) => {
-          el.classList.toggle('hidden', !visible);
-          el.classList.toggle('staff-visible', visible);
-        });
+        if (visible) {
+          ensureStaffNavLink(
+            'nav-downloads-desktop-slot',
+            'nav-downloads-desktop',
+            'py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-xs uppercase tracking-wider'
+          );
+          ensureStaffNavLink(
+            'nav-downloads-mobile-slot',
+            'nav-downloads-mobile',
+            'w-full text-left py-2 text-xs uppercase tracking-wider'
+          );
+        } else {
+          removeStaffNavLink('nav-downloads-desktop');
+          removeStaffNavLink('nav-downloads-mobile');
+        }
+
         if (section) {
+          section.hidden = !visible;
+          section.classList.toggle('staff-visible', visible);
           section.setAttribute('aria-hidden', visible ? 'false' : 'true');
         }
         if (badgeDesk) {
