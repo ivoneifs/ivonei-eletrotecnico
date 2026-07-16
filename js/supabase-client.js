@@ -23,12 +23,16 @@
     return;
   }
 
+  // Same storageKey + localStorage on index.html and admin.html so the session is shared.
+  var AUTH_STORAGE_KEY = 'sb-ivonei-auth';
   var client = window.supabase.createClient(url, anonKey, {
     auth: {
       persistSession: true,
       autoRefreshToken: true,
       detectSessionInUrl: true,
       storage: window.localStorage,
+      storageKey: AUTH_STORAGE_KEY,
+      flowType: 'implicit',
     },
   });
   window.supabaseClient = client;
@@ -123,15 +127,42 @@
       return result.data;
     },
 
+    /**
+     * Staff gate for API calls. Never signs out — only the explicit "Sair" button may call signOut.
+     */
     async requireStaff() {
       var session = await this.getSession();
       if (!session) throw new Error('Faça login para continuar.');
       var profile = await this.getMyProfile();
       if (!profile || !profile.is_active || (profile.role !== 'admin' && profile.role !== 'editor')) {
-        await this.signOut();
         throw new Error('Conta sem permissão de equipe.');
       }
       return { session: session, profile: profile, user: session.user };
+    },
+
+    /** Soft staff check for public UI (no throw, never signOut). */
+    async getStaffIfLoggedIn() {
+      try {
+        var session = await this.getSession();
+        if (!session) return null;
+        var profile = await this.getMyProfile();
+        if (!profile || !profile.is_active) return null;
+        if (profile.role !== 'admin' && profile.role !== 'editor') return null;
+        return { session: session, profile: profile, user: session.user };
+      } catch (e) {
+        console.warn('[supabase] getStaffIfLoggedIn:', e);
+        return null;
+      }
+    },
+
+    onAuthStateChange(callback) {
+      return client.auth.onAuthStateChange(function (event, session) {
+        try {
+          callback(event, session);
+        } catch (e) {
+          console.warn('[supabase] onAuthStateChange handler error:', e);
+        }
+      });
     },
 
     async listDownloads() {

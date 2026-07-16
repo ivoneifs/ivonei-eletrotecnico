@@ -134,13 +134,20 @@
             <a href="#diferenciais" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
               Diferenciais
             </a>
+            <a href="#downloads" id="nav-downloads-desktop" class="hidden hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline font-semibold text-[#FF8C00]">
+              Downloads
+            </a>
             <a href="#contato" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
               Contato
             </a>
           </nav>
 
-          <!-- Desktop Action Button -->
-          <div class="hidden lg:block">
+          <!-- Desktop Action Button + logged-in badge -->
+          <div class="hidden lg:flex items-center gap-3">
+            <div id="auth-badge-desktop" class="hidden items-center gap-2">
+              <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-[#FF8C00] bg-[#FF8C00]/15 border border-[#FF8C00]/35 px-2.5 py-1 rounded-sm">Logado</span>
+              <a href="admin.html" class="text-[10px] font-bold uppercase tracking-widest text-white/80 hover:text-[#FF8C00] no-underline">Área restrita</a>
+            </div>
             <a href="#contato" class="bg-[#FF8C00] text-white px-5 py-2.5 rounded-sm font-bold text-xs uppercase tracking-widest shadow-lg hover:bg-[#e07b00] transition-all duration-300 inline-block no-underline">
               Solicitar Orçamento
             </a>
@@ -171,9 +178,16 @@
         <a href="#diferenciais" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
           Diferenciais
         </a>
+        <a href="#downloads" id="nav-downloads-mobile" class="hidden block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-[#FF8C00] no-underline">
+          Downloads
+        </a>
         <a href="#contato" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
           Contato
         </a>
+        <div id="auth-badge-mobile" class="hidden pt-1 space-y-2">
+          <span class="inline-block text-[10px] font-mono font-bold uppercase tracking-widest text-[#FF8C00] bg-[#FF8C00]/15 border border-[#FF8C00]/35 px-2.5 py-1 rounded-sm">Logado</span>
+          <a href="admin.html" class="block text-[11px] font-bold uppercase tracking-widest text-white/80 hover:text-[#FF8C00] no-underline">Área restrita / Admin</a>
+        </div>
         <div class="pt-2">
           <a href="#contato" class="w-full bg-[#FF8C00] text-white hover:bg-[#e07b00] text-center block py-2.5 rounded-sm font-bold text-xs uppercase tracking-widest shadow-lg no-underline">
             Solicitar Orçamento
@@ -672,6 +686,60 @@
       </div>
     </section>
 
+    <!-- 5.5 DOWNLOADS — only visible when staff session is active (never signs out on navigate) -->
+    <section class="hidden py-20 sm:py-28 bg-[#f8fafc] border-t border-b border-slate-200 scroll-mt-20" id="downloads" aria-hidden="true">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <span class="text-[#FF8C00] font-mono text-xs tracking-widest font-black uppercase block">
+            Área autenticada
+          </span>
+          <h2 class="font-display font-black text-3xl sm:text-4xl text-[#003366] tracking-tight uppercase leading-tight">
+            Documentos &amp; Downloads
+          </h2>
+          <p class="text-slate-600 text-base font-light leading-relaxed">
+            Biblioteca disponível enquanto sua sessão estiver ativa. Use <strong class="font-semibold">Sair</strong> no painel admin para encerrar o login.
+          </p>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-sm p-4 sm:p-5 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
+          <div class="relative w-full sm:max-w-md">
+            <input type="text" id="search-input" placeholder="Pesquisar documento..." onkeyup="filterDownloads()" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] pl-10 pr-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-[#003366] font-medium">
+            <i data-lucide="search" class="h-4 w-4 text-slate-400 absolute left-3.5 top-3.5"></i>
+          </div>
+          <div class="flex items-center gap-2 w-full sm:w-auto">
+            <span class="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-widest hidden md:inline">Formato:</span>
+            <select id="type-filter" onchange="filterDownloads()" class="w-full sm:w-40 bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-3 py-3 rounded-sm text-xs focus:outline-none transition-all text-slate-900 cursor-pointer font-medium">
+              <option value="all">Todos Formatos</option>
+              <option value="pdf">PDF</option>
+              <option value="xls">Planilha XLS</option>
+              <option value="doc">Documento WORD</option>
+              <option value="zip">ZIP / RAR</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="downloads-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+        <div class="mt-12 bg-white rounded-sm p-6 sm:p-8 shadow-sm border border-slate-200/80">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <h4 class="font-display font-black text-sm text-[#003366] uppercase tracking-wider flex items-center gap-2">
+                <i data-lucide="shield-check" class="h-5 w-5 text-[#FF8C00]"></i>
+                Painel administrativo
+              </h4>
+              <p class="text-xs text-slate-500 font-light mt-1 max-w-xl">
+                Gerencie downloads, solicitações e usuários. Voltar ao site não encerra a sessão.
+              </p>
+            </div>
+            <a href="admin.html" class="inline-flex items-center justify-center gap-2 bg-[#003366] hover:bg-[#002244] text-white px-5 py-3 rounded-sm font-bold text-xs uppercase tracking-widest no-underline transition-colors">
+              <i data-lucide="log-in" class="h-4 w-4"></i>
+              <span>Abrir painel</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- 6. CONTACT FORM & INTERACTIVE SECTION -->
     <section class="py-20 sm:py-28 bg-[#001f3f] text-white scroll-mt-20" id="contato">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -999,11 +1067,14 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/supabase-client.js"></script>
 
-    <!-- JavaScript Interactions Logic (public site — no downloads library) -->
+    <!-- JavaScript Interactions Logic (public site + staff Downloads when session persists) -->
     <script>
-      // Downloads are staff-only (admin.html after Supabase Auth login).
+      // Downloads: visible only with active Supabase Auth staff session (shared localStorage with admin.html).
+      // signOut is NEVER called from this page — only the "Sair" button on admin.html may end the session.
       const CONTACT_REQUESTS_CACHE_KEY = 'contact-requests';
       const CONTACT_REQUESTS_API_ENDPOINTS = ['/.netlify/functions/contact-requests', '/api/contact-requests'];
+      let downloadsList = [];
+      let staffLoggedIn = false;
 
       function getCachedContactRequests() {
         const stored = localStorage.getItem(CONTACT_REQUESTS_CACHE_KEY);
@@ -1320,9 +1391,187 @@
         document.getElementById('custom-alert-container')?.classList.add('hidden');
       });
 
-      // Downloads / admin: only after login at admin.html
+      // Legacy fake-admin flags only (does NOT touch Supabase Auth localStorage / sb-ivonei-auth)
       try { sessionStorage.removeItem('adminLoggedIn'); sessionStorage.removeItem('adminEmail'); } catch (e) {}
-      try { localStorage.removeItem('downloads'); } catch (e) {}
+
+      function escapeHtml(str) {
+        return String(str == null ? '' : str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function sanitizeUrl(url) {
+        const raw = String(url || '').trim();
+        if (!raw) return '#';
+        if (/^https?:\/\//i.test(raw) || raw.startsWith('mailto:') || raw.startsWith('tel:')) return raw;
+        if (raw.startsWith('/') || raw.startsWith('#')) return raw;
+        return '#';
+      }
+
+      function setStaffUiVisible(visible) {
+        staffLoggedIn = !!visible;
+        const section = document.getElementById('downloads');
+        const navDesk = document.getElementById('nav-downloads-desktop');
+        const navMob = document.getElementById('nav-downloads-mobile');
+        const badgeDesk = document.getElementById('auth-badge-desktop');
+        const badgeMob = document.getElementById('auth-badge-mobile');
+
+        if (section) {
+          section.classList.toggle('hidden', !visible);
+          section.setAttribute('aria-hidden', visible ? 'false' : 'true');
+        }
+        if (navDesk) navDesk.classList.toggle('hidden', !visible);
+        if (navMob) navMob.classList.toggle('hidden', !visible);
+        if (badgeDesk) {
+          badgeDesk.classList.toggle('hidden', !visible);
+          badgeDesk.classList.toggle('flex', visible);
+        }
+        if (badgeMob) badgeMob.classList.toggle('hidden', !visible);
+        if (window.lucide && typeof lucide.createIcons === 'function') lucide.createIcons();
+      }
+
+      function renderDownloads(customList) {
+        const grid = document.getElementById('downloads-grid');
+        if (!grid || !staffLoggedIn) return;
+
+        const listToRender = customList || downloadsList;
+        if (!listToRender.length) {
+          grid.innerHTML = `
+            <div class="col-span-full bg-white border border-dashed border-slate-350 rounded-sm p-12 text-center text-slate-500 w-full flex flex-col items-center justify-center">
+              <i data-lucide="folder-open" class="h-10 w-10 text-slate-350 mx-auto mb-3"></i>
+              <p class="font-display font-black text-sm text-slate-700 uppercase">Nenhum download cadastrado</p>
+              <p class="text-xs text-slate-400 mt-1">Cadastre arquivos no painel administrativo.</p>
+            </div>`;
+          lucide.createIcons();
+          return;
+        }
+
+        grid.innerHTML = listToRender.map((item) => {
+          const fileType = item.type ? String(item.type).toUpperCase() : 'PDF';
+          let badgeClass = 'bg-slate-100 text-slate-800';
+          if (item.type === 'pdf') badgeClass = 'bg-red-50 text-red-700 border border-red-100';
+          else if (item.type === 'xls' || item.type === 'xlsx') badgeClass = 'bg-emerald-50 text-emerald-700 border border-emerald-100';
+          else if (item.type === 'doc' || item.type === 'docx') badgeClass = 'bg-blue-50 text-blue-700 border border-blue-100';
+          else if (item.type === 'zip' || item.type === 'rar') badgeClass = 'bg-amber-50 text-[#FF8C00] border border-amber-100';
+
+          return `
+          <div class="bg-white border border-slate-200/90 rounded-sm p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group relative border-l-4 border-l-[#FF8C00]">
+            <div class="space-y-4">
+              <div class="flex items-start justify-between gap-4">
+                <div class="bg-[#003366]/5 text-[#003366] group-hover:bg-[#FF8C00] group-hover:text-white p-3 rounded-sm transition-colors duration-300">
+                  <i data-lucide="file-text" class="h-6 w-6"></i>
+                </div>
+                <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-sm uppercase ${badgeClass}">${escapeHtml(fileType)}</span>
+              </div>
+              <div class="space-y-1">
+                <h3 class="font-display font-medium text-[#003366] text-sm group-hover:text-[#FF8C00] transition-colors leading-snug uppercase tracking-tight">${escapeHtml(item.name)}</h3>
+                <p class="text-slate-600 text-xs leading-relaxed font-light">${escapeHtml(item.description || item.desc || '')}</p>
+              </div>
+            </div>
+            <div class="border-t border-slate-100 mt-6 pt-4 flex items-center justify-between gap-2">
+              <span class="text-[10px] font-mono text-slate-400 font-light flex items-center gap-1 shrink-0">
+                <i data-lucide="database" class="h-3 w-3"></i>
+                ${escapeHtml(item.size || 'N/A')}
+              </span>
+              <button
+                type="button"
+                data-download-id="${escapeHtml(item.id)}"
+                class="dl-open-btn bg-slate-50 hover:bg-[#FF8C00] text-slate-700 hover:text-white transition-all text-[11px] font-bold uppercase tracking-wider h-10 px-4 rounded-sm flex items-center justify-center gap-2 cursor-pointer border border-slate-200 hover:border-transparent flex-1"
+              >
+                <i data-lucide="download" class="h-3.5 w-3.5"></i>
+                <span>Download</span>
+              </button>
+            </div>
+          </div>`;
+        }).join('');
+
+        grid.querySelectorAll('.dl-open-btn').forEach((btn) => {
+          btn.addEventListener('click', async () => {
+            const id = btn.getAttribute('data-download-id');
+            const item = downloadsList.find((d) => String(d.id) === String(id));
+            if (!item || !item.url || !window.supabaseApi) return;
+            try {
+              btn.disabled = true;
+              const accessUrl = await window.supabaseApi.getDownloadAccessUrl(item.url, 3600);
+              if (!accessUrl) throw new Error('URL indisponível');
+              window.open(accessUrl, '_blank', 'noopener,noreferrer');
+              try { await window.supabaseApi.incrementDownload(item.id); } catch (e) { /* ignore */ }
+            } catch (err) {
+              showCustomAlert('Download', (err && err.message) || 'Não foi possível abrir o arquivo.');
+            } finally {
+              btn.disabled = false;
+            }
+          });
+        });
+
+        lucide.createIcons();
+      }
+
+      window.filterDownloads = function () {
+        if (!staffLoggedIn) return;
+        const query = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
+        const formatFilter = document.getElementById('type-filter')?.value || 'all';
+        const filtered = downloadsList.filter((item) => {
+          const nameMatch = (item.name || '').toLowerCase().includes(query);
+          const descMatch = (item.description || item.desc || '').toLowerCase().includes(query);
+          const matchesFormat = formatFilter === 'all' || (item.type || '').toLowerCase() === formatFilter.toLowerCase();
+          return (nameMatch || descMatch) && matchesFormat;
+        });
+        renderDownloads(filtered);
+      };
+
+      async function loadStaffDownloads() {
+        if (!staffLoggedIn || !window.supabaseApi) return;
+        const grid = document.getElementById('downloads-grid');
+        if (grid) {
+          grid.innerHTML = '<p class="col-span-full text-center text-xs font-mono text-slate-400 py-10">Carregando…</p>';
+        }
+        try {
+          downloadsList = await window.supabaseApi.listDownloads();
+          renderDownloads();
+        } catch (err) {
+          console.warn('Falha ao listar downloads (sessão mantida):', err);
+          if (grid) {
+            grid.innerHTML = `<p class="col-span-full text-center text-xs text-red-600 py-10">${escapeHtml((err && err.message) || 'Erro ao carregar')}</p>`;
+          }
+        }
+      }
+
+      async function syncStaffSessionUi() {
+        if (!window.supabaseApi || typeof window.supabaseApi.getStaffIfLoggedIn !== 'function') {
+          setStaffUiVisible(false);
+          return;
+        }
+        // Soft check only — never calls signOut
+        const staff = await window.supabaseApi.getStaffIfLoggedIn();
+        if (staff) {
+          setStaffUiVisible(true);
+          await loadStaffDownloads();
+        } else {
+          setStaffUiVisible(false);
+          downloadsList = [];
+          const grid = document.getElementById('downloads-grid');
+          if (grid) grid.innerHTML = '';
+        }
+      }
+
+      void syncStaffSessionUi();
+
+      if (window.supabaseApi && typeof window.supabaseApi.onAuthStateChange === 'function') {
+        window.supabaseApi.onAuthStateChange(function (event) {
+          // TOKEN_REFRESHED / INITIAL_SESSION / SIGNED_IN → keep UI; SIGNED_OUT → hide
+          // Never call signOut here.
+          if (event === 'SIGNED_OUT') {
+            setStaffUiVisible(false);
+            downloadsList = [];
+            return;
+          }
+          void syncStaffSessionUi();
+        });
+      }
     </script>
 
 </body></html>

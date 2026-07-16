@@ -41,6 +41,7 @@
         <p class="text-[11px] font-mono uppercase tracking-widest text-slate-500">Painel administrativo</p>
       </div>
       <div class="flex items-center gap-3">
+        <!-- Relative link only — does NOT call signOut; session stays in localStorage -->
         <a href="index.html" class="text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-[#FF8C00] no-underline">← Voltar ao site</a>
         <div id="session-chip" class="hidden text-[11px] font-mono text-slate-600 bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-sm"></div>
         <button id="logout-btn" type="button" class="hidden bg-transparent border border-slate-300 hover:border-red-400 hover:text-red-700 text-slate-600 px-3 py-2 text-[11px] font-bold uppercase tracking-wider rounded-sm cursor-pointer">
@@ -404,6 +405,7 @@
         }
       });
 
+      // ÚNICO lugar que encerra a sessão Auth neste projeto (além da API signOut).
       $('logout-btn').addEventListener('click', async function () {
         try { await api.signOut(); } catch (e) {}
         currentProfile = null;
