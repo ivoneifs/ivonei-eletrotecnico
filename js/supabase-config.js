@@ -1,7 +1,8 @@
 /**
  * Public Supabase config for the static Ivonei site.
- * Logical project: ivonei-eletrotecnico-supabase
- * Host: https://supabase.appsbrasil.store/project/default
+ * Logical project: ivonei-eletrotecnico
+ * Dashboard: https://supabase.appsbrasil.store/ivonei-eletrotecnico
+ * API (Kong): https://supabase.appsbrasil.store
  *
  * Priority:
  * 1. window.__ENV.SUPABASE_URL / SUPABASE_ANON_KEY (injected at deploy)

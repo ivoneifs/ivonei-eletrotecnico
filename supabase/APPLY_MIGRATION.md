@@ -1,6 +1,6 @@
 # One-click path: open SQL Editor and paste migration
 #
-# 1. https://supabase.appsbrasil.store/project/default/sql/new
+# 1. https://supabase.appsbrasil.store/ivonei-eletrotecnico/sql/new
 # 2. Paste: migrations/20260716090000_downloads_and_contact_requests.sql
 # 3. Run
 #

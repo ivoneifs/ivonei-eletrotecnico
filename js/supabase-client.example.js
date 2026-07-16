@@ -1,14 +1,15 @@
 /**
  * Exemplo de integração Supabase JS (CDN) para o site Ivonei.
- * Projeto lógico: ivonei-eletrotecnico-supabase
- * Host: https://supabase.appsbrasil.store/project/default
+ * Projeto lógico: ivonei-eletrotecnico
+ * Dashboard: https://supabase.appsbrasil.store/ivonei-eletrotecnico
+ * API (Kong): https://supabase.appsbrasil.store
  *
  * Preferência: use js/supabase-config.js + js/supabase-client.js
  * (este arquivo permanece como referência).
  *
  * Uso manual:
  * 1. Em Settings → API, copie a anon key:
- *    https://supabase.appsbrasil.store/project/default/settings/api
+ *    https://supabase.appsbrasil.store/ivonei-eletrotecnico/settings/api
  * 2. Defina window.__ENV ou edite supabase-config.js
  * 3. Carregue o SDK: @supabase/supabase-js@2
  *

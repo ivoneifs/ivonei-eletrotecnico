@@ -1,4 +1,4 @@
-# Supabase — ivonei-eletrotecnico-supabase
+# Supabase — ivonei-eletrotecnico
 
 Site estático em `index.html` · repositório [ivonei-eletrotecnico](https://github.com/ivoneifs/ivonei-eletrotecnico).
 
@@ -6,18 +6,20 @@ Site estático em `index.html` · repositório [ivonei-eletrotecnico](https://gi
 
 | Recurso | URL |
 |---------|-----|
-| Dashboard | https://supabase.appsbrasil.store/project/default |
-| Settings → API (anon key) | https://supabase.appsbrasil.store/project/default/settings/api |
-| SQL Editor | https://supabase.appsbrasil.store/project/default/sql/new |
-| Project URL (API) | `https://supabase.appsbrasil.store` |
+| Dashboard | https://supabase.appsbrasil.store/ivonei-eletrotecnico |
+| Settings → API (anon key) | https://supabase.appsbrasil.store/ivonei-eletrotecnico/settings/api |
+| SQL Editor | https://supabase.appsbrasil.store/ivonei-eletrotecnico/sql/new |
+| Project URL (API / Kong) | `https://supabase.appsbrasil.store` |
 | Candidato alternativo | `https://api.supabase.appsbrasil.store` (DNS pode não resolver) |
 | GitHub | https://github.com/ivoneifs/ivonei-eletrotecnico |
+
+> **Dashboard ≠ API:** o Studio fica em `/ivonei-eletrotecnico`; a API (PostgREST/Auth) continua no gateway Kong `https://supabase.appsbrasil.store` (sem o path do projeto).
 
 ## Arquivos
 
 | Caminho | Função |
 |---------|--------|
-| `config.toml` | Config local CLI (`project_id = ivonei-eletrotecnico-supabase`) |
+| `config.toml` | Config local CLI (`project_id = ivonei-eletrotecnico`) |
 | `migrations/20260716090000_downloads_and_contact_requests.sql` | Tabelas + RLS + RPC |
 | `../.env.example` | Placeholders URL/anon para AppsBrasil |
 | `../js/supabase-config.js` | Lê `window.__ENV` / placeholders |
@@ -25,7 +27,7 @@ Site estático em `index.html` · repositório [ivonei-eletrotecnico](https://gi
 
 ## 1) Colar a anon key (obrigatório no browser)
 
-1. Abra https://supabase.appsbrasil.store/project/default/settings/api
+1. Abra https://supabase.appsbrasil.store/ivonei-eletrotecnico/settings/api
 2. Copie a chave **anon** / **public** (nunca a `service_role`)
 3. Cole em um destes lugares:
    - `index.html` → `window.__ENV.SUPABASE_ANON_KEY`
@@ -38,7 +40,7 @@ Sem a anon key, o site continua com fallback Netlify / localStorage.
 
 **Caminho rápido (um clique / colar SQL):**
 
-1. Abra o SQL Editor: https://supabase.appsbrasil.store/project/default/sql/new
+1. Abra o SQL Editor: https://supabase.appsbrasil.store/ivonei-eletrotecnico/sql/new
 2. Cole o conteúdo de `migrations/20260716090000_downloads_and_contact_requests.sql`
 3. Execute (Run)
 
@@ -60,6 +62,9 @@ Com URL + anon key preenchidos, `index.html` carrega:
 
 | Endpoint | Resultado observado |
 |----------|---------------------|
-| `GET https://supabase.appsbrasil.store/auth/v1/health` | 401 (host ativo; exige apikey) |
-| `GET https://supabase.appsbrasil.store/rest/v1/` | 401 (PostgREST ativo) |
+| `GET https://supabase.appsbrasil.store/auth/v1/health` | 401 — `"No API key found in request"` (API Kong correta) |
+| `GET https://supabase.appsbrasil.store/rest/v1/` | 401 — `"No API key found in request"` (PostgREST ativo) |
+| `GET https://supabase.appsbrasil.store/ivonei-eletrotecnico/rest/v1/` | 401 — `"Unauthorized"` (não usar como base da API) |
+| `GET https://supabase.appsbrasil.store/ivonei-eletrotecnico` | 401 Kong Basic (dashboard; exige login) |
+| `GET https://supabase.appsbrasil.store/project/default` | 401 Kong Basic (path antigo; substituído) |
 | `https://api.supabase.appsbrasil.store` | DNS não resolveu neste ambiente |
