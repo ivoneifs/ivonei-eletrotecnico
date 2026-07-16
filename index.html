@@ -78,6 +78,26 @@
         object-fit: contain;
         object-position: center;
       }
+      /* Portrait / tall service photos (quadro elétrico, flyers) — no crop */
+      .service-card-media--portrait {
+        aspect-ratio: 3 / 4;
+        background-color: #e2e8f0;
+      }
+      .service-card-media--portrait img {
+        object-fit: contain;
+        object-position: center;
+      }
+      .sobre-flyer-frame {
+        background-color: #0a0a0a;
+      }
+      .sobre-flyer-frame img {
+        width: 100%;
+        height: auto;
+        max-height: min(72vh, 640px);
+        object-fit: contain;
+        object-position: center;
+        display: block;
+      }
     </style>
   </head>
   <body class="min-h-screen flex flex-col font-sans bg-slate-50 selection:bg-[#FF8C00] selection:text-white text-slate-900" id="inicio">
@@ -241,10 +261,14 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          <!-- Visual Column / Badge boxes -->
-          <div class="lg:col-span-5 relative lg:sticky lg:top-24">
+          <!-- Visual Column: black/yellow flyer (full, no crop) + normas -->
+          <div class="lg:col-span-5 relative lg:sticky lg:top-24 space-y-6">
             <div class="absolute top-0 left-0 w-24 h-24 bg-[#FF8C00]/10 rounded-sm -z-10"></div>
             <div class="absolute bottom-0 right-0 w-32 h-32 bg-[#003366]/5 rounded-sm -z-10"></div>
+
+            <div class="sobre-flyer-frame rounded-sm overflow-hidden border-l-4 border-[#FF8C00] border-t border-r border-b border-slate-800 shadow-xl flex items-center justify-center">
+              <img src="images/ivonei-flyer.png" alt="Ivonei O Eletrotécnico — flyer institucional (completo)" class="w-full h-auto max-h-[min(72vh,640px)] object-contain object-center" loading="lazy" width="819" height="1024">
+            </div>
             
             <div class="bg-[#003366] text-white p-6 sm:p-8 rounded-sm shadow-xl border-l-4 border-[#FF8C00] relative overflow-hidden">
               <div class="absolute top-0 right-0 transform translate-x-8 -translate-y-8 opacity-10">
@@ -274,17 +298,6 @@
                     <p class="text-xs text-slate-400 font-mono uppercase">Segurança e Serviços</p>
                   </div>
                 </div>
-              </div>
-            </div>
-
-            <!-- Floating Stamp Card -->
-            <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-sm shadow-lg border-l-4 border-[#003366] border-t border-r border-b border-slate-100 flex items-center space-x-3 hidden sm:flex">
-              <div class="bg-[#FF8C00]/10 p-2.5 rounded-sm text-[#FF8C00]">
-                <i data-lucide="check" class="h-5 w-5 stroke-[3] text-[#FF8C00]"></i>
-              </div>
-              <div>
-                <p class="text-[10px] text-slate-500 uppercase font-mono tracking-widest font-black">CRT Emitido</p>
-                <p class="text-xs font-bold text-slate-800">Garantia Técnico Total</p>
               </div>
             </div>
           </div>
@@ -374,8 +387,8 @@
           
           <!-- Card 1: Instalações Residenciais -->
           <div class="bg-white rounded-sm overflow-hidden h-full shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
-            <div class="service-card-media w-full overflow-hidden bg-slate-200">
-              <img src="images/services/instalacao-eletrica-residencial.jpg" alt="Instalações elétricas residenciais — fiação e quadro de distribuição" class="w-full h-full object-cover" loading="lazy" width="1200" height="750">
+            <div class="service-card-media service-card-media--portrait w-full overflow-hidden">
+              <img src="images/services/instalacao-eletrica-residencial.png" alt="Instalações elétricas residenciais — quadro de distribuição organizado" class="w-full h-full object-contain" loading="lazy" width="819" height="1024">
             </div>
             <div class="p-6 sm:p-8 flex flex-col justify-between flex-1 gap-6">
             <div class="space-y-4">
