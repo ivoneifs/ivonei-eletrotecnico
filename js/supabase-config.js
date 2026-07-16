@@ -20,7 +20,7 @@
   var anonKey =
     env.SUPABASE_ANON_KEY ||
     window.SUPABASE_ANON_KEY ||
-    '';
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc4Mjk0NTM2MCwiZXhwIjo0OTM4NjE4OTYwLCJyb2xlIjoiYW5vbiJ9.e7p-Y4Un7z2oyKwrIX5NytQrntTgcqyUT9PLoyU3ZaU';
 
   // Strip accidental whitespace from pasted keys
   if (typeof anonKey === 'string') {
@@ -30,7 +30,7 @@
   window.__SUPABASE_CONFIG__ = {
     url: url,
     anonKey: anonKey,
-    ready: Boolean(url && anonKey && anonKey !== 'your_anon_public_key_here'),
+    ready: Boolean(url && anonKey && anonKey !== 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc4Mjk0NTM2MCwiZXhwIjo0OTM4NjE4OTYwLCJyb2xlIjoiYW5vbiJ9.e7p-Y4Un7z2oyKwrIX5NytQrntTgcqyUT9PLoyU3ZaU'),
   };
 
   // Keep legacy globals in sync for older snippets
