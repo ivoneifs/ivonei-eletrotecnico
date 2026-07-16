@@ -54,12 +54,31 @@
     return known.indexOf(ext) >= 0 ? ext : 'link';
   }
 
+  function storagePathFromUrl(fileUrl, bucket) {
+    if (!fileUrl) return null;
+    var raw = String(fileUrl);
+    var markers = [
+      '/storage/v1/object/public/' + bucket + '/',
+      '/storage/v1/object/sign/' + bucket + '/',
+      '/storage/v1/object/authenticated/' + bucket + '/',
+    ];
+    for (var i = 0; i < markers.length; i++) {
+      var idx = raw.indexOf(markers[i]);
+      if (idx >= 0) {
+        var rest = raw.slice(idx + markers[i].length);
+        // strip signed-url query (?token=...)
+        var q = rest.indexOf('?');
+        if (q >= 0) rest = rest.slice(0, q);
+        return decodeURIComponent(rest);
+      }
+    }
+    // bare storage path (files/...)
+    if (raw.indexOf('://') < 0 && raw.indexOf('files/') === 0) return raw;
+    return null;
+  }
+
   function storagePathFromPublicUrl(publicUrl, bucket) {
-    if (!publicUrl) return null;
-    var marker = '/storage/v1/object/public/' + bucket + '/';
-    var idx = String(publicUrl).indexOf(marker);
-    if (idx < 0) return null;
-    return decodeURIComponent(String(publicUrl).slice(idx + marker.length));
+    return storagePathFromUrl(publicUrl, bucket);
   }
 
   window.supabaseApi = {
@@ -116,6 +135,7 @@
     },
 
     async listDownloads() {
+      await this.requireStaff();
       var result = await client
         .from('downloads')
         .select('*')
@@ -124,7 +144,23 @@
       return result.data || [];
     },
 
+    /**
+     * Resolve a usable URL for staff: signed URL for private storage files,
+     * or the original external URL.
+     */
+    async getDownloadAccessUrl(storedUrl, expiresIn) {
+      await this.requireStaff();
+      var path = storagePathFromUrl(storedUrl, 'downloads');
+      if (!path) return storedUrl || null;
+      var signed = await client.storage
+        .from('downloads')
+        .createSignedUrl(path, expiresIn || 3600);
+      if (signed.error) throw signed.error;
+      return (signed.data && signed.data.signedUrl) || null;
+    },
+
     async createDownload(download) {
+      await this.requireStaff();
       var result = await client
         .from('downloads')
         .insert({
@@ -143,6 +179,7 @@
     },
 
     async updateDownload(id, updatedData) {
+      await this.requireStaff();
       var payload = Object.assign({}, updatedData);
       delete payload.id;
       delete payload.created_at;
@@ -157,6 +194,7 @@
     },
 
     async deleteDownload(id) {
+      await this.requireStaff();
       var existing = await client.from('downloads').select('*').eq('id', id).maybeSingle();
       if (existing.error) throw existing.error;
 
@@ -164,7 +202,7 @@
       if (result.error) throw result.error;
 
       if (existing.data && existing.data.url) {
-        var path = storagePathFromPublicUrl(existing.data.url, 'downloads');
+        var path = storagePathFromUrl(existing.data.url, 'downloads');
         if (path) {
           try {
             await client.storage.from('downloads').remove([path]);
@@ -177,16 +215,19 @@
     },
 
     async incrementDownload(id) {
+      await this.requireStaff();
       var result = await client.rpc('increment_download_count', { p_id: id });
       if (result.error) throw result.error;
       return result.data;
     },
 
     /**
-     * Upload a file to the public `downloads` bucket and return metadata.
+     * Upload a file to the private `downloads` bucket (staff only).
+     * Stores a stable object URL in DB; access via getDownloadAccessUrl (signed).
      * @param {File} file
      */
     async uploadDownloadFile(file) {
+      await this.requireStaff();
       if (!file) throw new Error('Arquivo obrigatório');
       var safeName = String(file.name || 'arquivo')
         .replace(/[^a-zA-Z0-9._-]+/g, '_')
@@ -208,13 +249,14 @@
       });
       if (uploadResult.error) throw uploadResult.error;
 
+      // Stable reference for path extraction (bucket is private — not publicly readable)
       var publicResult = client.storage.from('downloads').getPublicUrl(path);
-      var publicUrl =
+      var storedUrl =
         publicResult && publicResult.data && publicResult.data.publicUrl;
-      if (!publicUrl) throw new Error('Não foi possível obter URL pública do arquivo');
+      if (!storedUrl) storedUrl = path;
 
       return {
-        url: publicUrl,
+        url: storedUrl,
         path: path,
         size: formatFileSize(file.size),
         type: guessTypeFromName(file.name),

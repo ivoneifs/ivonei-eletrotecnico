@@ -440,7 +440,9 @@
                   '<p class="text-[10px] font-mono uppercase text-slate-400">' +
                     escapeHtml(row.type || '') + ' · ' + escapeHtml(row.size || '') +
                     ' · ' + Number(row.downloads || 0) + ' downloads</p>' +
-                  '<a class="text-[11px] text-[#FF8C00] break-all" href="' + escapeHtml(row.url) + '" target="_blank" rel="noopener">' + escapeHtml(row.url) + '</a>' +
+                  '<button type="button" data-open="' + row.id + '" class="text-[11px] text-[#FF8C00] break-all bg-transparent border-none p-0 cursor-pointer text-left underline-offset-2 hover:underline">' +
+                    'Abrir arquivo (área autenticada)' +
+                  '</button>' +
                 '</div>' +
                 '<div class="flex gap-2 shrink-0">' +
                   '<button type="button" data-edit="' + row.id + '" class="text-[10px] font-bold uppercase tracking-wider px-3 py-2 border border-slate-200 rounded-sm bg-white hover:border-[#FF8C00] cursor-pointer">Editar</button>' +
@@ -449,6 +451,22 @@
               '</div>'
             );
           }).join('');
+
+          list.querySelectorAll('[data-open]').forEach(function (btn) {
+            btn.addEventListener('click', async function () {
+              var id = btn.getAttribute('data-open');
+              var row = rows.find(function (r) { return String(r.id) === String(id); });
+              if (!row || !row.url) return;
+              try {
+                var accessUrl = await api.getDownloadAccessUrl(row.url, 3600);
+                if (!accessUrl) throw new Error('URL indisponível');
+                window.open(accessUrl, '_blank', 'noopener,noreferrer');
+                try { await api.incrementDownload(row.id); } catch (e) { /* ignore */ }
+              } catch (err) {
+                alert((err && err.message) || 'Não foi possível abrir o arquivo');
+              }
+            });
+          });
 
           list.querySelectorAll('[data-edit]').forEach(function (btn) {
             btn.addEventListener('click', function () {

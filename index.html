@@ -134,9 +134,6 @@
             <a href="#diferenciais" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
               Diferenciais
             </a>
-            <a href="#downloads" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline font-semibold text-[#FF8C00]">
-              Downloads
-            </a>
             <a href="#contato" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
               Contato
             </a>
@@ -173,9 +170,6 @@
         </a>
         <a href="#diferenciais" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
           Diferenciais
-        </a>
-        <a href="#downloads" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
-          Downloads
         </a>
         <a href="#contato" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
           Contato
@@ -678,71 +672,6 @@
       </div>
     </section>
 
-    <!-- 5.5. PINNED/DOWNLOADS SECTION -->
-    <section class="py-20 sm:py-28 bg-[#f8fafc] border-t border-b border-slate-200 scroll-mt-20" id="downloads">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <!-- Header -->
-        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <span class="text-[#FF8C00] font-mono text-xs tracking-widest font-black uppercase block">
-            Biblioteca de Arquivos Públicos
-          </span>
-          <h2 class="font-display font-black text-3xl sm:text-4xl text-[#003366] tracking-tight uppercase leading-tight">
-            Documentos & Downloads Úteis
-          </h2>
-          <p class="text-slate-600 text-base font-light leading-relaxed">
-            Consulte e faça o download de normas, informativos, manuais e materiais de referência públicos para o seu projeto elétrico.
-          </p>
-          <p class="text-[11px] uppercase tracking-widest font-mono font-bold text-[#003366]">
-            Gestão via painel administrativo com Supabase Auth
-          </p>
-        </div>
-
-        <!-- Search and Format Filters container -->
-        <div class="bg-white border border-slate-200 rounded-sm p-4 sm:p-5 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
-            <div class="relative w-full sm:max-w-md">
-                <input type="text" id="search-input" placeholder="Pesquisar manual, catálogo, orçamento..." onkeyup="filterDownloads()" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] pl-10 pr-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-[#003366] font-medium">
-                <i data-lucide="search" class="h-4 w-4 text-slate-400 absolute left-3.5 top-3.5"></i>
-            </div>
-            <div class="flex items-center gap-2 w-full sm:w-auto">
-                <span class="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-widest hidden md:inline">Formato:</span>
-                <select id="type-filter" onchange="filterDownloads()" class="w-full sm:w-40 bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-3 py-3 rounded-sm text-xs focus:outline-none transition-all text-slate-900 cursor-pointer font-medium">
-                    <option value="all">Todos Formatos</option>
-                    <option value="pdf">PDF</option>
-                    <option value="xls">Planilha XLS</option>
-                    <option value="doc">Documento WORD</option>
-                    <option value="zip">ZIP / RAR</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- Render Target Grid -->
-        <div id="downloads-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- Dynamic cards rendered by JS -->
-        </div>
-
-        <!-- Admin CTA (real auth panel is admin.html) -->
-        <div id="admin-panel" class="mt-12 bg-white rounded-sm p-6 sm:p-8 shadow-sm border border-slate-200/80">
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div>
-              <h4 class="font-display font-black text-sm text-[#003366] uppercase tracking-wider flex items-center gap-2">
-                <i data-lucide="shield-check" class="h-5 w-5 text-[#FF8C00]"></i>
-                Painel administrativo
-              </h4>
-              <p class="text-xs text-slate-500 font-light mt-1 max-w-xl">
-                Login com Supabase Auth, CRUD de downloads (upload no Storage) e gestão de usuários. Acesso restrito à equipe.
-              </p>
-            </div>
-            <a href="admin.html" class="inline-flex items-center justify-center gap-2 bg-[#003366] hover:bg-[#002244] text-white px-5 py-3 rounded-sm font-bold text-xs uppercase tracking-widest no-underline transition-colors">
-              <i data-lucide="log-in" class="h-4 w-4"></i>
-              <span>Abrir painel</span>
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </div></section>
-
     <!-- 6. CONTACT FORM & INTERACTIVE SECTION -->
     <section class="py-20 sm:py-28 bg-[#001f3f] text-white scroll-mt-20" id="contato">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -962,12 +891,6 @@
                 <a href="https://supabase.appsbrasil.store/storage/v1/object/public/website/index.html" target="_blank" rel="noopener noreferrer" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
                   Site (Supabase Storage)
                 </a>
-                <a href="https://supabase.appsbrasil.store/storage/v1/object/public/website/admin.html" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
-                  Painel administrativo
-                </a>
-                <a class="block text-white no-underline hover:text-[#FF8C00] transition-colors" href="https://supabase.appsbrasil.store/project/default" rel="noopener noreferrer" target="_blank">
-                  Painel Supabase (Studio)
-                </a>
                 <a href="https://github.com/ivoneifs/ivonei-eletrotecnico" target="_blank" rel="noopener noreferrer" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
                   Repositório no GitHub
                 </a>
@@ -993,6 +916,11 @@
           <p>© 2026 Ivonei Ferreira — Especialista Técnico em Elétrica e Automação.</p>
           <p class="mt-2 font-mono uppercase tracking-widest">
             CNPJ: 61.994.675/0001-98
+          </p>
+          <p class="mt-4">
+            <a href="admin.html" class="text-blue-100/35 hover:text-blue-100/60 no-underline text-[10px] font-mono uppercase tracking-widest transition-colors">
+              Área restrita
+            </a>
           </p>
         </div>
 
@@ -1071,96 +999,18 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/supabase-client.js"></script>
 
-    <!-- JavaScript Interactions Logic & Database Engine -->
+    <!-- JavaScript Interactions Logic (public site — no downloads library) -->
     <script>
-      // ----------------------------------------------------
-      // DATABASE ENGINE & DEFAULT DATA
-      // ----------------------------------------------------
-      const DOWNLOADS_DATABASE = [
-        {
-          id: 1,
-          name: 'Manual de Instalações Individuais (COELBA)',
-          description: 'Normas e padrões de entrada de energia individual vigentes exigidos pela concessionária da Bahia.',
-          type: 'pdf',
-          url: 'https://www.neoenergiacoelba.com.br/normas-tecnicas',
-          size: '4.2 MB',
-          downloads: 142,
-          date: '2024-01-10'
-        },
-        {
-          id: 2,
-          name: 'Cartilha de Segurança NR-10 Resumida',
-          description: 'Guia ilustrado condensando regras vitais de segurança laboral em ambientes de eletricidade e instalações.',
-          type: 'pdf',
-          url: 'https://www.gov.br/trabalho-e-emplego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-normas-regulamentadoras/norma-regulamentadora-nr-10.pdf',
-          size: '1.8 MB',
-          downloads: 98,
-          date: '2024-01-20'
-        },
-        {
-          id: 3,
-          name: 'Checklist de Conformidade NBR 5410',
-          description: 'Lista de verificação completa baseada na norma NBR 5410 para instalações elétricas de baixa tensão.',
-          type: 'pdf',
-          url: 'https://exemplo.com/checklist-nbr5410.pdf',
-          size: '1.2 MB',
-          downloads: 75,
-          date: '2024-02-10'
-        },
-        {
-          id: 4,
-          name: 'Template de Elaboração de Orçamento',
-          description: 'Planilha modelo para elaboração de orçamentos de serviços elétricos com cálculos de materiais automáticos.',
-          type: 'xls',
-          url: 'https://exemplo.com/template-orcamento.xlsx',
-          size: '850 KB',
-          downloads: 50,
-          date: '2024-02-01'
-        },
-        {
-          id: 5,
-          name: 'Portfólio de Projetos | Ivonei Ferreira',
-          description: 'Apresentação técnica unificada compilando projetos comerciais, subestações e laudos já entregues com ART/CRT.',
-          type: 'pdf',
-          url: 'https://wa.me/5574988259925',
-          size: '3.5 MB',
-          downloads: 215,
-          date: '2024-03-05'
-        }
-      ];
-
-      const DOWNLOADS_CACHE_KEY = 'downloads';
-      const DOWNLOADS_API_ENDPOINTS = ['/.netlify/functions/downloads', '/api/downloads'];
+      // Downloads are staff-only (admin.html after Supabase Auth login).
       const CONTACT_REQUESTS_CACHE_KEY = 'contact-requests';
       const CONTACT_REQUESTS_API_ENDPOINTS = ['/.netlify/functions/contact-requests', '/api/contact-requests'];
-
-      function getCachedDownloads() {
-        const stored = localStorage.getItem(DOWNLOADS_CACHE_KEY);
-        if (stored) {
-          try {
-            const parsedData = JSON.parse(stored);
-            if (Array.isArray(parsedData)) {
-              return parsedData;
-            }
-          } catch (e) {
-            console.error('Erro ao carregar downloads do cache local:', e);
-          }
-        }
-        return DOWNLOADS_DATABASE;
-      }
-
-      function saveCachedDownloads(downloads) {
-        localStorage.setItem(DOWNLOADS_CACHE_KEY, JSON.stringify(downloads));
-      }
 
       function getCachedContactRequests() {
         const stored = localStorage.getItem(CONTACT_REQUESTS_CACHE_KEY);
         if (stored) {
           try {
             const parsedData = JSON.parse(stored);
-            if (Array.isArray(parsedData)) {
-              return parsedData;
-            }
+            if (Array.isArray(parsedData)) return parsedData;
           } catch (e) {
             console.error('Erro ao carregar solicitações do cache local:', e);
           }
@@ -1172,189 +1022,35 @@
         localStorage.setItem(CONTACT_REQUESTS_CACHE_KEY, JSON.stringify(requests));
       }
 
-      function getAllDownloads() {
-        return downloadsList.length > 0 ? downloadsList : getCachedDownloads();
-      }
-
-      function getDownloadById(id) {
-        const downloads = getAllDownloads();
-        return downloads.find(d => String(d.id) === String(id));
-      }
-
       function hasSupabaseApi() {
         return !!(window.supabaseApi);
       }
 
-      async function requestContactRequests(method, payload = null) {
-        if (hasSupabaseApi()) {
-          const api = window.supabaseApi;
-          const upper = String(method || 'GET').toUpperCase();
-          if (upper === 'GET') {
-            return { requests: await api.listContactRequests() };
-          }
-          if (upper === 'POST') {
-            const created = await api.createContactRequest((payload && payload.request) || payload || {});
-            const requests = await api.listContactRequests();
-            return { request: created, requests };
-          }
-          if (upper === 'DELETE') {
-            await api.deleteContactRequest(payload && payload.id);
-            return { requests: await api.listContactRequests() };
-          }
-        }
-
-        const requestOptions = {
-          method,
-          headers: payload ? { 'Content-Type': 'application/json' } : undefined,
-          body: payload ? JSON.stringify(payload) : undefined,
-          keepalive: method !== 'GET',
-        };
-
-        for (const endpoint of CONTACT_REQUESTS_API_ENDPOINTS) {
-          try {
-            const response = await fetch(endpoint, requestOptions);
-            if (!response.ok) continue;
-            return await response.json();
-          } catch (error) {
-            console.warn(`Falha ao acessar ${endpoint}:`, error);
-          }
-        }
-
-        throw new Error('Nenhum endpoint de solicitações respondeu com sucesso.');
-      }
-
-      async function requestDownloads(method, payload = null) {
-        if (hasSupabaseApi()) {
-          const api = window.supabaseApi;
-          const upper = String(method || 'GET').toUpperCase();
-          if (upper === 'GET') {
-            return { downloads: await api.listDownloads() };
-          }
-          if (upper === 'POST') {
-            const action = payload && payload.action;
-            if (action === 'increment') {
-              await api.incrementDownload(payload.id);
-              return { downloads: await api.listDownloads() };
-            }
-            if (action === 'reset') {
-              return { downloads: await api.listDownloads() };
-            }
-            const created = await api.createDownload((payload && payload.download) || payload || {});
-            const downloads = await api.listDownloads();
-            return { download: created, downloads };
-          }
-          if (upper === 'PUT') {
-            await api.updateDownload(payload.id, payload.updatedData || {});
-            return { downloads: await api.listDownloads() };
-          }
-          if (upper === 'DELETE') {
-            await api.deleteDownload(payload && payload.id);
-            return { downloads: await api.listDownloads() };
-          }
-        }
-
-        const requestOptions = {
-          method,
-          headers: payload ? { 'Content-Type': 'application/json' } : undefined,
-          body: payload ? JSON.stringify(payload) : undefined,
-          keepalive: method !== 'GET',
-        };
-
-        for (const endpoint of DOWNLOADS_API_ENDPOINTS) {
-          try {
-            const response = await fetch(endpoint, requestOptions);
-            if (!response.ok) continue;
-            return await response.json();
-          } catch (error) {
-            console.warn(`Falha ao acessar ${endpoint}:`, error);
-          }
-        }
-
-        throw new Error('Nenhum endpoint de downloads respondeu com sucesso.');
-      }
-
-      function normalizeDownloadList(data) {
-        if (Array.isArray(data)) return data;
-        if (data && Array.isArray(data.downloads)) return data.downloads;
-        if (data && data.download) return [data.download];
-        return [];
-      }
-
-      function normalizeContactRequestList(data) {
-        if (Array.isArray(data)) return data;
-        if (data && Array.isArray(data.requests)) return data.requests;
-        if (data && data.request) return [data.request];
-        return [];
-      }
-
-      async function loadDownloadsFromSource() {
-        try {
-          const remoteData = await requestDownloads('GET');
-          const normalizedDownloads = normalizeDownloadList(remoteData);
-          downloadsList = normalizedDownloads.length > 0 ? normalizedDownloads : DOWNLOADS_DATABASE;
-          saveCachedDownloads(downloadsList);
-        } catch (error) {
-          console.warn('Usando cache local de downloads:', error);
-          downloadsList = getCachedDownloads();
-        }
-
-        updateAdminPanelSecs();
-        renderDownloads();
-        return downloadsList;
-      }
-
-      async function loadContactRequestsFromSource() {
-        try {
-          const remoteData = await requestContactRequests('GET');
-          const normalizedRequests = normalizeContactRequestList(remoteData);
-          contactRequestsList = normalizedRequests;
-          saveCachedContactRequests(contactRequestsList);
-        } catch (error) {
-          console.warn('Usando cache local de solicitações:', error);
-          contactRequestsList = getCachedContactRequests();
-        }
-
-        renderContactRequests();
-        return contactRequestsList;
-      }
-
-      async function addDownload(download) {
-        const response = await requestDownloads('POST', { action: 'create', download });
-        const updatedDownloads = normalizeDownloadList(response);
-        downloadsList = updatedDownloads.length > 0 ? updatedDownloads : getCachedDownloads();
-        saveCachedDownloads(downloadsList);
-        if (response && response.download) {
-          return response.download;
-        }
-        return downloadsList[0] || null;
-      }
-
-      async function updateDownload(id, updatedData) {
-        const response = await requestDownloads('PUT', { id, updatedData });
-        const updatedDownloads = normalizeDownloadList(response);
-        downloadsList = updatedDownloads.length > 0 ? updatedDownloads : getCachedDownloads();
-        saveCachedDownloads(downloadsList);
-        return downloadsList.find(d => String(d.id) === String(id)) || null;
-      }
-
-      async function deleteDownload(id) {
-        const response = await requestDownloads('DELETE', { id });
-        const updatedDownloads = normalizeDownloadList(response);
-        downloadsList = updatedDownloads.length > 0 ? updatedDownloads : getCachedDownloads();
-        saveCachedDownloads(downloadsList);
-        return true;
-      }
-
       async function addContactRequest(request) {
         try {
-          const response = await requestContactRequests('POST', { request });
-          const updatedRequests = normalizeContactRequestList(response);
-          contactRequestsList = updatedRequests;
-          saveCachedContactRequests(contactRequestsList);
-          if (response && response.request) {
-            return response.request;
+          if (hasSupabaseApi()) {
+            return await window.supabaseApi.createContactRequest(request || {});
           }
-          return contactRequestsList[0] || null;
+
+          const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ request }),
+            keepalive: true,
+          };
+
+          for (const endpoint of CONTACT_REQUESTS_API_ENDPOINTS) {
+            try {
+              const response = await fetch(endpoint, requestOptions);
+              if (!response.ok) continue;
+              const data = await response.json();
+              return (data && data.request) || data;
+            } catch (error) {
+              console.warn(`Falha ao acessar ${endpoint}:`, error);
+            }
+          }
+
+          throw new Error('Nenhum endpoint de solicitações respondeu com sucesso.');
         } catch (error) {
           console.warn('Salvando solicitação no cache local:', error);
           const localRequest = {
@@ -1368,42 +1064,13 @@
             status: 'new',
             createdAt: new Date().toISOString(),
           };
-          contactRequestsList = [localRequest].concat(getCachedContactRequests());
-          saveCachedContactRequests(contactRequestsList);
+          const cached = [localRequest].concat(getCachedContactRequests());
+          saveCachedContactRequests(cached);
           return localRequest;
         }
       }
 
-      async function deleteContactRequest(id) {
-        const response = await requestContactRequests('DELETE', { id });
-        const updatedRequests = normalizeContactRequestList(response);
-        contactRequestsList = updatedRequests;
-        saveCachedContactRequests(contactRequestsList);
-        return true;
-      }
-
-      async function incrementDownloadCount(id) {
-        try {
-          const response = await requestDownloads('POST', { action: 'increment', id });
-          const updatedDownloads = normalizeDownloadList(response);
-          downloadsList = updatedDownloads.length > 0 ? updatedDownloads : downloadsList;
-          saveCachedDownloads(downloadsList);
-        } catch (error) {
-          console.warn('Não foi possível incrementar o contador de download:', error);
-        }
-      }
-
-      // Expose globally
-      window.DOWNLOADS_DATABASE = DOWNLOADS_DATABASE;
-      window.getAllDownloads = getAllDownloads;
-      window.saveDownloads = saveDownloads;
-      window.getDownloadById = getDownloadById;
-      window.addDownload = addDownload;
-      window.updateDownload = updateDownload;
-      window.deleteDownload = deleteDownload;
-      window.incrementDownloadCount = incrementDownloadCount;
       window.addContactRequest = addContactRequest;
-      window.deleteContactRequest = deleteContactRequest;
 
       // Initialize Lucide Icons in the browser DOM
       if (window.lucide && typeof lucide.createIcons === 'function') {
@@ -1603,7 +1270,6 @@
               message: messageVal,
               attachment_urls: attachmentUrls,
             });
-            await loadContactRequests();
           } catch (persistError) {
             console.warn('Persistência secundária falhou; WhatsApp segue:', persistError);
           }
@@ -1638,301 +1304,12 @@
         }
       });
 
-      // ----------------------------------------------------
-      // DOWNLOADS LIBRARY MODULE (Persisted in localStorage)
-      // ----------------------------------------------------
-      
-      let downloadsList = [];
-      let contactRequestsList = [];
-
-      // Admin CRUD moved to admin.html (Supabase Auth). Public page is read-only.
-      function updateAdminPanelSecs() { /* no-op: dedicated admin.html */ }
-      window.openAdminPanelDirectly = function () {
-        window.location.href = 'admin.html';
-      };
-
-      async function loadDownloads() {
-        try {
-          await loadDownloadsFromSource();
-        } catch (e) {
-          console.error("Erro ao carregar downloads:", e);
-          downloadsList = getCachedDownloads();
-          updateAdminPanelSecs();
-          renderDownloads();
-        }
-      }
-
-      async function loadContactRequests() {
-        try {
-          await loadContactRequestsFromSource();
-        } catch (e) {
-          console.error("Erro ao carregar solicitações:", e);
-          contactRequestsList = getCachedContactRequests();
-          renderContactRequests();
-        }
-      }
-
-      function renderDownloads(customList) {
-        const grid = document.getElementById('downloads-grid');
-        if (!grid) return;
-
-        const listToRender = customList || downloadsList;
-
-        if (listToRender.length === 0) {
-          grid.innerHTML = `
-            <div class="col-span-full bg-white border border-dashed border-slate-350 rounded-sm p-12 text-center text-slate-500 w-full flex flex-col items-center justify-center">
-              <i data-lucide="folder-open" class="h-10 w-10 text-slate-350 mx-auto mb-3"></i>
-              <p class="font-display font-black text-sm text-slate-700 uppercase">Nenhum download correspondente</p>
-              <p class="text-xs text-slate-400 mt-1">Tente pesquisar por outros termos ou limpar os filtros.</p>
-            </div>
-          `;
-          lucide.createIcons();
-          return;
-        }
-
-        grid.innerHTML = listToRender.map(item => {
-          const fileType = item.type ? item.type.toUpperCase() : 'PDF';
-          
-          let badgeClass = 'bg-slate-100 text-slate-800';
-          if (item.type === 'pdf') badgeClass = 'bg-red-50 text-red-700 border border-red-100';
-          else if (item.type === 'xls' || item.type === 'xlsx') badgeClass = 'bg-emerald-50 text-emerald-700 border border-emerald-100';
-          else if (item.type === 'doc' || item.type === 'docx') badgeClass = 'bg-blue-50 text-blue-700 border border-blue-100';
-          else if (item.type === 'zip' || item.type === 'rar') badgeClass = 'bg-amber-50 text-[#FF8C00] border border-amber-100';
-
-          return `
-          <div class="bg-white border border-slate-200/90 rounded-sm p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group relative border-l-4 border-l-[#FF8C00]">
-            <div class="space-y-4">
-              <!-- Header Row -->
-              <div class="flex items-start justify-between gap-4">
-                <div class="bg-[#003366]/5 text-[#003366] group-hover:bg-[#FF8C00] group-hover:text-white p-3 rounded-sm transition-colors duration-300">
-                  <i data-lucide="file-text" class="h-6 w-6"></i>
-                </div>
-                
-                <div class="flex items-center gap-1.5">
-                  <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-sm uppercase ${badgeClass}">
-                    ${fileType}
-                  </span>
-                </div>
-              </div>
-
-              <!-- Content details -->
-              <div class="space-y-1">
-                <h3 class="font-display font-medium text-[#003366] text-sm group-hover:text-[#FF8C00] transition-colors leading-snug uppercase tracking-tight">
-                  ${escapeHtml(item.name)}
-                </h3>
-                <p class="text-slate-600 text-xs leading-relaxed font-light">
-                  ${escapeHtml(item.description || item.desc)}
-                </p>
-              </div>
-            </div>
-
-            <!-- Footer download button inside card -->
-            <div class="border-t border-slate-100 mt-6 pt-4 flex items-center justify-between gap-2">
-              <span class="text-[10px] font-mono text-slate-400 font-light flex items-center gap-1 shrink-0">
-                <i data-lucide="database" class="h-3 w-3"></i>
-                ${item.size || 'N/A'}
-              </span>
-              <a 
-                href="${sanitizeUrl(item.url)}" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                onclick="incrementDownloadCount(${item.id})"
-                class="bg-slate-50 hover:bg-[#FF8C00] text-slate-700 hover:text-white transition-all text-[11px] font-bold uppercase tracking-wider h-10 px-4 rounded-sm flex items-center justify-center gap-2 cursor-pointer border border-slate-200 hover:border-transparent no-underline flex-1"
-              >
-                <i data-lucide="download" class="h-3.5 w-3.5"></i>
-                <span>Download</span>
-              </a>
-            </div>
-          </div>
-          `;
-        }).join('');
-
-        lucide.createIcons();
-      }
-
-      function formatContactRequestDate(value) {
-        if (!value) return 'Data não informada';
-
-        try {
-          return new Intl.DateTimeFormat('pt-BR', {
-            dateStyle: 'short',
-            timeStyle: 'short',
-          }).format(new Date(value));
-        } catch {
-          return value;
-        }
-      }
-
-      function updateContactRequestsSummary() {
-        const badge = document.getElementById('admin-requests-count');
-        if (!badge) return;
-        badge.textContent = String(contactRequestsList.length);
-      }
-
-      function formatWhatsAppDigits(phone) {
-        return String(phone || '').replace(/\D/g, '');
-      }
-
-      async function copyContactRequestValue(value, label = 'Valor copiado') {
-        const text = String(value || '').trim();
-        if (!text) {
-          showCustomAlert('Dados indisponíveis', 'Não há conteúdo para copiar neste campo.');
-          return;
-        }
-
-        try {
-          if (navigator.clipboard?.writeText) {
-            await navigator.clipboard.writeText(text);
-          } else {
-            const tempInput = document.createElement('textarea');
-            tempInput.value = text;
-            tempInput.setAttribute('readonly', 'true');
-            tempInput.style.position = 'fixed';
-            tempInput.style.opacity = '0';
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            tempInput.remove();
-          }
-          showCustomAlert('Copiado', `${label} para a área de transferência.`);
-        } catch (error) {
-          console.error('Falha ao copiar contato:', error);
-          showCustomAlert('Falha ao copiar', 'O navegador bloqueou a cópia automática.');
-        }
-      }
-
-      function openContactRequestWhatsApp(name, phone, message) {
-        const digits = formatWhatsAppDigits(phone);
-        if (!digits) {
-          showCustomAlert('Telefone ausente', 'Esta solicitação não possui telefone válido.');
-          return;
-        }
-
-        const text = [
-          `Olá, ${name || 'cliente'}!`,
-          'Recebemos sua solicitação pelo site e retornamos o contato.',
-          message ? `Mensagem: ${message}` : null,
-        ].filter(Boolean).join('\n\n');
-
-        window.open(`https://wa.me/${digits}?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
-      }
-
-      function renderContactRequests() {
-        const container = document.getElementById('admin-requests-list');
-        if (!container) return;
-
-        updateContactRequestsSummary();
-
-        const requestsToRender = [...contactRequestsList].sort((left, right) => {
-          const leftTime = new Date(left?.createdAt || 0).getTime();
-          const rightTime = new Date(right?.createdAt || 0).getTime();
-          return rightTime - leftTime;
-        });
-
-        if (requestsToRender.length === 0) {
-          container.innerHTML = `
-            <div class="py-6 text-center text-slate-400 text-xs font-mono">
-              Nenhuma solicitação recebida.
-            </div>
-          `;
-          lucide.createIcons();
-          return;
-        }
-
-        container.innerHTML = requestsToRender.map((request) => `
-          <div class="bg-slate-50 border border-slate-200 rounded-sm p-4 sm:p-5 space-y-4 shadow-sm">
-            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-              <div class="space-y-1 min-w-0">
-                <p class="text-[11px] font-black text-[#003366] uppercase tracking-wider truncate">${escapeHtml(request.name || 'Sem nome')}</p>
-                <p class="text-[10px] font-mono text-slate-500 uppercase tracking-widest">${escapeHtml(request.service || 'Sem serviço')}</p>
-              </div>
-              <div class="flex items-center gap-2 flex-wrap">
-                <span class="text-[9px] font-mono font-bold px-2 py-1 rounded-sm uppercase bg-amber-50 text-[#FF8C00] border border-amber-100">
-                  ${escapeHtml(request.status || 'new')}
-                </span>
-                <button
-                  type="button"
-                  onclick="confirmDeleteContactRequest('${request.id}')"
-                  title="Remover solicitação"
-                  class="text-slate-400 hover:text-red-650 hover:bg-red-50 p-2 rounded-sm transition-all focus:outline-none cursor-pointer border-none bg-transparent"
-                >
-                  <i data-lucide="trash-2" class="h-4 w-4"></i>
-                </button>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <p class="text-slate-700"><span class="font-bold text-slate-500 uppercase tracking-wider text-[10px] block">Telefone</span>${escapeHtml(request.phone || '—')}</p>
-              <p class="text-slate-700"><span class="font-bold text-slate-500 uppercase tracking-wider text-[10px] block">E-mail</span>${escapeHtml(request.email || '—')}</p>
-            </div>
-
-            <div class="space-y-1">
-              <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Mensagem</p>
-              <p class="text-sm text-slate-700 leading-relaxed whitespace-pre-line">${escapeHtml(request.message || '—')}</p>
-            </div>
-
-            <div class="flex flex-wrap gap-2">
-              <button
-                type="button"
-                onclick='copyContactRequestValue(${JSON.stringify(request.phone || '')}, "Telefone copiado")'
-                class="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest px-3 py-2 rounded-sm border border-slate-200 text-slate-600 hover:border-[#FF8C00]/30 hover:text-[#003366] hover:bg-white transition-colors"
-              >
-                <i data-lucide="copy" class="h-3.5 w-3.5"></i>
-                <span>Copiar telefone</span>
-              </button>
-              <button
-                type="button"
-                onclick='copyContactRequestValue(${JSON.stringify(request.email || '')}, "E-mail copiado")'
-                class="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest px-3 py-2 rounded-sm border border-slate-200 text-slate-600 hover:border-[#FF8C00]/30 hover:text-[#003366] hover:bg-white transition-colors"
-              >
-                <i data-lucide="mail" class="h-3.5 w-3.5"></i>
-                <span>Copiar e-mail</span>
-              </button>
-              <button
-                type="button"
-                onclick='openContactRequestWhatsApp(${JSON.stringify(request.name || 'Cliente')}, ${JSON.stringify(request.phone || '')}, ${JSON.stringify(request.message || '')})'
-                class="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest px-3 py-2 rounded-sm border border-[#FF8C00]/20 text-[#FF8C00] hover:bg-[#FF8C00]/10 transition-colors"
-              >
-                <i data-lucide="message-circle" class="h-3.5 w-3.5"></i>
-                <span>Abrir WhatsApp</span>
-              </button>
-            </div>
-
-            <div class="flex items-center justify-between gap-3 text-[10px] font-mono text-slate-400 uppercase tracking-wider">
-              <span>ID #${escapeHtml(String(request.id ?? '—'))}</span>
-              <span>${escapeHtml(formatContactRequestDate(request.createdAt))}</span>
-            </div>
-          </div>
-        `).join('');
-
-        lucide.createIcons();
-      }
-
-      // Combined custom search filter of downloaded files
-      window.filterDownloads = function() {
-        const query = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
-        const formatFilter = document.getElementById('type-filter')?.value || 'all';
-        
-        const filtered = downloadsList.filter(item => {
-          const nameMatch = (item.name || '').toLowerCase().includes(query);
-          const descMatch = (item.description || item.desc || '').toLowerCase().includes(query);
-          const matchesQuery = nameMatch || descMatch;
-          
-          const matchesFormat = formatFilter === 'all' || (item.type || '').toLowerCase() === formatFilter.toLowerCase();
-          
-          return matchesQuery && matchesFormat;
-        });
-        
-        renderDownloads(filtered);
-      }
-
-      // Diálogos personalizados robustos para compatibilidade com o iframe do navegador
+      // Diálogos personalizados
       function showCustomAlert(title, message) {
         const modal = document.getElementById('custom-alert-container');
         const titleEl = document.getElementById('custom-alert-title');
         const msgEl = document.getElementById('custom-alert-message');
         if (!modal || !titleEl || !msgEl) return;
-        
         titleEl.textContent = title;
         msgEl.textContent = message;
         modal.classList.remove('hidden');
@@ -1943,89 +1320,9 @@
         document.getElementById('custom-alert-container')?.classList.add('hidden');
       });
 
-      let confirmCallback = null;
-      function showCustomConfirm(title, message, okText = "Confirmar", callback = null) {
-        const modal = document.getElementById('custom-confirm-container');
-        const titleEl = document.getElementById('custom-confirm-title');
-        const msgEl = document.getElementById('custom-confirm-message');
-        const okBtn = document.getElementById('custom-confirm-ok-btn');
-        
-        if (!modal || !titleEl || !msgEl || !okBtn) return;
-
-        titleEl.textContent = title;
-        msgEl.textContent = message;
-        okBtn.textContent = okText;
-        confirmCallback = callback;
-        modal.classList.remove('hidden');
-        lucide.createIcons();
-      }
-
-      document.getElementById('custom-confirm-cancel-btn')?.addEventListener('click', () => {
-        document.getElementById('custom-confirm-container')?.classList.add('hidden');
-        confirmCallback = null;
-      });
-
-      document.getElementById('custom-confirm-ok-btn')?.addEventListener('click', () => {
-        document.getElementById('custom-confirm-container')?.classList.add('hidden');
-        if (confirmCallback) {
-          confirmCallback();
-          confirmCallback = null;
-        }
-      });
-
-      function escapeHtml(str) {
-        if (!str) return '';
-        return str
-          .replace(/&/g, "&")
-          .replace(/</g, "<")
-          .replace(/>/g, ">")
-          .replace(/"/g, """)
-          .replace(/'/g, "'");
-      }
-
-      function sanitizeUrl(url) {
-        const trimmedUrl = (url || '').trim();
-        if (!trimmedUrl) return '#';
-
-        try {
-          const parsedUrl = new URL(trimmedUrl, window.location.origin);
-          const allowedProtocols = ['http:', 'https:', 'mailto:', 'tel:'];
-          return allowedProtocols.includes(parsedUrl.protocol) ? trimmedUrl : '#';
-        } catch {
-          return '#';
-        }
-      }
-
-      // Admin mutations live in admin.html (Supabase Auth). Clear legacy fake session flag.
+      // Downloads / admin: only after login at admin.html
       try { sessionStorage.removeItem('adminLoggedIn'); sessionStorage.removeItem('adminEmail'); } catch (e) {}
-
-      // Real-time synchronization when database changes in another window/tab
-      window.addEventListener('storage', (e) => {
-        if (e.key === DOWNLOADS_CACHE_KEY) {
-          void loadDownloads();
-        }
-        if (e.key === CONTACT_REQUESTS_CACHE_KEY) {
-          void loadContactRequests();
-        }
-      });
-
-      window.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'visible') {
-          void loadDownloads();
-          void loadContactRequests();
-        }
-      });
-
-      setInterval(() => {
-        void loadDownloads();
-        void loadContactRequests();
-      }, 15000);
-
-      // Bootstrap Downloads list
-      renderDownloads();
-      renderContactRequests();
-      void loadDownloads();
-      void loadContactRequests();
+      try { localStorage.removeItem('downloads'); } catch (e) {}
     </script>
 
 </body></html>
