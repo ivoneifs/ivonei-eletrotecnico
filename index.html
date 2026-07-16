@@ -1,0 +1,2261 @@
+<!DOCTYPE html><html lang="pt-BR" class="scroll-smooth"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ivonei Ferreira, especialista tecnico em eletrica e automacao. Projetos, instalacoes, laudos e atendimento em Irece e regiao.">
+    <link rel="canonical" href="https://ivonei-eletrotecnico.netlify.app/">
+    <title>Ivonei Ferreira | Especialista Técnico em Elétrica e Automação</title>
+    
+    <!-- Google Fonts Connectivity -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;850&family=JetBrains+Mono:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (Play CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              slate: {
+                105: '#f1f5f9',
+                250: '#e2e8f0',
+                350: '#cbd5e1',
+                650: '#475569',
+                805: '#1e293b',
+              },
+              brand: {
+                orange: '#FF8C00',
+                darkBlue: '#003366',
+              }
+            },
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+              mono: ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "monospace"],
+              display: ["Space Grotesk", "ui-sans-serif", "sans-serif"]
+            }
+          }
+        }
+      }
+    </script>
+    
+    <!-- Lucide Icons (Browser CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom Style Rules -->
+    <style>
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .animate-fadeIn {
+        animation: fadeIn 0.4s ease-out forwards;
+      }
+      
+      /* Active state animations and custom classes */
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .font-display {
+        font-family: 'Space Grotesk', sans-serif;
+      }
+      .font-mono {
+        font-family: 'JetBrains Mono', monospace;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex flex-col font-sans bg-slate-50 selection:bg-[#FF8C00] selection:text-white text-slate-900" id="inicio">
+
+    <!-- 1. HEADER (Cabeçalho) -->
+    <header class="sticky top-0 z-40 bg-[#003366] text-white border-b-4 border-[#FF8C00] shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          
+          <!-- Logo -->
+          <a href="#inicio" class="flex items-center cursor-pointer no-underline transition-transform hover:scale-105">
+            <div>
+              <span class="font-display font-black text-lg sm:text-xl tracking-tight leading-tight uppercase block text-white">
+                Ivonei Ferreira
+              </span>
+              <span class="text-[#FF8C00] font-mono text-[10px] sm:text-xs tracking-wider font-semibold block -mt-0.5 uppercase">
+                Especialista Técnico em Elétrica e Automação
+              </span>
+            </div>
+          </a>
+
+          <!-- Desktop Navigation -->
+          <nav class="hidden lg:flex space-x-8 text-xs font-semibold uppercase tracking-wider">
+            <a href="#inicio" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
+              Início
+            </a>
+            <a href="#sobre" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
+              Sobre Nós
+            </a>
+            <a href="#servicos" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
+              Serviços
+            </a>
+            <a href="#diferenciais" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
+              Diferenciais
+            </a>
+            <a href="#downloads" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline font-semibold text-[#FF8C00]">
+              Downloads
+            </a>
+            <a href="#contato" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
+              Contato
+            </a>
+          </nav>
+
+          <!-- Desktop Action Button -->
+          <div class="hidden lg:block">
+            <a href="#contato" class="bg-[#FF8C00] text-white px-5 py-2.5 rounded-sm font-bold text-xs uppercase tracking-widest shadow-lg hover:bg-[#e07b00] transition-all duration-300 inline-block no-underline">
+              Solicitar Orçamento
+            </a>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <div class="lg:hidden">
+            <button id="mobile-menu-btn" class="p-2 rounded-sm hover:bg-[#002244] transition-colors text-white focus:outline-none" aria-label="Toggle Menu">
+              <i data-lucide="menu" id="menu-icon" class="h-6 w-6"></i>
+              <i data-lucide="x" id="close-icon" class="h-6 w-6 hidden"></i>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Mobile Navigation Panel -->
+      <div id="mobile-menu" class="hidden lg:hidden bg-[#002244] border-t border-slate-800 py-4 px-6 space-y-3 shadow-inner">
+        <a href="#inicio" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
+          Início
+        </a>
+        <a href="#sobre" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
+          Sobre Nós
+        </a>
+        <a href="#servicos" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
+          Serviços
+        </a>
+        <a href="#diferenciais" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
+          Diferenciais
+        </a>
+        <a href="#downloads" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
+          Downloads
+        </a>
+        <a href="#contato" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
+          Contato
+        </a>
+        <div class="pt-2">
+          <a href="#contato" class="w-full bg-[#FF8C00] text-white hover:bg-[#e07b00] text-center block py-2.5 rounded-sm font-bold text-xs uppercase tracking-widest shadow-lg no-underline">
+            Solicitar Orçamento
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- 2. HERO SECTION -->
+    <section class="relative min-h-[85vh] flex items-center bg-[#001f3f] text-white overflow-hidden">
+      <!-- Background Image Overlay -->
+      <div class="absolute inset-0 z-0">
+        <img src="images/ivonei-sistema-solar.png" alt="Ivonei O Eletrotécnico — Sistema solar fotovoltaico" class="w-full h-full object-cover object-left opacity-40">
+        <div class="absolute inset-0 bg-gradient-to-r from-[#002244]/95 via-[#001f3f]/90 to-[#001f3f]/55"></div>
+      </div>
+
+      <!-- Hero Content -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 relative z-10 w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14 items-center">
+          
+          <div class="lg:col-span-7 space-y-6 lg:pr-4">
+            <!-- Badge -->
+            <div class="inline-flex items-center space-x-2 bg-[#FF8C00]/20 border border-[#FF8C00]/30 px-3 py-1.5 rounded-sm text-[#FF8C00] text-xs uppercase tracking-wider font-mono font-bold animate-pulse">
+              <i data-lucide="shield" class="h-4 w-4"></i>
+              <span>Normas NBR 5410 & NR-10 Respeitadas</span>
+            </div>
+            
+            <h1 class="font-display font-black text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight leading-tight uppercase">
+              Segurança e Serviços Técnicos de Ponta para o seu <span class="text-[#FF8C00]">Projeto Elétrico</span>
+            </h1>
+            
+            <p class="text-blue-100 text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed font-light">
+              Soluções integradas com rigor técnico para residências, condomínios, construtoras e indústrias na região de <strong class="text-white font-medium">Irecê e arredores</strong>. Projetos elétricos com garantia extrema e conformidade integral com as normas regulamentadoras.
+            </p>
+
+            <div class="pt-4 flex flex-col sm:flex-row gap-4">
+              <!-- Primary Button - WhatsApp CTA -->
+              <button onclick="handleWhatsAppRedirect()" class="bg-[#FF8C00] hover:bg-[#e07b00] text-white px-8 py-4 rounded-sm font-bold text-sm uppercase tracking-wider transition-all duration-300 hover:shadow-lg shadow-[#FF8C00]/20 flex items-center justify-center space-x-3 cursor-pointer group italic focus:outline-none w-full sm:w-auto">
+                <i data-lucide="phone" class="h-5 w-5 text-white"></i>
+                <span>Falar no WhatsApp: (74) 98825-9925</span>
+                <i data-lucide="arrow-right" class="h-4 w-4 transform transition-transform group-hover:translate-x-1"></i>
+              </button>
+
+              <a href="#servicos" class="bg-transparent border-2 border-slate-500 hover:border-white text-slate-300 hover:text-white px-8 py-4 rounded-sm font-bold text-sm tracking-wider uppercase transition-all duration-300 flex items-center justify-center cursor-pointer no-underline w-full sm:w-auto">
+                Conhecer Serviços
+              </a>
+            </div>
+
+            <!-- Quick Info Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-8 border-t border-slate-800">
+              <div class="flex items-center space-x-2">
+                <i data-lucide="check-circle" class="h-5 w-5 text-[#FF8C00]"></i>
+                <span class="text-slate-350 text-xs font-mono uppercase tracking-wider font-semibold">Garantia Total</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <i data-lucide="check-circle" class="h-5 w-5 text-[#FF8C00]"></i>
+                <span class="text-slate-350 text-xs font-mono uppercase tracking-wider font-semibold">Escopo Credenciado</span>
+              </div>
+              <div class="flex items-center space-x-2 col-span-2 sm:col-span-1">
+                <i data-lucide="check-circle" class="h-5 w-5 text-[#FF8C00]"></i>
+                <span class="text-slate-350 text-xs font-mono uppercase tracking-wider font-semibold">Irecê e Região</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flyer image -->
+          <div class="lg:col-span-5">
+            <div class="rounded-sm overflow-hidden border-l-4 border-[#FF8C00] border-t border-r border-b border-slate-800 shadow-2xl bg-black">
+              <img src="images/ivonei-sistema-solar.png" alt="Ivonei O Eletrotécnico — Instalação elétrica e sistema solar com qualidade" class="w-full h-auto object-cover object-top max-h-[70vh]">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. SOBRE NÓS -->
+    <section class="py-20 sm:py-28 bg-white text-slate-900 scroll-mt-20" id="sobre">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Visual Column / Badge boxes -->
+          <div class="lg:col-span-5 relative lg:sticky lg:top-24">
+            <div class="absolute top-0 left-0 w-24 h-24 bg-[#FF8C00]/10 rounded-sm -z-10"></div>
+            <div class="absolute bottom-0 right-0 w-32 h-32 bg-[#003366]/5 rounded-sm -z-10"></div>
+            
+            <div class="bg-[#003366] text-white p-6 sm:p-8 rounded-sm shadow-xl border-l-4 border-[#FF8C00] relative overflow-hidden">
+              <div class="absolute top-0 right-0 transform translate-x-8 -translate-y-8 opacity-10">
+                <i data-lucide="zap" class="h-64 w-64 text-white"></i>
+              </div>
+              
+              <h4 class="font-display font-black uppercase text-xl mb-4 border-b border-slate-705 pb-3 tracking-wider">
+                Compromisso Técnico
+              </h4>
+              <p class="text-slate-300 text-sm leading-relaxed font-light mb-6">
+                Atuamos sob a chancela das principais regulamentações elétricas do país. Cada detalhe da fiação, disjuntores e projeto elétrico é exaustivamente calibrado para evitar sobrecarga e riscos de incêndio.
+              </p>
+
+              <div class="space-y-4">
+                <div class="flex items-center space-x-3 bg-slate-900/40 p-3 rounded-sm border-l-2 border-[#FF8C00] border-t border-r border-b border-slate-800">
+                  <i data-lucide="shield" class="h-5 w-5 text-[#FF8C00] shrink-0"></i>
+                  <div>
+                    <p class="text-sm font-semibold text-white">NBR 5410</p>
+                    <p class="text-xs text-slate-400 font-mono uppercase">Instalações Baixa Tensão</p>
+                  </div>
+                </div>
+
+                <div class="flex items-center space-x-3 bg-slate-900/40 p-3 rounded-sm border-l-2 border-[#FF8C00] border-t border-r border-b border-slate-800">
+                  <i data-lucide="hard-hat" class="h-5 w-5 text-[#FF8C00] shrink-0"></i>
+                  <div>
+                    <p class="text-sm font-semibold text-white">Norma NR-10</p>
+                    <p class="text-xs text-slate-400 font-mono uppercase">Segurança e Serviços</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Floating Stamp Card -->
+            <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-sm shadow-lg border-l-4 border-[#003366] border-t border-r border-b border-slate-100 flex items-center space-x-3 hidden sm:flex">
+              <div class="bg-[#FF8C00]/10 p-2.5 rounded-sm text-[#FF8C00]">
+                <i data-lucide="check" class="h-5 w-5 stroke-[3] text-[#FF8C00]"></i>
+              </div>
+              <div>
+                <p class="text-[10px] text-slate-500 uppercase font-mono tracking-widest font-black">CRT Emitido</p>
+                <p class="text-xs font-bold text-slate-800">Garantia Técnico Total</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Text Copy Column -->
+          <div class="lg:col-span-7 space-y-6 lg:pl-4">
+            <span class="text-[#FF8C00] font-mono text-xs tracking-widest font-black uppercase block">
+              Sobre Ivonei Ferreira
+            </span>
+            
+            <h2 class="font-display font-black text-3xl sm:text-4xl text-[#003366] tracking-tight uppercase leading-tight">
+              Autoridade, Rigor Técnico e Resolução Rápida de Problemas Elétricos
+            </h2>
+            
+            <p class="text-slate-650 leading-relaxed font-light text-base sm:text-lg">
+              Seja para uma residência que necessita de readequação de carga segura, um condomínio que precisa de sistemas de emergência de alta confiabilidade ou uma indústria demandando montagem complexa de painéis de comando — o trabalho de um eletrotécnico faz a diferença entre a segurança operacional e riscos fatais.
+            </p>
+
+            <p class="text-slate-650 leading-relaxed font-light text-base sm:text-lg">
+              <strong class="text-slate-900 font-semibold">Ivonei Ferreira</strong> é especialista em prover soluções que unem cumprimento exato de prazos, uso de materiais no padrão de qualidade adequado e atendimento cirúrgico na região de Irecê. Nosso foco é oferecer um processo transparente, com laudos técnicos precisos, emitindo as devidas documentações e guias de responsabilidade exigidas pelas prefeituras e concessionárias.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+              <ul class="space-y-2 text-slate-700 font-light text-sm list-none p-0">
+                <li class="flex items-center space-x-2">
+                  <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-none inline-block"></span>
+                  <span>Projetos 100% autorais e validados</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                  <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-none inline-block"></span>
+                  <span>Experiência local avançada (Irecê e região)</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                  <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-none inline-block"></span>
+                  <span>Atendimento focado em prevenção de riscos</span>
+                </li>
+              </ul>
+
+              <ul class="space-y-2 text-slate-700 font-light text-sm list-none p-0">
+                <li class="flex items-center space-x-2">
+                  <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-none inline-block"></span>
+                  <span>Montagem técnica avançada de painéis</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                  <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-none inline-block"></span>
+                  <span>Emissão de Termo de Responsabilidade</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                  <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-none inline-block"></span>
+                  <span>Compromisso absoluto com o cronograma</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="pt-6">
+              <a href="#contato" class="bg-[#003366] hover:bg-[#002244] text-white px-6 py-3.5 rounded-sm font-bold text-xs uppercase tracking-widest transition-colors inline-flex items-center space-x-2 cursor-pointer shadow-md no-underline">
+                <span>Agendar uma Visita Técnico</span>
+                <i data-lucide="arrow-right" class="h-4 w-4 text-white"></i>
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. ÁREAS DE ATUAÇÃO (SERVIÇOS) -->
+    <section class="py-20 sm:py-28 bg-slate-100 text-[#003366] scroll-mt-20" id="servicos">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <span class="text-[#FF8C00] font-mono text-xs tracking-widest font-black uppercase block">
+            Nossas Especialidades
+          </span>
+          <h2 class="font-display font-black text-3xl sm:text-4xl md:text-5xl text-[#003366] tracking-tight uppercase leading-tight">
+            Áreas de Atuação Técnica
+          </h2>
+          <p class="text-slate-655 text-base sm:text-lg font-light leading-relaxed">
+            Diferentes necessidades demandam conhecimentos técnicos rigorosos. Oferecemos quatro pilares de serviços voltados ao alto desempenho e à estabilidade da sua rede de energia.
+          </p>
+        </div>
+
+        <!-- Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          <!-- Card 1: Instalações Residenciais -->
+          <div class="bg-white rounded-sm p-6 sm:p-8 h-full shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
+            <div class="space-y-4">
+              <div class="bg-[#003366]/5 text-[#003366] group-hover:bg-[#FF8C00] group-hover:text-white p-3.5 rounded-sm w-14 h-14 flex items-center justify-center transition-colors duration-300">
+                <i data-lucide="zap" class="h-7 w-7"></i>
+              </div>
+              
+              <h3 class="font-display font-black uppercase text-xl text-[#003366] group-hover:text-[#FF8C00] transition-colors leading-snug">
+                Instalações Residenciais
+              </h3>
+              <span class="inline-block text-[#FF8C00] font-black font-mono text-[10px] uppercase tracking-wider">
+                BAIXA TENSÃO / RESIDENCIAL / PREDIAL
+              </span>
+              
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-justify">
+                Soluções completas abrangendo estruturação completa da fiação, cálculo e adequação de carga elétrica ideal, montagem e organização de quadros de distribuição, e adaptação ao padrão de entrada correto exigido pela concessionária. Seguimos à risca cada norma estabelecida pela <strong class="font-semibold text-slate-800">ABNT NBR 5410</strong> para fiação segura de baixa tensão.
+              </p>
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-justify">
+                Dentro desse serviço, algumas frentes podem ser destacadas: dimensionamento de condutores e disjuntores conforme a carga instalada, garantindo proteção contra sobrecargas e curtos-circuitos; organização e identificação de circuitos no quadro de distribuição, facilitando manutenções futuras e aumentando a segurança da instalação; adequação do padrão de entrada de energia (poste, caixa de medição e ramal de entrada) às exigências técnicas da concessionária local; e execução de todo o projeto pensando na segurança dos moradores, com aterramento adequado e proteção contra choques elétricos.
+              </p>
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-justify">
+                Como parte dessa proteção, também realizamos a instalação de <strong class="font-semibold text-slate-800">Dispositivos de Proteção contra Surtos (DPS)</strong> e <strong class="font-semibold text-slate-800">Dispositivos Diferenciais Residuais (DR)</strong>, itens essenciais para uma instalação elétrica segura e em conformidade com a NBR 5410. O DPS protege a fiação e os equipamentos contra surtos de tensão causados por descargas atmosféricas ou instabilidades na rede elétrica, enquanto o DR detecta fugas de corrente e desarma o circuito automaticamente, prevenindo riscos de choque elétrico em ambientes como banheiros, cozinhas e áreas externas. São dois dispositivos indispensáveis para garantir a segurança de pessoas e a proteção do patrimônio elétrico do imóvel.
+              </p>
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-justify">
+                Esse serviço atende tanto residências novas, em fase de construção, quanto reformas e atualizações de instalações antigas que precisam se adequar às normas técnicas atuais, elevando o padrão de segurança elétrica do imóvel.
+              </p>
+            </div>
+
+            <div class="border-t border-slate-100 pt-6 mt-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
+              <span>PADRÃO: ABNT NBR 5410</span>
+              <button onclick="handleWhatsAppRedirect('Olá Ivonei, gostaria de solicitar um orçamento para Instalações Elétricas Residenciais.')" class="text-[#003366] hover:text-[#FF8C00] hover:underline cursor-pointer flex items-center space-x-1 border-none bg-none p-0 focus:outline-none">
+                <span>Orçar via WhatsApp</span>
+                <i data-lucide="arrow-right" class="h-3 w-3"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 2: Sistemas Solares Fotovoltaicos -->
+          <div class="bg-white rounded-sm p-6 sm:p-8 h-full shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
+            <div class="space-y-4">
+              <div class="bg-[#003366]/5 text-[#003366] group-hover:bg-[#FF8C00] group-hover:text-white p-3.5 rounded-sm w-14 h-14 flex items-center justify-center transition-colors duration-300">
+                <i data-lucide="sun" class="h-7 w-7"></i>
+              </div>
+              
+              <h3 class="font-display font-black uppercase text-xl text-[#003366] group-hover:text-[#FF8C00] transition-colors leading-snug">
+                Instalações e Manutenções em Sistemas Solares Fotovoltaicos (On-Grid e Off-Grid)
+              </h3>
+              <span class="inline-block text-[#FF8C00] font-black font-mono text-[10px] uppercase tracking-wider">
+                ON-GRID / OFF-GRID / ENERGIA SOLAR
+              </span>
+              
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-justify">
+                Serviço completo de energia solar, cobrindo desde o projeto inicial até a homologação e entrega final da instalação, atendendo tanto sistemas conectados à rede elétrica (<strong class="font-semibold text-slate-800">on-grid</strong>) quanto sistemas autônomos, sem conexão com a concessionária (<strong class="font-semibold text-slate-800">off-grid</strong>).
+              </p>
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-justify">
+                Dentro desse serviço, podem ser destacadas as seguintes etapas e frentes de atuação:
+              </p>
+              <ul class="text-slate-600 text-sm leading-relaxed font-light text-justify space-y-2 list-disc pl-5">
+                <li><strong class="font-semibold text-slate-800">Projeto e dimensionamento:</strong> elaboração do projeto elétrico do sistema fotovoltaico, com dimensionamento de painéis solares, inversores, baterias (no caso de sistemas off-grid ou híbridos) e demais componentes, de acordo com o consumo energético do cliente e as normas técnicas vigentes.</li>
+                <li><strong class="font-semibold text-slate-800">Sistemas on-grid:</strong> instalação de sistemas conectados à rede elétrica, permitindo que a energia gerada seja injetada na rede da concessionária e compense o consumo através do sistema de créditos de energia, reduzindo a conta de luz.</li>
+                <li><strong class="font-semibold text-slate-800">Sistemas off-grid:</strong> instalação de sistemas autônomos e isolados da rede elétrica, incluindo banco de baterias para armazenamento de energia, indicados para locais sem acesso à rede convencional ou para quem busca independência total da concessionária.</li>
+                <li><strong class="font-semibold text-slate-800">Instalação física:</strong> montagem de painéis solares, inversores, estruturas de fixação, cabeamento, proteções elétricas e demais equipamentos necessários para o pleno funcionamento do sistema.</li>
+                <li><strong class="font-semibold text-slate-800">Homologação junto à concessionária:</strong> para sistemas on-grid, condução de todo o processo de documentação e homologação junto à Coelba, garantindo que a instalação seja regularizada e apta a operar dentro das normas exigidas.</li>
+                <li><strong class="font-semibold text-slate-800">Manutenção preventiva e corretiva:</strong> acompanhamento periódico do sistema para garantir seu bom funcionamento, incluindo limpeza de painéis, verificação de conexões, inversores e baterias, além de reparos em caso de falhas ou perda de eficiência do sistema.</li>
+              </ul>
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-justify">
+                Esse serviço substitui a atuação anterior voltada a instalações residenciais/industriais convencionais, posicionando a empresa agora como especializada em energia solar fotovoltaica, atendendo desde residências e pequenos negócios até propriedades rurais ou locais remotos que necessitem de soluções off-grid.
+              </p>
+            </div>
+
+            <div class="border-t border-slate-100 pt-6 mt-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
+              <span>ENERGIA SOLAR FOTOVOLTAICA</span>
+              <button onclick="handleWhatsAppRedirect('Olá Ivonei, gostaria de solicitar um orçamento para Sistemas Solares Fotovoltaicos (On-Grid / Off-Grid).')" class="text-[#003366] hover:text-[#FF8C00] hover:underline cursor-pointer flex items-center space-x-1 border-none bg-none p-0 focus:outline-none">
+                <span>Orçar via WhatsApp</span>
+                <i data-lucide="arrow-right" class="h-3 w-3"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 3: Instalações Industriais -->
+          <div class="bg-white rounded-sm p-6 sm:p-8 h-full shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
+            <div class="space-y-4">
+              <div class="bg-[#003366]/5 text-[#003366] group-hover:bg-[#FF8C00] group-hover:text-white p-3.5 rounded-sm w-14 h-14 flex items-center justify-center transition-colors duration-300">
+                <i data-lucide="building-2" class="h-7 w-7"></i>
+              </div>
+              
+              <h3 class="font-display font-black uppercase text-xl text-[#003366] group-hover:text-[#FF8C00] transition-colors leading-snug">
+                Instalações Industriais
+              </h3>
+              <span class="inline-block text-[#FF8C00] font-black font-mono text-[10px] uppercase tracking-wider">
+                AUTOMAÇÃO / MOTORES / PAINÉIS DE FORÇA
+              </span>
+              
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-justify">
+                Foco na produtividade e redução de paradas não programadas. Especialidade em engenharia reversa e montagem de painéis de distribuição e comando de maquinário, instalação de infraestrutura pesada de alta e baixa tensão, dimensionamento térmico e ligação profissional de motores trifásicos, além de automação industrial de base e CLP.
+              </p>
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-justify">
+                Dentro desse serviço, algumas frentes podem ser destacadas: montagem e cabeamento de painéis de força e comando, com organização técnica que facilita manutenções futuras e reduz o tempo de diagnóstico em caso de falhas; dimensionamento térmico de motores trifásicos, levando em conta corrente nominal, fator de serviço e condições de operação, evitando queimas prematuras e prolongando a vida útil dos equipamentos; instalação de infraestrutura elétrica de alta e baixa tensão, incluindo cabeamento robusto para suportar cargas industriais contínuas; e integração de sistemas de automação industrial com <strong class="font-semibold text-slate-800">CLP (Controlador Lógico Programável)</strong>, permitindo comando, monitoramento e intertravamento de processos produtivos com maior confiabilidade.
+              </p>
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-justify">
+                Realizamos também engenharia reversa em painéis e sistemas já existentes, quando não há documentação técnica disponível, remapeando circuitos e lógicas de comando para viabilizar manutenções, expansões ou modernizações do parque de máquinas.
+              </p>
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-justify">
+                Todo o trabalho é executado com foco na segurança operacional, seguindo as diretrizes da <strong class="font-semibold text-slate-800">NR-10</strong> para instalações e serviços em eletricidade, e visando minimizar paradas não programadas que impactam diretamente a produtividade da indústria.
+              </p>
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-justify">
+                Esse serviço atende indústrias de pequeno, médio e grande porte que precisam de infraestrutura elétrica robusta, confiável e preparada para operação contínua, seja em novas instalações ou em modernização de linhas de produção existentes.
+              </p>
+            </div>
+
+            <div class="border-t border-slate-100 pt-6 mt-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
+              <span>PADRÃO DE POTÊNCIA</span>
+              <button onclick="handleWhatsAppRedirect('Olá Ivonei, gostaria de solicitar um orçamento para Montagem e Instalações Elétricas Industriais.')" class="text-[#003366] hover:text-[#FF8C00] hover:underline cursor-pointer flex items-center space-x-1 border-none bg-none p-0 focus:outline-none">
+                <span>Orçar via WhatsApp</span>
+                <i data-lucide="arrow-right" class="h-3 w-3"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 4: Projetos Elétricos -->
+          <div class="bg-white rounded-sm p-6 sm:p-8 h-full shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
+            <div class="space-y-4">
+              <div class="bg-[#003366]/5 text-[#003366] group-hover:bg-[#FF8C00] group-hover:text-white p-3.5 rounded-sm w-14 h-14 flex items-center justify-center transition-colors duration-300">
+                <i data-lucide="file-text" class="h-7 w-7"></i>
+              </div>
+              
+              <h3 class="font-display font-black uppercase text-xl text-[#003366] group-hover:text-[#FF8C00] transition-colors leading-snug">
+                Projetos Elétricos e Laudos
+              </h3>
+              <span class="inline-block text-[#FF8C00] font-black font-mono text-[10px] uppercase tracking-wider">
+                CERTIFICAÇÃO CRT / ART / SEGURANÇA
+              </span>
+              
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-justify">
+                Da ideia conceitual à validação oficial. Oferecemos planejamento meticuloso em software técnico, desenho esquemático e unifilar detalhado, emissão de laudo de conformidade, perícias elétricas de queima de equipamentos, renovação de cadastro, e emissão formal de CRT/ART para regularização de obras perante os órgãos de fiscalização pública e Coelba.
+              </p>
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-justify">
+                Dentro desse serviço, algumas frentes podem ser destacadas: elaboração de projetos elétricos completos em software técnico especializado, com diagramas esquemáticos e unifilares detalhados, servindo como base tanto para a execução da obra quanto para sua futura regularização; emissão de laudos de conformidade elétrica, atestando que a instalação segue as normas técnicas vigentes e está apta para uso seguro; realização de perícias elétricas em casos de queima de equipamentos, identificando causas técnicas do sinistro, o que pode ser utilizado para fins de seguro, garantia ou processos administrativos e judiciais; e renovação de cadastros técnicos junto aos órgãos competentes, mantendo a documentação da instalação sempre atualizada.
+              </p>
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-justify">
+                Também conduzimos todo o processo de emissão formal de <strong class="font-semibold text-slate-800">CRT (Certidão de Registro de Título)</strong> e <strong class="font-semibold text-slate-800">ART (Anotação de Responsabilidade Técnica)</strong>, documentos indispensáveis para a regularização legal de obras e instalações elétricas, tanto perante órgãos públicos de fiscalização quanto junto à Coelba, garantindo que o cliente tenha respaldo técnico e jurídico sobre o trabalho executado.
+              </p>
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-justify">
+                <strong class="font-semibold text-slate-800">Ferramentas técnicas utilizadas:</strong> todos os projetos são desenvolvidos com apoio de softwares profissionais de referência no mercado, como SolidWorks, AutoCAD, Revit e AltoQi Lumine V4, garantindo precisão técnica, compatibilidade com normas de desenho de engenharia e agilidade na entrega dos projetos e documentações.
+              </p>
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-justify">
+                <strong class="font-semibold text-slate-800">Normas técnicas aplicadas:</strong> todo o trabalho segue rigorosamente as normas vigentes, incluindo a NBR 5410 (instalações elétricas de baixa tensão), NBR 14039 (instalações elétricas de média tensão), NBR 5419 (proteção contra descargas atmosféricas) e a NR-10 (segurança em instalações e serviços em eletricidade), além das exigências específicas da concessionária Coelba e dos órgãos de fiscalização pública, garantindo total conformidade legal e técnica dos projetos entregues.
+              </p>
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-justify">
+                Esse serviço é indicado tanto para quem está iniciando um projeto do zero, precisando de todo o planejamento técnico, quanto para quem já possui uma instalação executada e necessita de documentação formal para regularização, financiamento, seguro ou processos de fiscalização.
+              </p>
+            </div>
+
+            <div class="border-t border-slate-100 pt-6 mt-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
+              <span>NR10 RESPEITADA</span>
+              <button onclick="handleWhatsAppRedirect('Olá Ivonei, gostaria de conversar sobre Projetos Elétricos, Laudos ou emissão de CRT/ART.')" class="text-[#003366] hover:text-[#FF8C00] hover:underline cursor-pointer flex items-center space-x-1 border-none bg-none p-0 focus:outline-none">
+                <span>Orçar via WhatsApp</span>
+                <i data-lucide="arrow-right" class="h-3 w-3"></i>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Call and Emergency Box Highlight -->
+        <div class="mt-16 bg-[#003366] text-white rounded-sm p-8 sm:p-12 shadow-sm border-l-4 border-[#FF8C00] border-t border-r border-b border-blue-900 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
+          <div class="absolute top-0 right-0 p-8 opacity-10 font-mono text-9xl pointer-events-none select-none">
+            ⚡
+          </div>
+          
+          <div class="space-y-4 max-w-2xl relative z-10">
+            <h3 class="font-display font-black uppercase text-2xl sm:text-3xl leading-tight">
+              Seu projeto elétrico precisa de um Laudo de Conformidade Técnica?
+            </h3>
+            <p class="text-blue-100 text-sm sm:text-base font-light">
+              Evite multas e atrasos na sua obra. Ivonei Ferreira executa de forma ágil o levantamento físico e a entrega de sua documentação no padrão formal.
+            </p>
+          </div>
+          <button onclick="handleWhatsAppRedirect('Olá Ivonei, preciso de um Laudo e Certificado Técnico (CRT/ART) urgente para o meu projeto elétrico.')" class="bg-[#FF8C00] hover:bg-[#e07b00] text-white px-8 py-4 rounded-sm font-bold tracking-wider text-xs uppercase transition-all text-center block w-full md:w-auto cursor-pointer shadow-lg border-none focus:outline-none">
+            Consultar Urgência
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. DIFERENCIAIS -->
+    <section class="py-20 sm:py-28 bg-white text-slate-900 scroll-mt-20" id="diferenciais">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Left Content Header -->
+          <div class="lg:col-span-4 space-y-4">
+            <span class="text-[#FF8C00] font-mono text-xs tracking-widest font-black uppercase block">
+              Por que escolher a nossa empresa?
+            </span>
+            <h2 class="font-display font-black text-3xl sm:text-4xl text-[#003366] tracking-tight leading-tight uppercase">
+              Os Diferenciais de Ivonei Ferreira
+            </h2>
+            <p class="text-slate-650 font-light text-base leading-relaxed">
+              Tornamos as etapas elétricas a parte mais simples e segura do seu planejamento de obra ou expansão predial. Atendimento com velocidade em toda a região de Irecê.
+            </p>
+            
+            <div class="pt-4">
+              <a href="#contato" class="bg-slate-105 hover:bg-slate-200 text-[#003366] font-bold px-5 py-3.5 rounded-sm text-xs uppercase tracking-widest flex items-center space-x-2 transition-colors cursor-pointer border border-slate-200 shadow-sm inline-flex no-underline">
+                <span>Solicitar Atendimento</span>
+                <i data-lucide="arrow-right" class="h-4 w-4 text-[#003366]"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Pillars Details -->
+          <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
+            
+            <!-- Pillar 1 -->
+            <div class="bg-slate-55 border-l-4 border-[#003366] border-t border-r border-b border-slate-250 p-6 rounded-sm space-y-4 hover:border-[#FF8C00]/30 transition-all shadow-sm">
+              <div class="bg-[#FF8C00]/10 p-3 rounded-sm w-12 h-12 flex items-center justify-center text-[#FF8C00]">
+                <i data-lucide="clock" class="h-6 w-6 text-[#FF8C00]"></i>
+              </div>
+              <h3 class="font-display font-black text-sm uppercase tracking-wider text-[#003366]">
+                Atendimento Rápido em Irecê
+              </h3>
+              <p class="text-slate-655 text-xs sm:text-sm leading-relaxed font-light">
+                Seja para vistorias, laudos de emergência ou reuniões de obra. Atendemos com extrema presteza em Irecê e toda a região circunvizinha, respeitando prazos e urgências.
+              </p>
+            </div>
+
+            <!-- Pillar 2 -->
+            <div class="bg-slate-55 border-l-4 border-[#003366] border-t border-r border-b border-slate-250 p-6 rounded-sm space-y-4 hover:border-[#FF8C00]/30 transition-all shadow-sm">
+              <div class="bg-[#FF8C00]/10 p-3 rounded-sm w-12 h-12 flex items-center justify-center text-[#FF8C00]">
+                <i data-lucide="users" class="h-6 w-6 text-[#FF8C00]"></i>
+              </div>
+              <h3 class="font-display font-black text-sm uppercase tracking-wider text-[#003366]">
+                Corpo Técnico Qualificado
+              </h3>
+              <p class="text-slate-655 text-xs sm:text-sm leading-relaxed font-light">
+                Eletrotécnico experiente e devidamente registrado com sólidos anos de atuação, focado na mais pura precisão da engenharia de baixa e média tensão e normas.
+              </p>
+            </div>
+
+            <!-- Pillar 3 -->
+            <div class="bg-slate-55 border-l-4 border-[#003366] border-t border-r border-b border-slate-250 p-6 rounded-sm space-y-4 hover:border-[#FF8C00]/30 transition-all shadow-sm">
+              <div class="bg-[#FF8C00]/10 p-3 rounded-sm w-12 h-12 flex items-center justify-center text-[#FF8C00]">
+                <i data-lucide="shield" class="h-6 w-6 text-[#FF8C00]"></i>
+              </div>
+              <h3 class="font-display font-black text-sm uppercase tracking-wider text-[#003366]">
+                Agilidade e Garantia Total
+              </h3>
+              <p class="text-slate-655 text-xs sm:text-sm leading-relaxed font-light">
+                Tranquilidade de ponta a ponta. Garantimos o funcionamento correto pós-entrega, fornecendo suporte ágil e imediato aos nossos parceiros comerciais e residenciais.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Testimonial Quote Highlight -->
+        <div class="border-t border-slate-100 pt-16 mt-16 max-w-4xl mx-auto">
+          <blockquote class="text-center space-y-4">
+            <p class="font-display font-light text-lg sm:text-xl text-[#003366] leading-relaxed italic">
+              Em eletricidade, desvios pequenos geram acidentes gravíssimos. Nosso compromisso absoluto com as normas técnicas (NBR 5410 e NR-10) garante a proteção da sua vida, dos seus funcionários e do seu patrimônio.
+            </p>
+            <footer class="font-mono text-[10px] uppercase tracking-widest text-slate-500 font-black">
+              — Ivonei Ferreira, Diretor Técnico
+            </footer>
+          </blockquote>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5.5. PINNED/DOWNLOADS SECTION -->
+    <section class="py-20 sm:py-28 bg-[#f8fafc] border-t border-b border-slate-200 scroll-mt-20" id="downloads">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <span class="text-[#FF8C00] font-mono text-xs tracking-widest font-black uppercase block">
+            Biblioteca de Arquivos Públicos
+          </span>
+          <h2 class="font-display font-black text-3xl sm:text-4xl text-[#003366] tracking-tight uppercase leading-tight">
+            Documentos & Downloads Úteis
+          </h2>
+          <p class="text-slate-600 text-base font-light leading-relaxed">
+            Consulte e faça o download de normas, informativos, manuais e materiais de referência públicos para o seu projeto elétrico.
+          </p>
+          <p class="text-[11px] uppercase tracking-widest font-mono font-bold text-[#003366]">
+            Você controla tudo pelo painel administrativo
+          </p>
+        </div>
+
+        <!-- Search and Format Filters container -->
+        <div class="bg-white border border-slate-200 rounded-sm p-4 sm:p-5 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
+            <div class="relative w-full sm:max-w-md">
+                <input type="text" id="search-input" placeholder="Pesquisar manual, catálogo, orçamento..." onkeyup="filterDownloads()" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] pl-10 pr-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-[#003366] font-medium">
+                <i data-lucide="search" class="h-4 w-4 text-slate-400 absolute left-3.5 top-3.5"></i>
+            </div>
+            <div class="flex items-center gap-2 w-full sm:w-auto">
+                <span class="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-widest hidden md:inline">Formato:</span>
+                <select id="type-filter" onchange="filterDownloads()" class="w-full sm:w-40 bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-3 py-3 rounded-sm text-xs focus:outline-none transition-all text-slate-900 cursor-pointer font-medium">
+                    <option value="all">Todos Formatos</option>
+                    <option value="pdf">PDF</option>
+                    <option value="xls">Planilha XLS</option>
+                    <option value="doc">Documento WORD</option>
+                    <option value="zip">ZIP / RAR</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Render Target Grid -->
+        <div id="downloads-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Dynamic cards rendered by JS -->
+        </div>
+
+        <!-- Controls Trigger & Admin Panel -->
+        <div class="mt-12 bg-white rounded-sm p-6 sm:p-8 shadow-sm border border-slate-200/80">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <h4 class="font-display font-black text-sm text-[#003366] uppercase tracking-wider flex items-center gap-2">
+                <i data-lucide="folder-cog" class="h-5 w-5 text-[#FF8C00]"></i>
+                Gerenciar Biblioteca de Links
+              </h4>
+              <p class="text-xs text-slate-500 font-light mt-1">
+                Adicione novos links de download ou remova os existentes. Os links modificados são salvos em lote no seu navegador.
+              </p>
+            </div>
+          <!-- Hidden Admin Panel Drawer -->
+          <div id="admin-panel" class="hidden mt-8 pt-8 border-t border-slate-100 max-w-4xl">
+            
+            <!-- 1. LOGIN STATE ROW (Shown when not logged in) -->
+            <div id="admin-login-sec" class="space-y-6">
+              <div class="flex items-center gap-2 text-[#003366]">
+                <i data-lucide="lock" class="h-5 w-5 text-[#FF8C00]"></i>
+                <h5 class="font-display font-black text-xs uppercase tracking-wider">
+                  Área Restrita - Login do Administrador
+                </h5>
+              </div>
+              <p class="text-[11px] uppercase tracking-widest font-mono font-bold text-slate-500">
+                Controle total dos downloads e solicitações
+              </p>
+              
+              <form id="admin-login-form" class="space-y-4 max-w-md">
+                <div class="space-y-1">
+                  <label class="text-[10px] font-mono uppercase text-slate-600 font-black block">E-mail do Administrador</label>
+                  <input type="email" id="login-email" required="" placeholder="ivonei.energia@gmail.com" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-slate-900">
+                </div>
+                
+                <div class="space-y-2">
+                  <label class="text-[10px] font-mono uppercase text-slate-600 font-black block">Senha de Acesso</label>
+                  <input type="password" id="login-password" required="" placeholder="••••••••" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-slate-900">
+                </div>
+
+                <div id="login-error-msg" class="hidden text-xs text-red-650 font-bold font-mono">
+                  Credenciais incorretas! Verifique o e-mail e a senha fornecidos.
+                </div>
+
+                <button type="submit" class="bg-[#003366] hover:bg-[#002244] text-white px-5 py-3 rounded-sm font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer transition-colors focus:outline-none border-none w-full sm:w-auto">
+                  <i data-lucide="log-in" class="h-4 w-4"></i>
+                  <span>Entrar no Painel</span>
+                </button>
+              </form>
+            </div>
+
+            <!-- 2. REAL MANAGEMENT TOOLS (Shown when logged in) -->
+            <div id="admin-tools-sec" class="hidden space-y-6">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-4 gap-4">
+                <h5 class="font-display font-black text-xs text-[#003366] uppercase tracking-wider flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 bg-green-500 rounded-full animate-ping"></span>
+                  Sessão Ativa: Administrador Conectado
+                </h5>
+                <button id="admin-logout-btn" type="button" class="text-xs font-mono uppercase text-slate-500 hover:text-red-750 flex items-center gap-1.5 focus:outline-none cursor-pointer border-none bg-transparent">
+                  <i data-lucide="log-out" class="h-3.5 w-3.5"></i>
+                  <span>Encerrar Sessão (Sair)</span>
+                </button>
+              </div>
+
+              <!-- Dual layout for better context -->
+              <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-2">
+                
+                <!-- Left panel: Form to add new file -->
+                <div class="lg:col-span-5 space-y-4 border-b lg:border-b-0 lg:border-r border-slate-150 pb-6 lg:pb-0 lg:pr-8">
+                  <p class="text-[11px] uppercase tracking-widest font-mono font-bold text-[#003366]">
+                    Controle total de cadastro, edição e exclusão
+                  </p>
+                  <h5 id="download-form-title" class="font-display font-black text-xs text-[#003366] uppercase tracking-wider flex items-center gap-2">
+                    <span class="w-2 h-2 bg-[#FF8C00]"></span>
+                    Cadastrar Novo Arquivo
+                  </h5>
+                  
+                  <form id="add-download-form" class="space-y-4">
+                    <div class="space-y-1">
+                      <label class="text-[10px] font-mono uppercase text-slate-600 font-black block">Nome do Arquivo *</label>
+                      <input type="text" id="new-file-name" required="" placeholder="Ex: Manual de Instalações Residenciais" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-slate-900">
+                    </div>
+                    
+                    <div class="space-y-1">
+                      <label class="text-[10px] font-mono uppercase text-slate-600 font-black block">URL de Download *</label>
+                      <input type="url" id="new-file-url" required="" placeholder="Ex: https://exemplo.com/documento.pdf" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-slate-900">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div class="space-y-1">
+                        <label class="text-[10px] font-mono uppercase text-slate-600 font-black block">Tipo do Arquivo *</label>
+                        <select id="new-file-type" required="" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-slate-900 cursor-pointer">
+                          <option value="pdf">PDF</option>
+                          <option value="xls">XLS</option>
+                          <option value="xlsx">XLSX</option>
+                          <option value="doc">DOC</option>
+                          <option value="docx">DOCX</option>
+                          <option value="zip">ZIP</option>
+                          <option value="rar">RAR</option>
+                          <option value="link">Link</option>
+                        </select>
+                      </div>
+
+                      <div class="space-y-1">
+                        <label class="text-[10px] font-mono uppercase text-slate-600 font-black block">Tamanho / Observação</label>
+                        <input type="text" id="new-file-size" placeholder="Ex: 2.4 MB" class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-slate-900">
+                      </div>
+                    </div>
+
+                    <div class="space-y-1">
+                      <label class="text-[10px] font-mono uppercase text-slate-600 font-black block">Descrição Curta *</label>
+                      <input type="text" id="new-file-desc" required="" placeholder="Ex: Guia prático e ilustrativo de fiação técnica..." class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-slate-900">
+                    </div>
+
+                    <div class="flex flex-wrap gap-2 pt-2">
+                      <button type="submit" id="save-download-btn" class="bg-[#FF8C00] hover:bg-[#e07b00] text-white px-5 py-3 rounded-sm font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer transition-colors focus:outline-none border-none grow">
+                        <i data-lucide="save" class="h-4 w-4"></i>
+                        <span id="save-download-btn-label">Salvar</span>
+                      </button>
+                      <button type="button" id="cancel-edit-download-btn" class="hidden bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-3 rounded-sm font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer transition-colors focus:outline-none border border-slate-200">
+                        <i data-lucide="x" class="h-4 w-4"></i>
+                        <span>Cancelar edição</span>
+                      </button>
+                      <button type="button" id="reset-downloads-btn" class="bg-transparent hover:bg-slate-100 text-slate-500 px-4 py-3 rounded-sm font-mono text-[10px] uppercase hover:text-slate-800 transition-colors focus:outline-none border border-slate-300">
+                        Padrão
+                      </button>
+                    </div>
+                  </form>
+                </div>
+
+                <!-- Right panel: Quick list with edit/remove buttons in the panel -->
+                <div class="lg:col-span-7 space-y-4">
+                  <div class="flex items-center justify-between">
+                    <h5 class="font-display font-black text-xs text-[#003366] uppercase tracking-wider flex items-center gap-2">
+                      <i data-lucide="folder-check" class="h-4 w-4 text-[#FF8C00]"></i>
+                      Downloads Cadastrados no Sistema
+                    </h5>
+                  </div>
+                  <p class="text-[11px] text-slate-500 leading-relaxed font-light">
+                    Esses são os arquivos que aparecem publicamente na biblioteca de downloads acima. Você pode excluí-los diretamente clicando na lixeira.
+                  </p>
+
+                  <div id="admin-downloads-list" class="space-y-2 max-h-[300px] overflow-y-auto pr-1 divide-y divide-slate-100 select-none">
+                    <!-- Dynamic mini items rendered by JS -->
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="border-t border-slate-100 pt-6 space-y-4">
+                <div class="flex items-center justify-between gap-3">
+                  <h5 class="font-display font-black text-xs text-[#003366] uppercase tracking-wider flex items-center gap-2">
+                    <i data-lucide="inbox" class="h-4 w-4 text-[#FF8C00]"></i>
+                    Solicitações Recebidas
+                  </h5>
+                  <span id="admin-requests-count" class="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-1 rounded-sm border border-[#FF8C00]/20 bg-[#FF8C00]/10 text-[#FF8C00]">
+                    0
+                  </span>
+                </div>
+                <p class="text-[11px] text-slate-500 leading-relaxed font-light">
+                  Cada envio do formulário público aparece aqui com nome, telefone, e-mail, serviço e mensagem completa.
+                </p>
+                <p class="text-[11px] uppercase tracking-widest font-mono font-bold text-[#003366]">
+                  Controle total das solicitações do site
+                </p>
+                <div id="admin-requests-list" class="space-y-3 max-h-[360px] overflow-y-auto pr-1">
+                  <!-- Dynamic request cards rendered by JS -->
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div></section>
+
+    <!-- 6. CONTACT FORM & INTERACTIVE SECTION -->
+    <section class="py-20 sm:py-28 bg-[#001f3f] text-white scroll-mt-20" id="contato">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          
+          <!-- Contact information details -->
+          <div class="lg:col-span-4 space-y-6 lg:sticky lg:top-24">
+            <span class="text-[#FF8C00] font-mono text-xs tracking-widest font-black uppercase block">
+              Fale Conosco
+            </span>
+            <h2 class="font-display font-black text-3xl sm:text-4xl text-white tracking-tight uppercase leading-tight">
+              Pronto para colocar sua engenharia em conformidade com as normas federais?
+            </h2>
+            <p class="text-blue-100 font-light text-sm sm:text-base leading-relaxed">
+              Responda ao formulário ao lado para solicitar um orçamento sob medida ou agendar uma vistoria técnica presencial na sua instalação comercial ou residencial.
+            </p>
+
+            <div class="pt-6 space-y-4">
+              <!-- Item 1 -->
+              <div class="flex items-start space-x-3">
+                <div class="mt-1 bg-[#003366] p-2 rounded-sm border border-blue-900 text-[#FF8C00]">
+                  <i data-lucide="phone" class="h-4 w-4 text-[#FF8C00]"></i>
+                </div>
+                <div>
+                  <p class="text-[9px] uppercase font-mono tracking-widest font-bold text-slate-400">Atendimento Digital Instantâneo</p>
+                  <p class="text-sm font-medium text-white hover:text-[#FF8C00] transition-colors">
+                    <a href="https://wa.me/5574988259925" target="_blank" rel="noopener noreferrer" class="text-white no-underline hover:text-[#FF8C00]">(74) 98825-9925</a>
+                  </p>
+                </div>
+              </div>
+
+              <!-- Item 2 -->
+              <div class="flex items-start space-x-3">
+                <div class="mt-1 bg-[#003366] p-2 rounded-sm border border-blue-900 text-[#FF8C00]">
+                  <i data-lucide="mail" class="h-4 w-4 text-[#FF8C00]"></i>
+                </div>
+                <div>
+                  <p class="text-[9px] uppercase font-mono tracking-widest font-bold text-slate-400">Canal de E-mail Institucional</p>
+                  <p class="text-sm font-medium text-white hover:text-[#FF8C00] transition-colors">
+                    <a href="mailto:ivonei.eletrotecnico@gmail.com" class="text-white no-underline hover:text-[#FF8C00]">ivonei.eletrotecnico@gmail.com</a>
+                  </p>
+                </div>
+              </div>
+
+              <!-- Item 3 -->
+              <div class="flex items-start space-x-3">
+                <div class="mt-1 bg-[#003366] p-2 rounded-sm border border-blue-900 text-[#FF8C00]">
+                  <i data-lucide="map-pin" class="h-4 w-4 text-[#FF8C00]"></i>
+                </div>
+                <div>
+                  <p class="text-[9px] uppercase font-mono tracking-widest font-bold text-slate-400">Escritório Central</p>
+                  <p class="text-sm font-medium text-white">Irecê, Bahia</p>
+                </div>
+              </div>
+
+              <!-- Item 4 -->
+              <div class="flex items-start space-x-3">
+                <div class="mt-1 bg-[#003366] p-2 rounded-sm border border-blue-900 text-[#FF8C00]">
+                  <i data-lucide="badge-check" class="h-4 w-4 text-[#FF8C00]"></i>
+                </div>
+                <div>
+                  <p class="text-[9px] uppercase font-mono tracking-widest font-bold text-slate-400">Identificação Fiscal</p>
+                  <p class="text-sm font-medium text-white font-mono">CNPJ 61.994.675/0001-98</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Form Container -->
+          <div class="lg:col-span-8 bg-white/5 backdrop-blur-sm p-8 sm:p-12 rounded-sm border border-slate-800 shadow-xl">
+            
+            <!-- Default Form -->
+            <form id="contact-form" class="space-y-6">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                
+                <div class="space-y-1">
+                  <label class="text-[10px] font-mono text-slate-400 uppercase font-black tracking-wider block">Nome Completo *</label>
+                  <input type="text" id="form-nome" required="" autocomplete="name" placeholder="Ex: Miguel da Silva" class="w-full bg-slate-900/60 border border-slate-800 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-white">
+                </div>
+
+                <div class="space-y-1">
+                  <label class="text-[10px] font-mono text-slate-400 uppercase font-black tracking-wider block">Telefone de Contato (WhatsApp) *</label>
+                  <input type="tel" id="form-telefone" required="" autocomplete="tel" inputmode="tel" placeholder="Ex: (74) 99999-9999" class="w-full bg-slate-900/60 border border-slate-800 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-white">
+                </div>
+
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                <div class="space-y-1">
+                  <label class="text-[10px] font-mono text-slate-400 uppercase font-black tracking-wider block">Seu E-mail *</label>
+                  <input type="email" id="form-email" required="" autocomplete="email" placeholder="Ex: cliente@dominio.com" class="w-full bg-slate-900/60 border border-slate-800 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-white">
+                </div>
+
+                <div class="space-y-1">
+                  <label class="text-[10px] font-mono text-slate-400 uppercase font-black tracking-wider block">Serviço Pretendido *</label>
+                  <select id="form-servico" required="" class="w-full bg-slate-900/60 border border-slate-800 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none focus:text-white transition-colors text-slate-400 cursor-pointer">
+                    <option value="Adequação e Projeto Residencial">Instalações Elétricas Residenciais</option>
+                    <option value="Sistemas Solares Fotovoltaicos">Sistemas Solares Fotovoltaicos (On-Grid / Off-Grid)</option>
+                    <option value="Instalações Industriais">Serviços e Paineis Industriais</option>
+                    <option value="Laudo com Documentações Técnicas">Projetos Elétricos e Emissão de CRT/ART</option>
+                    <option value="Vistoria Técnica Preventiva">Outros Assuntos / Consultorias Especializadas</option>
+                  </select>
+                </div>
+
+              </div>
+
+              <div class="space-y-1">
+                <label class="text-[10px] font-mono text-slate-400 uppercase font-black tracking-wider block">Mensagem ou Detalhes Técnicos *</label>
+                <textarea id="form-mensagem" rows="4" required="" maxlength="1500" placeholder="Por favor, explique brevemente sua necessidade técnica, problemas atuais na rede ou detalhes técnicos da sua fiação atual..." class="w-full bg-slate-900/60 border border-slate-800 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-white resize-none"></textarea>
+              </div>
+
+              <button type="submit" class="w-full bg-[#FF8C00] hover:bg-[#e07b00] text-white py-4 rounded-sm font-bold text-xs uppercase tracking-widest transition-colors flex items-center justify-center space-x-2 cursor-pointer border-none shadow-lg focus:outline-none">
+                <i data-lucide="send" class="h-4 w-4"></i>
+                <span>Enviar Solicitação de Orçamento</span>
+              </button>
+            </form>
+
+            <!-- Success State message -->
+            <div id="form-success" class="hidden text-center space-y-6 py-6 animate-fadeIn">
+              <div class="mx-auto w-16 h-16 bg-[#FF8C00]/20 border border-[#FF8C00]/30 rounded-full flex items-center justify-center text-[#FF8C00] shadow-lg">
+                <i data-lucide="check" class="h-8 w-8 stroke-[3] text-[#FF8C00]"></i>
+              </div>
+              <div class="space-y-2">
+                <h3 class="font-display font-black text-xl uppercase tracking-wider">
+                  Obrigado, <span id="submitter-name" class="text-[#FF8C00]">Nenhum</span>!
+                </h3>
+                <p class="text-blue-100 text-sm max-w-md mx-auto leading-relaxed">
+                  Sua solicitação foi enviada diretamente para o painel administrativo e ficará disponível para análise.
+                </p>
+              </div>
+              <button id="contact-reset-btn" type="button" class="bg-[#003366] hover:bg-[#002244] text-white font-bold px-8 py-4 rounded-sm text-xs uppercase tracking-widest transition-transform hover:scale-105 inline-flex items-center gap-2 cursor-pointer border-none shadow-md">
+                <i data-lucide="refresh-cw" class="h-4 w-4"></i>
+                <span>Nova Solicitação</span>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. FOOTER (Rodapé) -->
+    <footer class="bg-[#001c37] text-slate-300 py-16 sm:py-24 border-t border-blue-900/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 border-b border-blue-900/40 pb-16">
+          
+          <div class="lg:col-span-4 space-y-6">
+            <!-- Brand name details -->
+            <div>
+              <span class="font-display font-black text-base tracking-tight leading-tight uppercase block text-white">
+                Ivonei Ferreira
+              </span>
+              <span class="text-[#FF8C00] font-mono text-[10px] tracking-wider font-semibold block uppercase">
+                Especialista Técnico em Elétrica e Automação
+              </span>
+            </div>
+            
+            <p class="text-blue-105/60 text-xs sm:text-sm leading-relaxed font-light">
+              Prover bem-estar, alto padrão de fiação predial e segurança extrema a moradores e empresas de Irecê e região. Atendimento ágil e consultoria autorizada.
+            </p>
+          </div>
+
+          <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <!-- Info and Contacts -->
+            <div class="space-y-4">
+              <h4 class="font-display font-black uppercase text-xs tracking-wider text-white">
+                Como entrar em contato rápido
+              </h4>
+              
+              <div class="space-y-3">
+                <!-- Phone -->
+                <div class="flex items-start space-x-3">
+                  <div class="mt-1 bg-[#001c37] p-2 rounded-sm text-[#FF8C00] border border-blue-900">
+                    <i data-lucide="phone" class="h-4 w-4 text-[#FF8C00]"></i>
+                  </div>
+                  <div>
+                    <p class="text-[10px] text-blue-100/60 uppercase font-mono font-bold tracking-wider">Lique para mais informações</p>
+                    <p class="text-sm font-medium text-white">
+                      <a href="https://wa.me/5574988259925" target="_blank" rel="noopener noreferrer" class="text-white no-underline hover:text-[#FF8C00]">(74) 98825-9925</a>
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Calendar / Hours -->
+                <div class="flex items-start space-x-3">
+                  <div class="mt-1 bg-[#001c37] p-2 rounded-sm text-[#FF8C00] border border-blue-900">
+                    <i data-lucide="calendar" class="h-4 w-4 text-[#FF8C00]"></i>
+                  </div>
+                  <div>
+                    <p class="text-[10px] text-blue-100/60 uppercase font-mono font-bold tracking-wider">Horário de Atendimento Comercial</p>
+                    <p class="text-sm text-white leading-relaxed">
+                      Segunda a Sexta: 08:00 às 18:00 <br>
+                      Sábados: 08:00 às 12:05
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <h4 class="font-display font-black uppercase text-xs tracking-wider text-white">
+                Links oficiais
+              </h4>
+              <div class="space-y-3 text-sm">
+                <a href="https://ivonei-eletrotecnico.netlify.app/" target="_blank" rel="noopener noreferrer" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
+                  Site publicado no Netlify
+                </a>
+                <a class="block text-white no-underline hover:text-[#FF8C00] transition-colors" href="https://ivonei-eletrotecnico.netlify.app/admin-login" rel="noopener noreferrer" target="_blank">
+                  Painel de Gestão
+                </a>
+                <a href="https://github.com/eletrotcnico151230/ivonei-eletrotecnico" target="_blank" rel="noopener noreferrer" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
+                  Repositório no GitHub
+                </a>
+              </div>
+            </div>
+
+            <!-- Secure Stamp -->
+            <div class="bg-[#00264d] p-5 rounded-sm border-l-4 border-[#FF8C00] border-t border-r border-b border-blue-900 text-xs text-blue-100/80 space-y-2 shadow-sm">
+              <div class="flex items-center space-x-2 text-[#FF8C00]">
+                <i data-lucide="shield" class="h-4 w-4 shrink-0 text-[#FF8C00]"></i>
+                <span class="font-black uppercase tracking-wider font-mono text-[10px]">Garantia Segurança Máxima</span>
+              </div>
+              <p class="leading-relaxed font-light text-blue-100/70">
+                Nossa atuação segue rigorosamente as diretrizes federais vigentes e normas de segurança em instalações e serviços em eletricidade do Ministério do Trabalho e Emprego.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+        <!-- Copyright Row -->
+        <div class="border-t border-blue-900/60 mt-16 pt-8 text-center text-xs text-blue-100/50">
+          <p>© 2026 Ivonei Ferreira — Especialista Técnico em Elétrica e Automação.</p>
+          <p class="mt-2 font-mono uppercase tracking-widest">
+            CNPJ: 61.994.675/0001-98
+          </p>
+        </div>
+
+      </div>
+    </footer>
+
+    <!-- DYNAMIC ALERTS AND DIALOGS SYSTEM -->
+    <!-- 1. Custom Alert Dialog Modal -->
+    <div id="custom-alert-container" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm select-none">
+      <div class="bg-white rounded-sm border-t-4 border-l border-r border-b border-l-slate-200 border-r-slate-200 border-b-slate-200 border-t-[#FF8C00] max-w-md w-full p-6 space-y-4 shadow-2xl relative animate-fadeIn">
+        <div class="flex items-start gap-3">
+          <div class="bg-[#003366]/5 p-2 rounded-sm text-[#003366] shrink-0">
+            <i data-lucide="shield-alert" class="h-5 w-5 text-[#003366]"></i>
+          </div>
+          <div class="space-y-1">
+            <h4 id="custom-alert-title" class="font-display font-black text-[#003366] text-xs uppercase tracking-wider">Atenção</h4>
+            <p id="custom-alert-message" class="text-xs text-slate-500 font-light leading-relaxed">Operação restrita para administradores autorizados.</p>
+          </div>
+        </div>
+        <div class="flex justify-end gap-2">
+          <button id="custom-alert-ok-btn" class="bg-[#003366] hover:bg-[#002244] text-white px-5 py-3 rounded-sm font-bold text-xs uppercase tracking-widest transition-colors cursor-pointer border-none focus:outline-none">
+            Entendido
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Custom Confirm Dialog Modal -->
+    <div id="custom-confirm-container" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm select-none">
+      <div class="bg-white rounded-sm border-t-4 border-l border-r border-b border-l-slate-200 border-r-slate-200 border-b-slate-200 border-t-red-655 max-w-sm w-full p-6 space-y-4 shadow-2xl relative animate-fadeIn">
+        <div class="flex items-start gap-4">
+          <div class="bg-red-50 p-2.5 rounded-sm text-red-650 shrink-0">
+            <i data-lucide="trash-2" class="h-5 w-5 text-red-650"></i>
+          </div>
+          <div class="space-y-1">
+            <h4 id="custom-confirm-title" class="font-display font-black text-red-650 text-xs uppercase tracking-wider">Excluir Item</h4>
+            <p id="custom-confirm-message" class="text-xs text-slate-500 font-light leading-relaxed">Você tem certeza que deseja excluir permanentemente este link de download?</p>
+          </div>
+        </div>
+        <div class="flex justify-end gap-2">
+          <button id="custom-confirm-cancel-btn" class="bg-transparent hover:bg-slate-100 text-slate-500 px-4 py-3 rounded-sm font-mono text-[10px] uppercase transition-colors cursor-pointer border border-slate-300">
+            Cancelar
+          </button>
+          <button id="custom-confirm-ok-btn" class="bg-red-600 hover:bg-red-700 text-white py-3 rounded-sm font-bold text-xs uppercase tracking-widest transition-colors cursor-pointer border-none">
+            Confirmar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript Interactions Logic & Database Engine -->
+    <script>
+      // ----------------------------------------------------
+      // DATABASE ENGINE & DEFAULT DATA
+      // ----------------------------------------------------
+      const DOWNLOADS_DATABASE = [
+        {
+          id: 1,
+          name: 'Manual de Instalações Individuais (COELBA)',
+          description: 'Normas e padrões de entrada de energia individual vigentes exigidos pela concessionária da Bahia.',
+          type: 'pdf',
+          url: 'https://www.neoenergiacoelba.com.br/normas-tecnicas',
+          size: '4.2 MB',
+          downloads: 142,
+          date: '2024-01-10'
+        },
+        {
+          id: 2,
+          name: 'Cartilha de Segurança NR-10 Resumida',
+          description: 'Guia ilustrado condensando regras vitais de segurança laboral em ambientes de eletricidade e instalações.',
+          type: 'pdf',
+          url: 'https://www.gov.br/trabalho-e-emplego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-normas-regulamentadoras/norma-regulamentadora-nr-10.pdf',
+          size: '1.8 MB',
+          downloads: 98,
+          date: '2024-01-20'
+        },
+        {
+          id: 3,
+          name: 'Checklist de Conformidade NBR 5410',
+          description: 'Lista de verificação completa baseada na norma NBR 5410 para instalações elétricas de baixa tensão.',
+          type: 'pdf',
+          url: 'https://exemplo.com/checklist-nbr5410.pdf',
+          size: '1.2 MB',
+          downloads: 75,
+          date: '2024-02-10'
+        },
+        {
+          id: 4,
+          name: 'Template de Elaboração de Orçamento',
+          description: 'Planilha modelo para elaboração de orçamentos de serviços elétricos com cálculos de materiais automáticos.',
+          type: 'xls',
+          url: 'https://exemplo.com/template-orcamento.xlsx',
+          size: '850 KB',
+          downloads: 50,
+          date: '2024-02-01'
+        },
+        {
+          id: 5,
+          name: 'Portfólio de Projetos | Ivonei Ferreira',
+          description: 'Apresentação técnica unificada compilando projetos comerciais, subestações e laudos já entregues com ART/CRT.',
+          type: 'pdf',
+          url: 'https://wa.me/5574988259925',
+          size: '3.5 MB',
+          downloads: 215,
+          date: '2024-03-05'
+        }
+      ];
+
+      const DOWNLOADS_CACHE_KEY = 'downloads';
+      const DOWNLOADS_API_ENDPOINTS = ['/.netlify/functions/downloads', '/api/downloads'];
+      const CONTACT_REQUESTS_CACHE_KEY = 'contact-requests';
+      const CONTACT_REQUESTS_API_ENDPOINTS = ['/.netlify/functions/contact-requests', '/api/contact-requests'];
+
+      function getCachedDownloads() {
+        const stored = localStorage.getItem(DOWNLOADS_CACHE_KEY);
+        if (stored) {
+          try {
+            const parsedData = JSON.parse(stored);
+            if (Array.isArray(parsedData)) {
+              return parsedData;
+            }
+          } catch (e) {
+            console.error('Erro ao carregar downloads do cache local:', e);
+          }
+        }
+        return DOWNLOADS_DATABASE;
+      }
+
+      function saveCachedDownloads(downloads) {
+        localStorage.setItem(DOWNLOADS_CACHE_KEY, JSON.stringify(downloads));
+      }
+
+      function getCachedContactRequests() {
+        const stored = localStorage.getItem(CONTACT_REQUESTS_CACHE_KEY);
+        if (stored) {
+          try {
+            const parsedData = JSON.parse(stored);
+            if (Array.isArray(parsedData)) {
+              return parsedData;
+            }
+          } catch (e) {
+            console.error('Erro ao carregar solicitações do cache local:', e);
+          }
+        }
+        return [];
+      }
+
+      function saveCachedContactRequests(requests) {
+        localStorage.setItem(CONTACT_REQUESTS_CACHE_KEY, JSON.stringify(requests));
+      }
+
+      function getAllDownloads() {
+        return downloadsList.length > 0 ? downloadsList : getCachedDownloads();
+      }
+
+      function getDownloadById(id) {
+        const downloads = getAllDownloads();
+        return downloads.find(d => String(d.id) === String(id));
+      }
+
+      async function requestContactRequests(method, payload = null) {
+        const requestOptions = {
+          method,
+          headers: payload ? { 'Content-Type': 'application/json' } : undefined,
+          body: payload ? JSON.stringify(payload) : undefined,
+          keepalive: method !== 'GET',
+        };
+
+        for (const endpoint of CONTACT_REQUESTS_API_ENDPOINTS) {
+          try {
+            const response = await fetch(endpoint, requestOptions);
+            if (!response.ok) continue;
+            return await response.json();
+          } catch (error) {
+            console.warn(`Falha ao acessar ${endpoint}:`, error);
+          }
+        }
+
+        throw new Error('Nenhum endpoint de solicitações respondeu com sucesso.');
+      }
+
+      async function requestDownloads(method, payload = null) {
+        const requestOptions = {
+          method,
+          headers: payload ? { 'Content-Type': 'application/json' } : undefined,
+          body: payload ? JSON.stringify(payload) : undefined,
+          keepalive: method !== 'GET',
+        };
+
+        for (const endpoint of DOWNLOADS_API_ENDPOINTS) {
+          try {
+            const response = await fetch(endpoint, requestOptions);
+            if (!response.ok) continue;
+            return await response.json();
+          } catch (error) {
+            console.warn(`Falha ao acessar ${endpoint}:`, error);
+          }
+        }
+
+        throw new Error('Nenhum endpoint de downloads respondeu com sucesso.');
+      }
+
+      function normalizeDownloadList(data) {
+        if (Array.isArray(data)) return data;
+        if (data && Array.isArray(data.downloads)) return data.downloads;
+        if (data && data.download) return [data.download];
+        return [];
+      }
+
+      function normalizeContactRequestList(data) {
+        if (Array.isArray(data)) return data;
+        if (data && Array.isArray(data.requests)) return data.requests;
+        if (data && data.request) return [data.request];
+        return [];
+      }
+
+      async function loadDownloadsFromSource() {
+        try {
+          const remoteData = await requestDownloads('GET');
+          const normalizedDownloads = normalizeDownloadList(remoteData);
+          downloadsList = normalizedDownloads.length > 0 ? normalizedDownloads : DOWNLOADS_DATABASE;
+          saveCachedDownloads(downloadsList);
+        } catch (error) {
+          console.warn('Usando cache local de downloads:', error);
+          downloadsList = getCachedDownloads();
+        }
+
+        updateAdminPanelSecs();
+        renderDownloads();
+        return downloadsList;
+      }
+
+      async function loadContactRequestsFromSource() {
+        try {
+          const remoteData = await requestContactRequests('GET');
+          const normalizedRequests = normalizeContactRequestList(remoteData);
+          contactRequestsList = normalizedRequests;
+          saveCachedContactRequests(contactRequestsList);
+        } catch (error) {
+          console.warn('Usando cache local de solicitações:', error);
+          contactRequestsList = getCachedContactRequests();
+        }
+
+        renderContactRequests();
+        return contactRequestsList;
+      }
+
+      async function addDownload(download) {
+        const response = await requestDownloads('POST', { action: 'create', download });
+        const updatedDownloads = normalizeDownloadList(response);
+        downloadsList = updatedDownloads.length > 0 ? updatedDownloads : getCachedDownloads();
+        saveCachedDownloads(downloadsList);
+        if (response && response.download) {
+          return response.download;
+        }
+        return downloadsList[0] || null;
+      }
+
+      async function updateDownload(id, updatedData) {
+        const response = await requestDownloads('PUT', { id, updatedData });
+        const updatedDownloads = normalizeDownloadList(response);
+        downloadsList = updatedDownloads.length > 0 ? updatedDownloads : getCachedDownloads();
+        saveCachedDownloads(downloadsList);
+        return downloadsList.find(d => String(d.id) === String(id)) || null;
+      }
+
+      async function deleteDownload(id) {
+        const response = await requestDownloads('DELETE', { id });
+        const updatedDownloads = normalizeDownloadList(response);
+        downloadsList = updatedDownloads.length > 0 ? updatedDownloads : getCachedDownloads();
+        saveCachedDownloads(downloadsList);
+        return true;
+      }
+
+      async function addContactRequest(request) {
+        const response = await requestContactRequests('POST', { request });
+        const updatedRequests = normalizeContactRequestList(response);
+        contactRequestsList = updatedRequests;
+        saveCachedContactRequests(contactRequestsList);
+        if (response && response.request) {
+          return response.request;
+        }
+        return contactRequestsList[0] || null;
+      }
+
+      async function deleteContactRequest(id) {
+        const response = await requestContactRequests('DELETE', { id });
+        const updatedRequests = normalizeContactRequestList(response);
+        contactRequestsList = updatedRequests;
+        saveCachedContactRequests(contactRequestsList);
+        return true;
+      }
+
+      async function incrementDownloadCount(id) {
+        try {
+          const response = await requestDownloads('POST', { action: 'increment', id });
+          const updatedDownloads = normalizeDownloadList(response);
+          downloadsList = updatedDownloads.length > 0 ? updatedDownloads : downloadsList;
+          saveCachedDownloads(downloadsList);
+        } catch (error) {
+          console.warn('Não foi possível incrementar o contador de download:', error);
+        }
+      }
+
+      // Expose globally
+      window.DOWNLOADS_DATABASE = DOWNLOADS_DATABASE;
+      window.getAllDownloads = getAllDownloads;
+      window.saveDownloads = saveDownloads;
+      window.getDownloadById = getDownloadById;
+      window.addDownload = addDownload;
+      window.updateDownload = updateDownload;
+      window.deleteDownload = deleteDownload;
+      window.incrementDownloadCount = incrementDownloadCount;
+      window.addContactRequest = addContactRequest;
+      window.deleteContactRequest = deleteContactRequest;
+
+      // Initialize Lucide Icons in the browser DOM
+      lucide.createIcons();
+
+      // Mobile Menu functionality
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuIcon = document.getElementById('menu-icon');
+      const closeIcon = document.getElementById('close-icon');
+
+      mobileMenuBtn.addEventListener('click', () => {
+        const isClosed = mobileMenu.classList.contains('hidden');
+        if (isClosed) {
+          mobileMenu.classList.remove('hidden');
+          menuIcon.classList.add('hidden');
+          closeIcon.classList.remove('hidden');
+        } else {
+          mobileMenu.classList.add('hidden');
+          menuIcon.classList.remove('hidden');
+          closeIcon.classList.add('hidden');
+        }
+      });
+
+      // Auto-hide mobile navigation panel on link click
+      const mobileLinks = mobileMenu.querySelectorAll('a');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          menuIcon.classList.remove('hidden');
+          closeIcon.classList.add('hidden');
+        });
+      });
+
+      // Redirect helper for WhatsApp integration
+      function handleWhatsAppRedirect(customMessage) {
+        const defaultText = customMessage || "Olá, Ivonei Ferreira! Gostaria de fazer um orçamento de serviços elétricos.";
+        const url = `https://wa.me/5574988259925?text=${encodeURIComponent(defaultText)}`;
+        window.open(url, "_blank");
+      }
+
+      // Contact Form interactive submission helper
+      const contactForm = document.getElementById('contact-form');
+      const formSuccess = document.getElementById('form-success');
+      const submitterNameSpan = document.getElementById('submitter-name');
+      const contactResetBtn = document.getElementById('contact-reset-btn');
+
+      function resetContactSubmitButton() {
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+        const submitLabel = submitButton?.querySelector('span');
+        const submitIcon = submitButton?.querySelector('i');
+
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.classList.remove('opacity-80', 'cursor-wait');
+        }
+        if (submitLabel) submitLabel.textContent = 'Enviar Solicitação de Orçamento';
+        if (submitIcon) submitIcon.className = 'h-4 w-4';
+      }
+
+      if (contactResetBtn) {
+        contactResetBtn.addEventListener('click', () => {
+          contactForm.classList.remove('hidden');
+          formSuccess.classList.add('hidden');
+          contactForm.reset();
+          resetContactSubmitButton();
+          document.getElementById('form-nome')?.focus({ preventScroll: true });
+        });
+      }
+
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const nameVal = document.getElementById('form-nome').value.trim();
+        const phoneVal = document.getElementById('form-telefone').value.trim();
+        const emailVal = document.getElementById('form-email').value.trim();
+        const serviceVal = document.getElementById('form-servico').value;
+        const messageVal = document.getElementById('form-mensagem').value.trim();
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+        const submitLabel = submitButton?.querySelector('span');
+        const submitIcon = submitButton?.querySelector('i');
+
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.classList.add('opacity-80', 'cursor-wait');
+        }
+        if (submitLabel) submitLabel.textContent = 'Enviando...';
+        if (submitIcon) submitIcon.className = 'h-4 w-4 animate-spin';
+        
+        try {
+          await addContactRequest({
+            name: nameVal,
+            phone: phoneVal,
+            email: emailVal,
+            service: serviceVal,
+            message: messageVal,
+          });
+
+          submitterNameSpan.textContent = nameVal || 'Cliente';
+          contactForm.classList.add('hidden');
+          formSuccess.classList.remove('hidden');
+          contactForm.reset();
+          resetContactSubmitButton();
+          await loadContactRequests();
+        } catch (error) {
+          console.error('Erro ao enviar solicitação:', error);
+          showCustomAlert('Falha no envio', 'Não foi possível registrar sua solicitação agora. Tente novamente.');
+        } finally {
+          resetContactSubmitButton();
+        }
+      });
+
+      // ----------------------------------------------------
+      // DOWNLOADS LIBRARY MODULE (Persisted in localStorage)
+      // ----------------------------------------------------
+      
+      let downloadsList = [];
+      let contactRequestsList = [];
+      let editingDownloadId = null;
+
+      function isMasterAdmin() {
+        return sessionStorage.getItem('adminLoggedIn') === 'true';
+      }
+
+      function updateAdminPanelSecs() {
+        const loginSec = document.getElementById('admin-login-sec');
+        const toolsSec = document.getElementById('admin-tools-sec');
+        if (!loginSec || !toolsSec) return;
+
+        if (isMasterAdmin()) {
+          loginSec.classList.add('hidden');
+          toolsSec.classList.remove('hidden');
+        } else {
+          loginSec.classList.remove('hidden');
+          toolsSec.classList.add('hidden');
+        }
+
+        window.setTimeout(focusAdminPanelPrimaryControl, 0);
+      }
+
+      function focusAdminPanelPrimaryControl() {
+        const emailInput = document.getElementById('login-email');
+        const nameInput = document.getElementById('new-file-name');
+        const target = isMasterAdmin() ? nameInput : emailInput;
+
+        if (typeof target?.focus === 'function') {
+          target.focus({ preventScroll: true });
+          if (typeof target.select === 'function') {
+            target.select();
+          }
+        }
+      }
+
+      function getDownloadFormValues() {
+        const nameInput = document.getElementById('new-file-name');
+        const urlInput = document.getElementById('new-file-url');
+        const descInput = document.getElementById('new-file-desc');
+        const typeInput = document.getElementById('new-file-type');
+        const sizeInput = document.getElementById('new-file-size');
+
+        return {
+          name: nameInput?.value.trim() || '',
+          url: sanitizeUrl(urlInput?.value || ''),
+          description: descInput?.value.trim() || '',
+          type: (typeInput?.value || 'pdf').trim(),
+          size: (sizeInput?.value.trim() || 'Vária'),
+        };
+      }
+
+      function setDownloadFormMode(mode, download = null) {
+        const formTitle = document.getElementById('download-form-title');
+        const submitLabel = document.getElementById('save-download-btn-label');
+        const submitBtn = document.getElementById('save-download-btn');
+        const cancelBtn = document.getElementById('cancel-edit-download-btn');
+        const nameInput = document.getElementById('new-file-name');
+        const urlInput = document.getElementById('new-file-url');
+        const descInput = document.getElementById('new-file-desc');
+        const typeInput = document.getElementById('new-file-type');
+        const sizeInput = document.getElementById('new-file-size');
+
+        if (mode === 'edit' && download) {
+          editingDownloadId = download.id;
+          if (formTitle) formTitle.textContent = 'Editar Arquivo';
+          if (submitLabel) submitLabel.textContent = 'Atualizar';
+          if (submitBtn) submitBtn.classList.remove('grow');
+          if (cancelBtn) cancelBtn.classList.remove('hidden');
+          if (nameInput) nameInput.value = download.name || '';
+          if (urlInput) urlInput.value = download.url || '';
+          if (descInput) descInput.value = download.description || download.desc || '';
+          if (typeInput) typeInput.value = download.type || 'pdf';
+          if (sizeInput) sizeInput.value = download.size || '';
+          nameInput?.focus();
+          return;
+        }
+
+        editingDownloadId = null;
+        if (formTitle) formTitle.textContent = 'Cadastrar Novo Arquivo';
+        if (submitLabel) submitLabel.textContent = 'Salvar';
+        if (submitBtn) submitBtn.classList.add('grow');
+        if (cancelBtn) cancelBtn.classList.add('hidden');
+      }
+
+      function clearDownloadForm() {
+        const nameInput = document.getElementById('new-file-name');
+        const urlInput = document.getElementById('new-file-url');
+        const descInput = document.getElementById('new-file-desc');
+        const typeInput = document.getElementById('new-file-type');
+        const sizeInput = document.getElementById('new-file-size');
+
+        if (nameInput) nameInput.value = '';
+        if (urlInput) urlInput.value = '';
+        if (descInput) descInput.value = '';
+        if (typeInput) typeInput.value = 'pdf';
+        if (sizeInput) sizeInput.value = '';
+      }
+
+      function resetDownloadEditor() {
+        clearDownloadForm();
+        setDownloadFormMode('create');
+      }
+
+      // Programmatic triggers for single-page administration access
+      window.openAdminPanelDirectly = function() {
+        toggleAdminPanel(true);
+      };
+
+      function setAdminPanelState(isOpen) {
+        const adminPanel = document.getElementById('admin-panel');
+        const toggleAdminBtn = document.getElementById('toggle-admin-btn');
+
+        if (!adminPanel || !toggleAdminBtn) {
+          return;
+        }
+
+        adminPanel.classList.toggle('hidden', !isOpen);
+        toggleAdminBtn.innerHTML = isOpen
+          ? `<i data-lucide="minus-circle" class="h-4 w-4"></i> <span>Fechar Painel de Gestão</span>`
+          : `<i data-lucide="plus-circle" class="h-4 w-4"></i> <span>Abrir Painel de Gestão</span>`;
+        toggleAdminBtn.setAttribute('aria-expanded', String(isOpen));
+
+        if (isOpen) {
+          adminPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          window.setTimeout(focusAdminPanelPrimaryControl, 250);
+        }
+
+        if (window.lucide && typeof lucide.createIcons === 'function') {
+          lucide.createIcons();
+        }
+      }
+
+      function toggleAdminPanel(forceOpen = null) {
+        const adminPanel = document.getElementById('admin-panel');
+        if (!adminPanel) {
+          return;
+        }
+
+        const shouldOpen = forceOpen === null ? adminPanel.classList.contains('hidden') : Boolean(forceOpen);
+        setAdminPanelState(shouldOpen);
+      }
+
+      window.toggleAdminPanel = toggleAdminPanel;
+
+      async function loadDownloads() {
+        try {
+          await loadDownloadsFromSource();
+        } catch (e) {
+          console.error("Erro ao carregar downloads:", e);
+          downloadsList = getCachedDownloads();
+          updateAdminPanelSecs();
+          renderDownloads();
+        }
+      }
+
+      async function loadContactRequests() {
+        try {
+          await loadContactRequestsFromSource();
+        } catch (e) {
+          console.error("Erro ao carregar solicitações:", e);
+          contactRequestsList = getCachedContactRequests();
+          renderContactRequests();
+        }
+      }
+
+      function renderDownloads(customList) {
+        const grid = document.getElementById('downloads-grid');
+        if (!grid) return;
+
+        const listToRender = customList || downloadsList;
+
+        if (listToRender.length === 0) {
+          grid.innerHTML = `
+            <div class="col-span-full bg-white border border-dashed border-slate-350 rounded-sm p-12 text-center text-slate-500 w-full flex flex-col items-center justify-center">
+              <i data-lucide="folder-open" class="h-10 w-10 text-slate-350 mx-auto mb-3"></i>
+              <p class="font-display font-black text-sm text-slate-700 uppercase">Nenhum download correspondente</p>
+              <p class="text-xs text-slate-400 mt-1">Tente pesquisar por outros termos ou limpar os filtros.</p>
+            </div>
+          `;
+          lucide.createIcons();
+          return;
+        }
+
+        const isAdmin = isMasterAdmin();
+
+        grid.innerHTML = listToRender.map(item => {
+          const deleteBtnHtml = isAdmin ? `
+                <!-- Delete Button -->
+                <button 
+                  onclick="confirmDeleteDownload('${item.id}')"
+                  title="Excluir Link"
+                  class="text-slate-400 hover:text-red-655 hover:bg-red-50 p-1.5 rounded-sm transition-all focus:outline-none cursor-pointer border-none bg-transparent"
+                >
+                  <i data-lucide="trash-2" class="h-4 w-4"></i>
+                </button>
+          ` : '';
+
+          const fileType = item.type ? item.type.toUpperCase() : 'PDF';
+          
+          let badgeClass = 'bg-slate-100 text-slate-800';
+          if (item.type === 'pdf') badgeClass = 'bg-red-50 text-red-700 border border-red-100';
+          else if (item.type === 'xls' || item.type === 'xlsx') badgeClass = 'bg-emerald-50 text-emerald-700 border border-emerald-100';
+          else if (item.type === 'doc' || item.type === 'docx') badgeClass = 'bg-blue-50 text-blue-700 border border-blue-100';
+          else if (item.type === 'zip' || item.type === 'rar') badgeClass = 'bg-amber-50 text-[#FF8C00] border border-amber-100';
+
+          return `
+          <div class="bg-white border border-slate-200/90 rounded-sm p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group relative border-l-4 border-l-[#FF8C00]">
+            <div class="space-y-4">
+              <!-- Header Row -->
+              <div class="flex items-start justify-between gap-4">
+                <div class="bg-[#003366]/5 text-[#003366] group-hover:bg-[#FF8C00] group-hover:text-white p-3 rounded-sm transition-colors duration-300">
+                  <i data-lucide="file-text" class="h-6 w-6"></i>
+                </div>
+                
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-sm uppercase ${badgeClass}">
+                    ${fileType}
+                  </span>
+                  ${isAdmin ? `
+                  <button
+                    onclick="startEditDownload('${item.id}')"
+                    title="Editar Link"
+                    class="text-slate-400 hover:text-[#003366] hover:bg-slate-50 p-1.5 rounded-sm transition-all focus:outline-none cursor-pointer border-none bg-transparent"
+                  >
+                    <i data-lucide="pencil" class="h-4 w-4"></i>
+                  </button>
+                  ` : ''}
+                  ${deleteBtnHtml}
+                </div>
+              </div>
+
+              <!-- Content details -->
+              <div class="space-y-1">
+                <h3 class="font-display font-medium text-[#003366] text-sm group-hover:text-[#FF8C00] transition-colors leading-snug uppercase tracking-tight">
+                  ${escapeHtml(item.name)}
+                </h3>
+                <p class="text-slate-600 text-xs leading-relaxed font-light">
+                  ${escapeHtml(item.description || item.desc)}
+                </p>
+              </div>
+            </div>
+
+            <!-- Footer download button inside card -->
+            <div class="border-t border-slate-100 mt-6 pt-4 flex items-center justify-between gap-2">
+              <span class="text-[10px] font-mono text-slate-400 font-light flex items-center gap-1 shrink-0">
+                <i data-lucide="database" class="h-3 w-3"></i>
+                ${item.size || 'N/A'}
+              </span>
+              <a 
+                href="${sanitizeUrl(item.url)}" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onclick="incrementDownloadCount(${item.id})"
+                class="bg-slate-50 hover:bg-[#FF8C00] text-slate-700 hover:text-white transition-all text-[11px] font-bold uppercase tracking-wider h-10 px-4 rounded-sm flex items-center justify-center gap-2 cursor-pointer border border-slate-200 hover:border-transparent no-underline flex-1"
+              >
+                <i data-lucide="download" class="h-3.5 w-3.5"></i>
+                <span>Download</span>
+              </a>
+            </div>
+          </div>
+          `;
+        }).join('');
+
+        // Render current items in the admin control section list if shown
+        const adminListContainer = document.getElementById('admin-downloads-list');
+        if (adminListContainer) {
+          if (downloadsList.length === 0) {
+            adminListContainer.innerHTML = `
+              <div class="py-6 text-center text-slate-400 text-xs font-mono">
+                Nenhum arquivo cadastrado.
+              </div>
+            `;
+          } else {
+            adminListContainer.innerHTML = downloadsList.map(item => `
+              <div class="flex items-center justify-between gap-3 py-3 border-b border-slate-100 last:border-b-0 text-slate-705">
+                <div class="min-w-0 flex-1">
+                  <p class="text-[11px] font-bold text-[#003366] truncate uppercase tracking-tight">${escapeHtml(item.name)}</p>
+                  <p class="text-[10px] text-slate-500 truncate font-light">${escapeHtml(item.description || item.desc)}</p>
+                  <a href="${sanitizeUrl(item.url)}" target="_blank" rel="noopener noreferrer" class="text-[9px] text-[#FF8C00] hover:underline font-mono truncate block max-w-xs sm:max-w-md">
+                    ${escapeHtml(item.url)}
+                  </a>
+                </div>
+                <div class="flex items-center gap-2 flex-shrink-0">
+                  <button 
+                    onclick="confirmDeleteDownload('${item.id}')"
+                    title="Excluir"
+                    class="text-slate-400 hover:text-red-650 hover:bg-red-50 p-2 rounded-sm transition-all focus:outline-none cursor-pointer border-none bg-transparent"
+                  >
+                    <i data-lucide="trash-2" class="h-3.5 w-3.5 text-red-655"></i>
+                  </button>
+                </div>
+              </div>
+            `).join('');
+          }
+        }
+
+        // Re-initialize Lucide Icons for dynamic content
+        lucide.createIcons();
+      }
+
+      function formatContactRequestDate(value) {
+        if (!value) return 'Data não informada';
+
+        try {
+          return new Intl.DateTimeFormat('pt-BR', {
+            dateStyle: 'short',
+            timeStyle: 'short',
+          }).format(new Date(value));
+        } catch {
+          return value;
+        }
+      }
+
+      function updateContactRequestsSummary() {
+        const badge = document.getElementById('admin-requests-count');
+        if (!badge) return;
+        badge.textContent = String(contactRequestsList.length);
+      }
+
+      function formatWhatsAppDigits(phone) {
+        return String(phone || '').replace(/\D/g, '');
+      }
+
+      async function copyContactRequestValue(value, label = 'Valor copiado') {
+        const text = String(value || '').trim();
+        if (!text) {
+          showCustomAlert('Dados indisponíveis', 'Não há conteúdo para copiar neste campo.');
+          return;
+        }
+
+        try {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(text);
+          } else {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = text;
+            tempInput.setAttribute('readonly', 'true');
+            tempInput.style.position = 'fixed';
+            tempInput.style.opacity = '0';
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            tempInput.remove();
+          }
+          showCustomAlert('Copiado', `${label} para a área de transferência.`);
+        } catch (error) {
+          console.error('Falha ao copiar contato:', error);
+          showCustomAlert('Falha ao copiar', 'O navegador bloqueou a cópia automática.');
+        }
+      }
+
+      function openContactRequestWhatsApp(name, phone, message) {
+        const digits = formatWhatsAppDigits(phone);
+        if (!digits) {
+          showCustomAlert('Telefone ausente', 'Esta solicitação não possui telefone válido.');
+          return;
+        }
+
+        const text = [
+          `Olá, ${name || 'cliente'}!`,
+          'Recebemos sua solicitação pelo site e retornamos o contato.',
+          message ? `Mensagem: ${message}` : null,
+        ].filter(Boolean).join('\n\n');
+
+        window.open(`https://wa.me/${digits}?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+      }
+
+      function renderContactRequests() {
+        const container = document.getElementById('admin-requests-list');
+        if (!container) return;
+
+        updateContactRequestsSummary();
+
+        const requestsToRender = [...contactRequestsList].sort((left, right) => {
+          const leftTime = new Date(left?.createdAt || 0).getTime();
+          const rightTime = new Date(right?.createdAt || 0).getTime();
+          return rightTime - leftTime;
+        });
+
+        if (requestsToRender.length === 0) {
+          container.innerHTML = `
+            <div class="py-6 text-center text-slate-400 text-xs font-mono">
+              Nenhuma solicitação recebida.
+            </div>
+          `;
+          lucide.createIcons();
+          return;
+        }
+
+        container.innerHTML = requestsToRender.map((request) => `
+          <div class="bg-slate-50 border border-slate-200 rounded-sm p-4 sm:p-5 space-y-4 shadow-sm">
+            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+              <div class="space-y-1 min-w-0">
+                <p class="text-[11px] font-black text-[#003366] uppercase tracking-wider truncate">${escapeHtml(request.name || 'Sem nome')}</p>
+                <p class="text-[10px] font-mono text-slate-500 uppercase tracking-widest">${escapeHtml(request.service || 'Sem serviço')}</p>
+              </div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-[9px] font-mono font-bold px-2 py-1 rounded-sm uppercase bg-amber-50 text-[#FF8C00] border border-amber-100">
+                  ${escapeHtml(request.status || 'new')}
+                </span>
+                <button
+                  type="button"
+                  onclick="confirmDeleteContactRequest('${request.id}')"
+                  title="Remover solicitação"
+                  class="text-slate-400 hover:text-red-650 hover:bg-red-50 p-2 rounded-sm transition-all focus:outline-none cursor-pointer border-none bg-transparent"
+                >
+                  <i data-lucide="trash-2" class="h-4 w-4"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <p class="text-slate-700"><span class="font-bold text-slate-500 uppercase tracking-wider text-[10px] block">Telefone</span>${escapeHtml(request.phone || '—')}</p>
+              <p class="text-slate-700"><span class="font-bold text-slate-500 uppercase tracking-wider text-[10px] block">E-mail</span>${escapeHtml(request.email || '—')}</p>
+            </div>
+
+            <div class="space-y-1">
+              <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Mensagem</p>
+              <p class="text-sm text-slate-700 leading-relaxed whitespace-pre-line">${escapeHtml(request.message || '—')}</p>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              <button
+                type="button"
+                onclick='copyContactRequestValue(${JSON.stringify(request.phone || '')}, "Telefone copiado")'
+                class="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest px-3 py-2 rounded-sm border border-slate-200 text-slate-600 hover:border-[#FF8C00]/30 hover:text-[#003366] hover:bg-white transition-colors"
+              >
+                <i data-lucide="copy" class="h-3.5 w-3.5"></i>
+                <span>Copiar telefone</span>
+              </button>
+              <button
+                type="button"
+                onclick='copyContactRequestValue(${JSON.stringify(request.email || '')}, "E-mail copiado")'
+                class="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest px-3 py-2 rounded-sm border border-slate-200 text-slate-600 hover:border-[#FF8C00]/30 hover:text-[#003366] hover:bg-white transition-colors"
+              >
+                <i data-lucide="mail" class="h-3.5 w-3.5"></i>
+                <span>Copiar e-mail</span>
+              </button>
+              <button
+                type="button"
+                onclick='openContactRequestWhatsApp(${JSON.stringify(request.name || 'Cliente')}, ${JSON.stringify(request.phone || '')}, ${JSON.stringify(request.message || '')})'
+                class="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest px-3 py-2 rounded-sm border border-[#FF8C00]/20 text-[#FF8C00] hover:bg-[#FF8C00]/10 transition-colors"
+              >
+                <i data-lucide="message-circle" class="h-3.5 w-3.5"></i>
+                <span>Abrir WhatsApp</span>
+              </button>
+            </div>
+
+            <div class="flex items-center justify-between gap-3 text-[10px] font-mono text-slate-400 uppercase tracking-wider">
+              <span>ID #${escapeHtml(String(request.id ?? '—'))}</span>
+              <span>${escapeHtml(formatContactRequestDate(request.createdAt))}</span>
+            </div>
+          </div>
+        `).join('');
+
+        lucide.createIcons();
+      }
+
+      // Combined custom search filter of downloaded files
+      window.filterDownloads = function() {
+        const query = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
+        const formatFilter = document.getElementById('type-filter')?.value || 'all';
+        
+        const filtered = downloadsList.filter(item => {
+          const nameMatch = (item.name || '').toLowerCase().includes(query);
+          const descMatch = (item.description || item.desc || '').toLowerCase().includes(query);
+          const matchesQuery = nameMatch || descMatch;
+          
+          const matchesFormat = formatFilter === 'all' || (item.type || '').toLowerCase() === formatFilter.toLowerCase();
+          
+          return matchesQuery && matchesFormat;
+        });
+        
+        renderDownloads(filtered);
+      }
+
+      // Diálogos personalizados robustos para compatibilidade com o iframe do navegador
+      function showCustomAlert(title, message) {
+        const modal = document.getElementById('custom-alert-container');
+        const titleEl = document.getElementById('custom-alert-title');
+        const msgEl = document.getElementById('custom-alert-message');
+        if (!modal || !titleEl || !msgEl) return;
+        
+        titleEl.textContent = title;
+        msgEl.textContent = message;
+        modal.classList.remove('hidden');
+        lucide.createIcons();
+      }
+
+      document.getElementById('custom-alert-ok-btn')?.addEventListener('click', () => {
+        document.getElementById('custom-alert-container')?.classList.add('hidden');
+      });
+
+      let confirmCallback = null;
+      function showCustomConfirm(title, message, okText = "Confirmar", callback = null) {
+        const modal = document.getElementById('custom-confirm-container');
+        const titleEl = document.getElementById('custom-confirm-title');
+        const msgEl = document.getElementById('custom-confirm-message');
+        const okBtn = document.getElementById('custom-confirm-ok-btn');
+        
+        if (!modal || !titleEl || !msgEl || !okBtn) return;
+
+        titleEl.textContent = title;
+        msgEl.textContent = message;
+        okBtn.textContent = okText;
+        confirmCallback = callback;
+        modal.classList.remove('hidden');
+        lucide.createIcons();
+      }
+
+      document.getElementById('custom-confirm-cancel-btn')?.addEventListener('click', () => {
+        document.getElementById('custom-confirm-container')?.classList.add('hidden');
+        confirmCallback = null;
+      });
+
+      document.getElementById('custom-confirm-ok-btn')?.addEventListener('click', () => {
+        document.getElementById('custom-confirm-container')?.classList.add('hidden');
+        if (confirmCallback) {
+          confirmCallback();
+          confirmCallback = null;
+        }
+      });
+
+      function escapeHtml(str) {
+        if (!str) return '';
+        return str
+          .replace(/&/g, "&")
+          .replace(/</g, "<")
+          .replace(/>/g, ">")
+          .replace(/"/g, """)
+          .replace(/'/g, "'");
+      }
+
+      function sanitizeUrl(url) {
+        const trimmedUrl = (url || '').trim();
+        if (!trimmedUrl) return '#';
+
+        try {
+          const parsedUrl = new URL(trimmedUrl, window.location.origin);
+          const allowedProtocols = ['http:', 'https:', 'mailto:', 'tel:'];
+          return allowedProtocols.includes(parsedUrl.protocol) ? trimmedUrl : '#';
+        } catch {
+          return '#';
+        }
+      }
+
+      // Handle Authentication Form Submission
+      const loginForm = document.getElementById('admin-login-form');
+      if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const emailInput = document.getElementById('login-email');
+          const passwordInput = document.getElementById('login-password');
+          const errorMsg = document.getElementById('login-error-msg');
+
+          if (!emailInput || !passwordInput || !errorMsg) return;
+
+          const emailVal = emailInput.value.trim().toLowerCase();
+          const passwordVal = passwordInput.value;
+
+          if (emailVal === 'ivonei.energia@gmail.com' && (passwordVal === 'Miguel151230@#@#@()' || passwordVal === 'Miguel151230@' || passwordVal === 'Miguel151@')) {
+            sessionStorage.setItem('adminLoggedIn', 'true');
+            sessionStorage.setItem('adminEmail', emailVal);
+            errorMsg.classList.add('hidden');
+            emailInput.value = '';
+            passwordInput.value = '';
+            resetDownloadEditor();
+            updateAdminPanelSecs();
+            await loadDownloads();
+            await loadContactRequests();
+          } else {
+            errorMsg.classList.remove('hidden');
+          }
+        });
+      }
+
+      // Handle Authentication Logout Click
+      const logoutBtn = document.getElementById('admin-logout-btn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', async () => {
+          sessionStorage.removeItem('adminLoggedIn');
+          sessionStorage.removeItem('adminEmail');
+          resetDownloadEditor();
+          updateAdminPanelSecs();
+          await loadDownloads();
+          await loadContactRequests();
+        });
+      }
+
+      // Add new link / update existing link
+      const addForm = document.getElementById('add-download-form');
+      if (addForm) {
+        addForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          if (!isMasterAdmin()) {
+            showCustomAlert("Acesso Restrito", "Acesso restrito apenas ao administrador!");
+            return;
+          }
+
+          const formData = getDownloadFormValues();
+
+          if (!formData.name || !formData.description || !formData.url) {
+            showCustomAlert("Campos obrigatórios", "Preencha nome, URL e descrição antes de salvar.");
+            return;
+          }
+
+          if (formData.url === '#') {
+            showCustomAlert("URL Inválida", "Informe um link válido começando com http, https, mailto ou tel.");
+            return;
+          }
+
+          const payload = {
+            name: formData.name,
+            description: formData.description,
+            type: formData.type || 'pdf',
+            size: formData.size || 'Vária',
+            url: formData.url
+          };
+
+          const isEditing = editingDownloadId !== null;
+          const savedDownload = isEditing
+            ? await updateDownload(Number(editingDownloadId) || editingDownloadId, payload)
+            : await addDownload(payload);
+
+          if (!savedDownload) {
+            showCustomAlert("Erro", "Não foi possível salvar o arquivo. Tente novamente.");
+            return;
+          }
+
+          resetDownloadEditor();
+          await loadDownloads();
+
+          const btn = addForm.querySelector('button[type="submit"]');
+          const originalHTML = btn.innerHTML;
+          btn.innerHTML = `<i data-lucide="check" class="h-4 w-4"></i> <span>${isEditing ? 'Atualizado!' : 'Cadastrado!'}</span>`;
+          lucide.createIcons();
+          setTimeout(() => {
+            btn.innerHTML = originalHTML;
+            lucide.createIcons();
+          }, 1500);
+        });
+      }
+
+      window.startEditDownload = function(id) {
+        if (!isMasterAdmin()) {
+          showCustomAlert("Acesso Restrito", "Acesso restrito apenas ao administrador!");
+          return;
+        }
+
+        const targetId = Number(id) || id;
+        const download = getDownloadById(targetId);
+        if (!download) {
+          showCustomAlert("Arquivo não encontrado", "O item selecionado não existe mais.");
+          return;
+        }
+
+        setDownloadFormMode('edit', download);
+        document.getElementById('add-download-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
+
+      // Delete link
+      window.confirmDeleteDownload = function(id) {
+        if (!isMasterAdmin()) {
+          showCustomAlert("Acesso Restrito", "Acesso restrito apenas ao administrador!");
+          return;
+        }
+
+        showCustomConfirm("Remover Download", "Deseja realmente remover este link de download?", "Sim, Remover", async () => {
+          await deleteDownload(Number(id) || id);
+          if (editingDownloadId !== null && Number(editingDownloadId) === Number(id)) {
+            resetDownloadEditor();
+          }
+          await loadDownloads();
+        });
+      };
+
+      window.confirmDeleteContactRequest = function(id) {
+        if (!isMasterAdmin()) {
+          showCustomAlert("Acesso Restrito", "Acesso restrito apenas ao administrador!");
+          return;
+        }
+
+        showCustomConfirm("Remover Solicitação", "Deseja realmente remover esta solicitação recebida?", "Sim, Remover", async () => {
+          await deleteContactRequest(Number(id) || id);
+          await loadContactRequests();
+        });
+      };
+
+      const cancelEditBtn = document.getElementById('cancel-edit-download-btn');
+      if (cancelEditBtn) {
+        cancelEditBtn.addEventListener('click', () => {
+          resetDownloadEditor();
+        });
+      }
+
+      // Reset standard values
+      const resetBtn = document.getElementById('reset-downloads-btn');
+      if (resetBtn) {
+        resetBtn.addEventListener('click', async () => {
+          if (!isMasterAdmin()) {
+            showCustomAlert("Acesso Restrito", "Acesso restrito apenas ao administrador!");
+            return;
+          }
+
+          showCustomConfirm("Restaurar Biblioteca", "Deseja restaurar a biblioteca de links para o padrão original?", "Sim, Restaurar", async () => {
+            await requestDownloads('POST', { action: 'reset' });
+            resetDownloadEditor();
+            await loadDownloads();
+          });
+        });
+      }
+      // Real-time synchronization when database changes in another window/tab
+      window.addEventListener('storage', (e) => {
+        if (e.key === DOWNLOADS_CACHE_KEY) {
+          void loadDownloads();
+        }
+        if (e.key === CONTACT_REQUESTS_CACHE_KEY) {
+          void loadContactRequests();
+        }
+      });
+
+      window.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          void loadDownloads();
+          void loadContactRequests();
+        }
+      });
+
+      setInterval(() => {
+        void loadDownloads();
+        void loadContactRequests();
+      }, 15000);
+
+      // Bootstrap Downloads list
+      renderDownloads();
+      renderContactRequests();
+      void loadDownloads();
+      void loadContactRequests();
+    </script>
+  
+
+</body></html>
