@@ -1134,6 +1134,19 @@
       </div>
     </div>
 
+    <!-- Supabase (appsbrasil.store) — optional; falls back to Netlify/localStorage -->
+    <script>
+      // Cole a anon key em window.__ENV (ou edite js/supabase-config.js).
+      // Copiar em: https://supabase.appsbrasil.store/project/default/settings/api
+      window.__ENV = window.__ENV || {
+        SUPABASE_URL: 'https://supabase.appsbrasil.store',
+        SUPABASE_ANON_KEY: '' // cole a anon (public) key aqui
+      };
+    </script>
+    <script src="js/supabase-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js"></script>
+
     <!-- JavaScript Interactions Logic & Database Engine -->
     <script>
       // ----------------------------------------------------
@@ -1244,7 +1257,28 @@
         return downloads.find(d => String(d.id) === String(id));
       }
 
+      function hasSupabaseApi() {
+        return !!(window.supabaseApi);
+      }
+
       async function requestContactRequests(method, payload = null) {
+        if (hasSupabaseApi()) {
+          const api = window.supabaseApi;
+          const upper = String(method || 'GET').toUpperCase();
+          if (upper === 'GET') {
+            return { requests: await api.listContactRequests() };
+          }
+          if (upper === 'POST') {
+            const created = await api.createContactRequest((payload && payload.request) || payload || {});
+            const requests = await api.listContactRequests();
+            return { request: created, requests };
+          }
+          if (upper === 'DELETE') {
+            await api.deleteContactRequest(payload && payload.id);
+            return { requests: await api.listContactRequests() };
+          }
+        }
+
         const requestOptions = {
           method,
           headers: payload ? { 'Content-Type': 'application/json' } : undefined,
@@ -1266,6 +1300,35 @@
       }
 
       async function requestDownloads(method, payload = null) {
+        if (hasSupabaseApi()) {
+          const api = window.supabaseApi;
+          const upper = String(method || 'GET').toUpperCase();
+          if (upper === 'GET') {
+            return { downloads: await api.listDownloads() };
+          }
+          if (upper === 'POST') {
+            const action = payload && payload.action;
+            if (action === 'increment') {
+              await api.incrementDownload(payload.id);
+              return { downloads: await api.listDownloads() };
+            }
+            if (action === 'reset') {
+              return { downloads: await api.listDownloads() };
+            }
+            const created = await api.createDownload((payload && payload.download) || payload || {});
+            const downloads = await api.listDownloads();
+            return { download: created, downloads };
+          }
+          if (upper === 'PUT') {
+            await api.updateDownload(payload.id, payload.updatedData || {});
+            return { downloads: await api.listDownloads() };
+          }
+          if (upper === 'DELETE') {
+            await api.deleteDownload(payload && payload.id);
+            return { downloads: await api.listDownloads() };
+          }
+        }
+
         const requestOptions = {
           method,
           headers: payload ? { 'Content-Type': 'application/json' } : undefined,
@@ -2256,6 +2319,5 @@
       void loadDownloads();
       void loadContactRequests();
     </script>
-  
 
 </body></html>
