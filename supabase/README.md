@@ -21,6 +21,7 @@ Site estático em `index.html` · repositório [ivonei-eletrotecnico](https://gi
 |---------|--------|
 | `config.toml` | Config local CLI (`project_id = ivonei-eletrotecnico`) |
 | `migrations/20260716090000_downloads_and_contact_requests.sql` | Tabelas + RLS + RPC |
+| `migrations/20260716120000_orcamentos_storage.sql` | Bucket `orcamentos` + coluna `attachment_urls` |
 | `../.env.example` | Placeholders URL/anon para AppsBrasil |
 | `../js/supabase-config.js` | Lê `window.__ENV` / placeholders |
 | `../js/supabase-client.js` | Cliente CDN + `window.supabaseApi` |
@@ -41,10 +42,18 @@ Sem a anon key, o site continua com fallback Netlify / localStorage.
 **Caminho rápido (um clique / colar SQL):**
 
 1. Abra o SQL Editor: https://supabase.appsbrasil.store/ivonei-eletrotecnico/sql/new
-2. Cole o conteúdo de `migrations/20260716090000_downloads_and_contact_requests.sql`
-3. Execute (Run)
+2. Cole e execute, nesta ordem:
+   - `migrations/20260716090000_downloads_and_contact_requests.sql`
+   - `migrations/20260716120000_orcamentos_storage.sql`
 
-Isso cria `downloads`, `contact_requests`, RLS e a função `increment_download_count`.
+Isso cria `downloads`, `contact_requests`, RLS, `increment_download_count`, o bucket Storage `orcamentos` (público para leitura) e a coluna `attachment_urls`.
+
+### Storage (`orcamentos`)
+
+- Bucket **público** (URL pública via `getPublicUrl`) para o site estático.
+- MIME: JPEG/PNG/WebP/GIF/PDF · máx. 5 MB.
+- RLS: anon/authenticated podem `select`/`insert`/`update`/`delete` em `storage.objects` com `bucket_id = 'orcamentos'`.
+- Sem anon key no browser: o campo de upload fica desabilitado; formulário + WhatsApp seguem ok.
 
 > A migration **não** foi aplicada automaticamente daqui: não há anon/service key neste ambiente.
 
@@ -57,6 +66,8 @@ Com URL + anon key preenchidos, `index.html` carrega:
 3. `js/supabase-client.js`
 
 `downloads` e `contact_requests` usam Supabase primeiro; se falhar ou faltar key → Netlify/localStorage.
+
+O formulário **Solicitar Orçamento** abre o WhatsApp (`wa.me/5574988259925`) com os campos preenchidos; persistência e upload de anexos são secundários.
 
 ## Probe da API (referência)
 

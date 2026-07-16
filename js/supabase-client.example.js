@@ -92,26 +92,56 @@
     },
 
     async createContactRequest(request) {
+      const payload = {
+        name: request.name,
+        phone: request.phone || '',
+        email: request.email || '',
+        service: request.service || '',
+        message: request.message || '',
+        status: request.status || 'new',
+      };
+      if (Array.isArray(request.attachment_urls) && request.attachment_urls.length) {
+        payload.attachment_urls = request.attachment_urls;
+      }
+
       const { data, error } = await client
         .from('contact_requests')
-        .insert({
-          name: request.name,
-          phone: request.phone || '',
-          email: request.email || '',
-          service: request.service || '',
-          message: request.message || '',
-          status: request.status || 'new',
-        })
+        .insert(payload)
         .select()
         .single();
       if (error) throw error;
-      return { ...data, createdAt: data.created_at };
+      return {
+        ...data,
+        createdAt: data.created_at,
+        attachmentUrls: data.attachment_urls || [],
+      };
     },
 
     async deleteContactRequest(id) {
       const { error } = await client.from('contact_requests').delete().eq('id', id);
       if (error) throw error;
       return true;
+    },
+
+    async uploadOrcamentoFiles(files) {
+      const list = Array.from(files || []);
+      if (!list.length) return [];
+      const urls = [];
+      for (const file of list) {
+        const safeName = String(file.name || 'arquivo')
+          .replace(/[^a-zA-Z0-9._-]+/g, '_')
+          .slice(0, 120);
+        const path = `envios/${new Date().toISOString().slice(0, 10)}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}-${safeName}`;
+        const { error } = await client.storage.from('orcamentos').upload(path, file, {
+          cacheControl: '3600',
+          upsert: false,
+          contentType: file.type || undefined,
+        });
+        if (error) throw error;
+        const { data } = client.storage.from('orcamentos').getPublicUrl(path);
+        if (data?.publicUrl) urls.push(data.publicUrl);
+      }
+      return urls;
     },
   };
 })();

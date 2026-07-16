@@ -90,21 +90,29 @@
     },
 
     async createContactRequest(request) {
+      var payload = {
+        name: request.name,
+        phone: request.phone || '',
+        email: request.email || '',
+        service: request.service || '',
+        message: request.message || '',
+        status: request.status || 'new',
+      };
+      if (Array.isArray(request.attachment_urls) && request.attachment_urls.length) {
+        payload.attachment_urls = request.attachment_urls;
+      } else if (Array.isArray(request.attachmentUrls) && request.attachmentUrls.length) {
+        payload.attachment_urls = request.attachmentUrls;
+      }
+
       var result = await client
         .from('contact_requests')
-        .insert({
-          name: request.name,
-          phone: request.phone || '',
-          email: request.email || '',
-          service: request.service || '',
-          message: request.message || '',
-          status: request.status || 'new',
-        })
+        .insert(payload)
         .select()
         .single();
       if (result.error) throw result.error;
       return Object.assign({}, result.data, {
         createdAt: result.data.created_at,
+        attachmentUrls: result.data.attachment_urls || [],
       });
     },
 
@@ -112,6 +120,51 @@
       var result = await client.from('contact_requests').delete().eq('id', id);
       if (result.error) throw result.error;
       return true;
+    },
+
+    /**
+     * Upload quote attachments to the public `orcamentos` bucket.
+     * Returns public object URLs. Throws if Storage is unavailable.
+     * @param {FileList|File[]} files
+     * @returns {Promise<string[]>}
+     */
+    async uploadOrcamentoFiles(files) {
+      var list = Array.prototype.slice.call(files || []);
+      if (!list.length) return [];
+
+      var urls = [];
+      for (var i = 0; i < list.length; i++) {
+        var file = list[i];
+        var safeName = String(file.name || 'arquivo')
+          .replace(/[^a-zA-Z0-9._-]+/g, '_')
+          .slice(0, 120);
+        var path =
+          'envios/' +
+          new Date().toISOString().slice(0, 10) +
+          '/' +
+          Date.now() +
+          '-' +
+          Math.random().toString(36).slice(2, 8) +
+          '-' +
+          safeName;
+
+        var uploadResult = await client.storage
+          .from('orcamentos')
+          .upload(path, file, {
+            cacheControl: '3600',
+            upsert: false,
+            contentType: file.type || undefined,
+          });
+        if (uploadResult.error) throw uploadResult.error;
+
+        var publicResult = client.storage.from('orcamentos').getPublicUrl(path);
+        var publicUrl =
+          publicResult &&
+          publicResult.data &&
+          publicResult.data.publicUrl;
+        if (publicUrl) urls.push(publicUrl);
+      }
+      return urls;
     },
   };
 })();

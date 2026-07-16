@@ -958,6 +958,12 @@
                 <textarea id="form-mensagem" rows="4" required="" maxlength="1500" placeholder="Por favor, explique brevemente sua necessidade técnica, problemas atuais na rede ou detalhes técnicos da sua fiação atual..." class="w-full bg-slate-900/60 border border-slate-800 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-white resize-none"></textarea>
               </div>
 
+              <div class="space-y-2">
+                <label for="form-anexos" class="text-[10px] font-mono text-slate-400 uppercase font-black tracking-wider block">Fotos ou PDF do problema (opcional)</label>
+                <input type="file" id="form-anexos" accept="image/jpeg,image/png,image/webp,image/gif,application/pdf" multiple class="w-full bg-slate-900/60 border border-slate-800 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-slate-300 file:mr-3 file:py-1.5 file:px-3 file:rounded-sm file:border-0 file:bg-[#003366] file:text-white file:text-[10px] file:uppercase file:font-bold file:cursor-pointer cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+                <p id="form-anexos-hint" class="text-[10px] text-slate-500 font-light leading-relaxed">Até 3 arquivos · imagens ou PDF · máx. 5 MB cada. Enviado com a solicitação quando o Supabase estiver configurado.</p>
+              </div>
+
               <button type="submit" class="w-full bg-[#FF8C00] hover:bg-[#e07b00] text-white py-4 rounded-sm font-bold text-xs uppercase tracking-widest transition-colors flex items-center justify-center space-x-2 cursor-pointer border-none shadow-lg focus:outline-none">
                 <i data-lucide="send" class="h-4 w-4"></i>
                 <span>Enviar Solicitação de Orçamento</span>
@@ -974,7 +980,7 @@
                   Obrigado, <span id="submitter-name" class="text-[#FF8C00]">Nenhum</span>!
                 </h3>
                 <p class="text-blue-100 text-sm max-w-md mx-auto leading-relaxed">
-                  Sua solicitação foi enviada diretamente para o painel administrativo e ficará disponível para análise.
+                  Abrimos o WhatsApp com os dados do orçamento. Se a janela não abriu, use o botão flutuante ou ligue para (74) 98825-9925.
                 </p>
               </div>
               <button id="contact-reset-btn" type="button" class="bg-[#003366] hover:bg-[#002244] text-white font-bold px-8 py-4 rounded-sm text-xs uppercase tracking-widest transition-transform hover:scale-105 inline-flex items-center gap-2 cursor-pointer border-none shadow-md">
@@ -1089,6 +1095,20 @@
 
       </div>
     </footer>
+
+    <!-- Floating WhatsApp CTA -->
+    <a
+      id="whatsapp-float"
+      href="https://wa.me/5574988259925"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Falar com Ivonei no WhatsApp"
+      class="fixed bottom-5 right-5 z-[90] flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-black/30 transition-transform hover:scale-105 hover:bg-[#20bd5a] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF8C00] focus-visible:ring-offset-2 focus-visible:ring-offset-[#001f3f]"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-7 w-7" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+    </a>
 
     <!-- DYNAMIC ALERTS AND DIALOGS SYSTEM -->
     <!-- 1. Custom Alert Dialog Modal -->
@@ -1423,14 +1443,32 @@
       }
 
       async function addContactRequest(request) {
-        const response = await requestContactRequests('POST', { request });
-        const updatedRequests = normalizeContactRequestList(response);
-        contactRequestsList = updatedRequests;
-        saveCachedContactRequests(contactRequestsList);
-        if (response && response.request) {
-          return response.request;
+        try {
+          const response = await requestContactRequests('POST', { request });
+          const updatedRequests = normalizeContactRequestList(response);
+          contactRequestsList = updatedRequests;
+          saveCachedContactRequests(contactRequestsList);
+          if (response && response.request) {
+            return response.request;
+          }
+          return contactRequestsList[0] || null;
+        } catch (error) {
+          console.warn('Salvando solicitação no cache local:', error);
+          const localRequest = {
+            id: 'local-' + Date.now(),
+            name: request.name,
+            phone: request.phone || '',
+            email: request.email || '',
+            service: request.service || '',
+            message: request.message || '',
+            attachment_urls: request.attachment_urls || request.attachmentUrls || [],
+            status: 'new',
+            createdAt: new Date().toISOString(),
+          };
+          contactRequestsList = [localRequest].concat(getCachedContactRequests());
+          saveCachedContactRequests(contactRequestsList);
+          return localRequest;
         }
-        return contactRequestsList[0] || null;
       }
 
       async function deleteContactRequest(id) {
@@ -1497,10 +1535,83 @@
       });
 
       // Redirect helper for WhatsApp integration
+      const WHATSAPP_NUMBER = '5574988259925';
+      const ORCAMENTO_MAX_FILES = 3;
+      const ORCAMENTO_MAX_BYTES = 5 * 1024 * 1024;
+      const ORCAMENTO_ALLOWED_TYPES = [
+        'image/jpeg',
+        'image/jpg',
+        'image/png',
+        'image/webp',
+        'image/gif',
+        'application/pdf',
+      ];
+
       function handleWhatsAppRedirect(customMessage) {
         const defaultText = customMessage || "Olá, Ivonei Ferreira! Gostaria de fazer um orçamento de serviços elétricos.";
-        const url = `https://wa.me/5574988259925?text=${encodeURIComponent(defaultText)}`;
-        window.open(url, "_blank");
+        const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(defaultText)}`;
+        window.open(url, "_blank", "noopener,noreferrer");
+      }
+
+      function buildOrcamentoWhatsAppMessage({ name, phone, email, service, message, attachmentUrls }) {
+        const lines = [
+          '*Solicitação de Orçamento — Ivonei Eletrotécnico*',
+          '',
+          `*Nome:* ${name}`,
+          `*Telefone:* ${phone}`,
+          `*E-mail:* ${email}`,
+          `*Serviço:* ${service}`,
+          '',
+          '*Mensagem:*',
+          message || '(sem detalhes)',
+        ];
+        if (attachmentUrls && attachmentUrls.length) {
+          lines.push('', '*Anexos:*');
+          attachmentUrls.forEach((url, index) => {
+            lines.push(`${index + 1}. ${url}`);
+          });
+        }
+        return lines.join('\n');
+      }
+
+      function isOrcamentoUploadReady() {
+        return !!(window.supabaseApi && typeof window.supabaseApi.uploadOrcamentoFiles === 'function');
+      }
+
+      function syncOrcamentoUploadField() {
+        const input = document.getElementById('form-anexos');
+        const hint = document.getElementById('form-anexos-hint');
+        if (!input) return;
+
+        if (isOrcamentoUploadReady()) {
+          input.disabled = false;
+          if (hint) {
+            hint.textContent = 'Até 3 arquivos · imagens ou PDF · máx. 5 MB cada. Os links entram no WhatsApp e no registro da solicitação.';
+          }
+        } else {
+          input.disabled = true;
+          input.value = '';
+          if (hint) {
+            hint.textContent = 'Upload indisponível no momento (configure a anon key do Supabase). O formulário e o WhatsApp continuam funcionando normalmente.';
+          }
+        }
+      }
+
+      function validateOrcamentoFiles(fileList) {
+        const files = Array.from(fileList || []);
+        if (!files.length) return [];
+        if (files.length > ORCAMENTO_MAX_FILES) {
+          throw new Error(`Envie no máximo ${ORCAMENTO_MAX_FILES} arquivos.`);
+        }
+        files.forEach((file) => {
+          if (file.size > ORCAMENTO_MAX_BYTES) {
+            throw new Error(`"${file.name}" excede 5 MB.`);
+          }
+          if (file.type && ORCAMENTO_ALLOWED_TYPES.indexOf(file.type) === -1) {
+            throw new Error(`"${file.name}" não é imagem ou PDF permitido.`);
+          }
+        });
+        return files;
       }
 
       // Contact Form interactive submission helper
@@ -1508,6 +1619,8 @@
       const formSuccess = document.getElementById('form-success');
       const submitterNameSpan = document.getElementById('submitter-name');
       const contactResetBtn = document.getElementById('contact-reset-btn');
+
+      syncOrcamentoUploadField();
 
       function resetContactSubmitButton() {
         const submitButton = contactForm.querySelector('button[type="submit"]');
@@ -1528,6 +1641,7 @@
           formSuccess.classList.add('hidden');
           contactForm.reset();
           resetContactSubmitButton();
+          syncOrcamentoUploadField();
           document.getElementById('form-nome')?.focus({ preventScroll: true });
         });
       }
@@ -1540,6 +1654,7 @@
         const emailVal = document.getElementById('form-email').value.trim();
         const serviceVal = document.getElementById('form-servico').value;
         const messageVal = document.getElementById('form-mensagem').value.trim();
+        const anexosInput = document.getElementById('form-anexos');
         const submitButton = contactForm.querySelector('button[type="submit"]');
         const submitLabel = submitButton?.querySelector('span');
         const submitIcon = submitButton?.querySelector('i');
@@ -1550,25 +1665,69 @@
         }
         if (submitLabel) submitLabel.textContent = 'Enviando...';
         if (submitIcon) submitIcon.className = 'h-4 w-4 animate-spin';
-        
+
+        let attachmentUrls = [];
+
         try {
-          await addContactRequest({
-            name: nameVal,
-            phone: phoneVal,
-            email: emailVal,
-            service: serviceVal,
-            message: messageVal,
-          });
+          if (anexosInput && !anexosInput.disabled && anexosInput.files && anexosInput.files.length) {
+            const files = validateOrcamentoFiles(anexosInput.files);
+            if (files.length && isOrcamentoUploadReady()) {
+              if (submitLabel) submitLabel.textContent = 'Enviando anexos...';
+              try {
+                attachmentUrls = await window.supabaseApi.uploadOrcamentoFiles(files);
+              } catch (uploadError) {
+                console.warn('Falha no upload de anexos:', uploadError);
+                showCustomAlert(
+                  'Anexos não enviados',
+                  'Não foi possível enviar os arquivos agora. A solicitação seguirá no WhatsApp sem anexos.'
+                );
+                attachmentUrls = [];
+              }
+            }
+          }
+
+          if (submitLabel) submitLabel.textContent = 'Abrindo WhatsApp...';
+
+          // Persistência secundária (Supabase / Netlify / localStorage) — não bloqueia o WhatsApp
+          try {
+            await addContactRequest({
+              name: nameVal,
+              phone: phoneVal,
+              email: emailVal,
+              service: serviceVal,
+              message: messageVal,
+              attachment_urls: attachmentUrls,
+            });
+            await loadContactRequests();
+          } catch (persistError) {
+            console.warn('Persistência secundária falhou; WhatsApp segue:', persistError);
+          }
+
+          handleWhatsAppRedirect(
+            buildOrcamentoWhatsAppMessage({
+              name: nameVal,
+              phone: phoneVal,
+              email: emailVal,
+              service: serviceVal,
+              message: messageVal,
+              attachmentUrls,
+            })
+          );
 
           submitterNameSpan.textContent = nameVal || 'Cliente';
           contactForm.classList.add('hidden');
           formSuccess.classList.remove('hidden');
           contactForm.reset();
+          syncOrcamentoUploadField();
           resetContactSubmitButton();
-          await loadContactRequests();
         } catch (error) {
           console.error('Erro ao enviar solicitação:', error);
-          showCustomAlert('Falha no envio', 'Não foi possível registrar sua solicitação agora. Tente novamente.');
+          showCustomAlert(
+            'Falha no envio',
+            error && error.message
+              ? error.message
+              : 'Não foi possível montar a solicitação. Verifique os campos e tente novamente.'
+          );
         } finally {
           resetContactSubmitButton();
         }
