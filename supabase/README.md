@@ -12,6 +12,7 @@ Site estático em `index.html` · repositório [ivonei-eletrotecnico](https://gi
 | Settings → API (anon key) | https://supabase.appsbrasil.store/project/default/settings/api |
 | SQL Editor | https://supabase.appsbrasil.store/project/default/sql/new |
 | Project URL (API / Kong) | `https://supabase.appsbrasil.store` |
+| Site (Storage público) | https://supabase.appsbrasil.store/storage/v1/object/public/website/index.html |
 | Candidato alternativo | `https://api.supabase.appsbrasil.store` (DNS pode não resolver) |
 | GitHub | https://github.com/ivoneifs/ivonei-eletrotecnico |
 
@@ -24,6 +25,7 @@ Site estático em `index.html` · repositório [ivonei-eletrotecnico](https://gi
 | `config.toml` | Config local CLI (`project_id = ivonei-eletrotecnico`) |
 | `migrations/20260716090000_downloads_and_contact_requests.sql` | Tabelas + RLS + RPC |
 | `migrations/20260716120000_orcamentos_storage.sql` | Bucket `orcamentos` + coluna `attachment_urls` |
+| `migrations/20260716130000_website_storage.sql` | Bucket público `website` (hospedagem do site) |
 | `../.env.example` | Placeholders URL/anon para AppsBrasil |
 | `../js/supabase-config.js` | Lê `window.__ENV` / placeholders |
 | `../js/supabase-client.js` | Cliente CDN + `window.supabaseApi` |
@@ -37,7 +39,7 @@ Site estático em `index.html` · repositório [ivonei-eletrotecnico](https://gi
    - ou `.env` (a partir de `.env.example`) se usar build/inject
 4. Confirme `SUPABASE_URL=https://supabase.appsbrasil.store`
 
-Sem a anon key, o site continua com fallback Netlify / localStorage.
+Sem a anon key, o site continua com fallback localStorage.
 
 ## 2) Aplicar a migration (pendente até rodar no dashboard)
 
@@ -47,6 +49,7 @@ Sem a anon key, o site continua com fallback Netlify / localStorage.
 2. Cole e execute, nesta ordem:
    - `migrations/20260716090000_downloads_and_contact_requests.sql`
    - `migrations/20260716120000_orcamentos_storage.sql`
+   - `migrations/20260716130000_website_storage.sql`
 
 Isso cria `downloads`, `contact_requests`, RLS, `increment_download_count`, o bucket Storage `orcamentos` (público para leitura) e a coluna `attachment_urls`.
 

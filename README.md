@@ -1,10 +1,12 @@
 # Ivonei Eletrotécnico
 
-Site estático do eletrotécnico Ivonei Ferreira.
+Site estático do eletrotécnico Ivonei Ferreira, hospedado no **Supabase Storage** (AppsBrasil self-hosted).
 
-- **Site Netlify:** https://ivonei-eletrotecnico.netlify.app/
+- **Site (URL pública Storage):** https://supabase.appsbrasil.store/storage/v1/object/public/website/index.html
 - **GitHub:** https://github.com/ivoneifs/ivonei-eletrotecnico
 - **Supabase Studio (AppsBrasil):** https://supabase.appsbrasil.store/project/default
+
+> O Studio não serve HTML estático. A hospedagem do site é o bucket público `website` no Storage; a URL acima é o endereço para abrir o site.
 
 ## Supabase (self-hosted)
 
@@ -15,6 +17,7 @@ Site estático do eletrotécnico Ivonei Ferreira.
 3. Rode as migrations no [SQL Editor](https://supabase.appsbrasil.store/project/default/sql/new), nesta ordem:
    - `supabase/migrations/20260716090000_downloads_and_contact_requests.sql`
    - `supabase/migrations/20260716120000_orcamentos_storage.sql` (bucket `orcamentos` + anexos)
+   - `supabase/migrations/20260716130000_website_storage.sql` (bucket público `website` para o site)
 
 Detalhes: [`supabase/README.md`](supabase/README.md).
 
