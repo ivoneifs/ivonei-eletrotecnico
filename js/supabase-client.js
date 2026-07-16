@@ -24,6 +24,8 @@
   }
 
   // Same storageKey + localStorage on index.html and admin.html so the session is shared.
+  /** Build stamp — bump when forcing Storage cache bust. */
+  var IVONEI_CLIENT_BUILD = '20260716c';
   var AUTH_STORAGE_KEY = 'sb-ivonei-auth';
   var client = window.supabase.createClient(url, anonKey, {
     auth: {

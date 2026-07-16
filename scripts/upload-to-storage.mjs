@@ -3,6 +3,9 @@
  * Reads credentials from .env (never prints secrets).
  *
  * Usage: node scripts/upload-to-storage.mjs [website|fluxoia-site|both]
+ *
+ * - website: Ivonei files from repo root
+ * - fluxoia-site: FluxoIA patches from fluxoia-site/ (never overwrites with Ivonei)
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -47,15 +50,25 @@ const arg = (process.argv[2] || 'website').toLowerCase();
 const buckets =
   arg === 'both' ? ['website', 'fluxoia-site'] : arg === 'fluxoia-site' ? ['fluxoia-site'] : ['website'];
 
-const files = [
+const websiteFiles = [
   { local: 'admin.html', remote: 'admin.html', type: 'text/html; charset=utf-8' },
   { local: 'index.html', remote: 'index.html', type: 'text/html; charset=utf-8' },
   { local: 'js/supabase-client.js', remote: 'js/supabase-client.js', type: 'application/javascript; charset=utf-8' },
   { local: 'js/supabase-config.js', remote: 'js/supabase-config.js', type: 'application/javascript; charset=utf-8' },
 ];
 
+/** FluxoIA-only files — never upload Ivonei HTML into this bucket. */
+const fluxoiaFiles = [
+  { local: 'fluxoia-site/admin.html', remote: 'admin.html', type: 'text/html; charset=utf-8' },
+  { local: 'fluxoia-site/painel.html', remote: 'painel.html', type: 'text/html; charset=utf-8' },
+];
+
 async function upload(bucket, file) {
-  const body = fs.readFileSync(path.join(root, file.local));
+  const localPath = path.join(root, file.local);
+  if (!fs.existsSync(localPath)) {
+    throw new Error(`Missing local file: ${file.local}`);
+  }
+  const body = fs.readFileSync(localPath);
   const endpoint = `${url}/storage/v1/object/${bucket}/${file.remote}`;
   const res = await fetch(endpoint, {
     method: 'POST',
@@ -64,6 +77,7 @@ async function upload(bucket, file) {
       apikey: key,
       'Content-Type': file.type,
       'x-upsert': 'true',
+      'cache-control': 'no-cache, no-store, must-revalidate',
     },
     body,
   });
@@ -79,12 +93,7 @@ console.log(`API host: ${url}`);
 console.log(`Key present: yes (${key.slice(0, 6)}…)`);
 
 for (const bucket of buckets) {
-  // Only push Ivonei admin.html to website by default.
-  // fluxoia-site hosts FluxoIA — uploading Ivonei index would overwrite that product.
-  const list =
-    bucket === 'fluxoia-site'
-      ? files.filter((f) => f.remote === 'admin.html')
-      : files;
+  const list = bucket === 'fluxoia-site' ? fluxoiaFiles : websiteFiles;
   for (const file of list) {
     await upload(bucket, file);
   }

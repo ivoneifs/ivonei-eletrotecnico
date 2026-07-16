@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Painel | FluxoIA</title>
+<meta name="fluxoia-build" content="20260716c">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul-escuro:#012A36;
+    --petroleo:#014F59;
+    --petroleo-claro:#017C87;
+    --petroleo-suave:#0AA6A6;
+    --dourado:#F2B33D;
+    --branco:#FFFFFF;
+    --cinza-claro:#F4F8F9;
+    --cinza-texto:#5A7278;
+    --texto-escuro:#0A2E36;
+    --borda:#E7EEF0;
+    --sombra:0 10px 30px rgba(1,42,54,0.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',sans-serif;background:var(--cinza-claro);color:var(--texto-escuro);min-height:100vh;}
+  a{text-decoration:none;color:inherit;}
+
+  header{
+    background:rgba(1,42,54,0.97);
+    color:var(--branco);
+    padding:16px 0;
+    position:sticky;top:0;z-index:100;
+  }
+  .container{max-width:1180px;margin:0 auto;padding:0 24px;}
+  .header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .logo{font-size:22px;font-weight:800;color:var(--branco);}
+  .logo span{color:var(--dourado);}
+  .header-right{display:flex;align-items:center;gap:12px;font-size:14px;flex-wrap:wrap;justify-content:flex-end;}
+  .header-right .who{color:rgba(255,255,255,0.75);}
+  .btn-back{
+    background:var(--dourado);color:var(--azul-escuro);border:none;
+    padding:8px 14px;border-radius:50px;font-weight:800;font-size:13px;
+  }
+  .btn-back:hover{background:#ffc75e;}
+  .product-banner{
+    background:#014F59;color:#fff;text-align:center;font-size:12px;padding:8px 12px;
+  }
+  .product-banner a{color:var(--dourado);font-weight:700;text-decoration:underline;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:10px 20px;border-radius:50px;font-weight:700;font-size:14px;
+    border:none;cursor:pointer;transition:all .25s ease;font-family:inherit;
+  }
+  .btn-primary{background:var(--dourado);color:var(--azul-escuro);}
+  .btn-primary:hover{background:#ffc75e;transform:translateY(-2px);}
+  .btn-outline{background:transparent;color:var(--branco);border:1px solid rgba(255,255,255,0.4);}
+  .btn-outline:hover{background:rgba(255,255,255,0.08);}
+  .btn-sm{padding:7px 14px;font-size:13px;}
+  .btn-danger{background:rgba(211,47,47,0.1);color:#c0392b;}
+  .btn-danger:hover{background:rgba(211,47,47,0.18);}
+  .btn-ghost{background:var(--cinza-claro);color:var(--petroleo);}
+  .btn-ghost:hover{background:#e6eff0;}
+
+  .tabs{display:flex;gap:8px;margin:32px 0 24px;flex-wrap:wrap;}
+  .tab{
+    padding:11px 22px;border-radius:50px;background:var(--branco);
+    border:1px solid var(--borda);color:var(--cinza-texto);
+    font-weight:600;font-size:14px;cursor:pointer;transition:all .2s;font-family:inherit;
+  }
+  .tab.active{background:var(--petroleo);color:var(--branco);border-color:var(--petroleo);}
+
+  .panel{display:none;animation:fade .25s ease;}
+  .panel.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+  .panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:16px;flex-wrap:wrap;}
+  .panel-head h2{font-size:22px;color:var(--azul-escuro);}
+  .panel-head p{color:var(--cinza-texto);font-size:14px;margin-top:2px;}
+
+  .card{
+    background:var(--branco);border:1px solid var(--borda);border-radius:16px;
+    box-shadow:var(--sombra);overflow:hidden;
+  }
+  table{width:100%;border-collapse:collapse;}
+  th,td{padding:14px 18px;text-align:left;font-size:14px;vertical-align:top;}
+  th{background:var(--cinza-claro);color:var(--petroleo);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.5px;}
+  tbody tr{border-top:1px solid var(--borda);}
+  tbody tr:hover{background:#fbfdfd;}
+  td .muted{color:var(--cinza-texto);font-size:13px;}
+  td strong{color:var(--azul-escuro);}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;}
+
+  .pill{display:inline-block;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+  .pill-type{background:rgba(1,124,135,0.1);color:var(--petroleo-claro);}
+  .pill-new{background:rgba(242,179,61,0.18);color:#a9781b;}
+  .pill-progress{background:rgba(1,124,135,0.12);color:var(--petroleo-claro);}
+  .pill-done{background:rgba(46,160,90,0.14);color:#2e7d47;}
+
+  .state{padding:48px 20px;text-align:center;color:var(--cinza-texto);font-size:15px;}
+  .spinner{width:34px;height:34px;border:3px solid rgba(1,124,135,0.2);border-top-color:var(--petroleo-claro);border-radius:50%;margin:0 auto 14px;animation:spin .8s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  .storage-note{margin-top:16px;font-size:13px;color:var(--cinza-texto);}
+  .storage-note b{color:var(--petroleo);}
+
+  /* Modal */
+  .modal-overlay{
+    display:none;position:fixed;inset:0;background:rgba(1,42,54,0.55);
+    z-index:200;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto;
+  }
+  .modal-overlay.show{display:flex;}
+  .modal{
+    background:var(--branco);width:100%;max-width:520px;border-radius:18px;
+    padding:30px;box-shadow:0 24px 60px rgba(1,42,54,0.35);
+  }
+  .modal h3{font-size:20px;color:var(--azul-escuro);margin-bottom:20px;}
+  .form-group{margin-bottom:16px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  label{display:block;font-size:13px;font-weight:600;margin-bottom:7px;color:var(--petroleo);}
+  input,textarea,select{
+    width:100%;padding:12px 14px;border:1px solid #DCE7E9;border-radius:10px;
+    font-size:14px;font-family:inherit;color:var(--texto-escuro);background:var(--branco);
+  }
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--petroleo-suave);box-shadow:0 0 0 3px rgba(10,166,166,0.15);}
+  textarea{min-height:84px;resize:vertical;}
+  .modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px;}
+  .field-hint{font-size:12px;color:var(--cinza-texto);margin-top:6px;}
+
+  .toast{
+    position:fixed;bottom:24px;right:24px;z-index:300;
+    background:var(--azul-escuro);color:var(--branco);padding:14px 20px;border-radius:12px;
+    font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,0.3);opacity:0;transform:translateY(10px);
+    transition:opacity .25s, transform .25s;pointer-events:none;max-width:340px;
+  }
+  .toast.show{opacity:1;transform:none;}
+  .toast.error{background:#c0392b;}
+
+  @media(max-width:760px){
+    .form-row{grid-template-columns:1fr;}
+    th:nth-child(3),td:nth-child(3){display:none;}
+    .header-right .who{display:none;}
+  }
+</style>
+</head>
+<body data-fluxoia-build="20260716c">
+<div class="product-banner">
+  Painel <strong>FluxoIA</strong> · build 20260716c — não é Ivonei ·
+  <a href="https://supabase.appsbrasil.store/storage/v1/object/public/website/admin.html?v=20260716c">Admin Ivonei</a>
+  · “Voltar ao site” mantém a sessão · só <strong>Sair</strong> encerra
+</div>
+<header>
+  <div class="container header-inner">
+    <a href="index.html" class="logo">Fluxo<span>IA</span></a>
+    <div class="header-right">
+      <!-- Navegação pura: NÃO chama logout. -->
+      <a class="btn btn-back" id="back-to-site" href="index.html" title="Voltar ao site sem encerrar a sessão">← Voltar ao site</a>
+      <span class="who" id="who"></span>
+      <button class="btn btn-outline btn-sm" id="logoutBtn" type="button">Sair</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="tabs">
+    <button class="tab active" data-tab="downloads">Downloads</button>
+    <button class="tab" data-tab="contatos">Solicitações</button>
+    <button class="tab" data-tab="usuarios">Usuários</button>
+  </div>
+
+  <!-- DOWNLOADS -->
+  <section class="panel active" id="panel-downloads">
+    <div class="panel-head">
+      <div>
+        <h2>Materiais para download</h2>
+        <p>Adicione, edite ou remova os materiais exibidos na página pública de downloads.</p>
+      </div>
+      <button class="btn btn-primary" id="newDownloadBtn">+ Novo material</button>
+    </div>
+    <div class="card">
+      <table>
+        <thead>
+          <tr><th>Material</th><th>Tipo</th><th>Tamanho</th><th>Downloads</th><th>Ações</th></tr>
+        </thead>
+        <tbody id="downloadsBody">
+          <tr><td colspan="5"><div class="state"><div class="spinner"></div>Carregando...</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="storage-note" id="downloadsStorage"></p>
+  </section>
+
+  <!-- CONTATOS -->
+  <section class="panel" id="panel-contatos">
+    <div class="panel-head">
+      <div>
+        <h2>Solicitações de contato</h2>
+        <p>Mensagens enviadas pelo formulário do site. Atualize o status conforme o atendimento.</p>
+      </div>
+      <button class="btn btn-ghost" id="reloadContatos">Atualizar</button>
+    </div>
+    <div class="card">
+      <table>
+        <thead>
+          <tr><th>Contato</th><th>Serviço</th><th>Mensagem</th><th>Status</th><th>Ações</th></tr>
+        </thead>
+        <tbody id="contatosBody">
+          <tr><td colspan="5"><div class="state"><div class="spinner"></div>Carregando...</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="storage-note" id="contatosStorage"></p>
+  </section>
+
+  <!-- USUARIOS -->
+  <section class="panel" id="panel-usuarios">
+    <div class="panel-head">
+      <div>
+        <h2>Usuários do painel</h2>
+        <p>Gerencie quem pode acessar o painel administrativo. Senhas são armazenadas com hash.</p>
+      </div>
+      <button class="btn btn-primary" id="newUserBtn">+ Novo usuário</button>
+    </div>
+    <div class="card">
+      <table>
+        <thead>
+          <tr><th>Nome</th><th>E-mail</th><th>Perfil</th><th>Criado em</th><th>Ações</th></tr>
+        </thead>
+        <tbody id="usuariosBody">
+          <tr><td colspan="5"><div class="state"><div class="spinner"></div>Carregando...</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="storage-note" id="usuariosStorage"></p>
+  </section>
+</main>
+
+<!-- MODAL DOWNLOAD -->
+<div class="modal-overlay" id="downloadModal">
+  <div class="modal">
+    <h3 id="downloadModalTitle">Novo material</h3>
+    <form id="downloadForm">
+      <input type="hidden" id="d_id">
+      <div class="form-group">
+        <label for="d_name">Nome do material</label>
+        <input type="text" id="d_name" required>
+      </div>
+      <div class="form-group">
+        <label for="d_description">Descrição</label>
+        <textarea id="d_description"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="d_type">Tipo</label>
+          <input type="text" id="d_type" placeholder="pdf, json, xlsx..." value="pdf">
+        </div>
+        <div class="form-group">
+          <label for="d_size">Tamanho</label>
+          <input type="text" id="d_size" placeholder="1.2 MB">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="d_url">URL do arquivo</label>
+        <input type="text" id="d_url" placeholder="# ou https://...">
+        <p class="field-hint">Use um link real do arquivo ou # como placeholder.</p>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" data-close-modal>Cancelar</button>
+        <button type="submit" class="btn btn-primary" id="downloadSubmit">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL USUARIO -->
+<div class="modal-overlay" id="userModal">
+  <div class="modal">
+    <h3 id="userModalTitle">Novo usuário</h3>
+    <form id="userForm">
+      <input type="hidden" id="u_id">
+      <div class="form-group">
+        <label for="u_name">Nome</label>
+        <input type="text" id="u_name">
+      </div>
+      <div class="form-group">
+        <label for="u_email">E-mail</label>
+        <input type="email" id="u_email" autocomplete="off" required>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="u_role">Perfil</label>
+          <select id="u_role">
+            <option value="admin">Administrador</option>
+            <option value="editor">Editor</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="u_password">Senha</label>
+          <input type="password" id="u_password" autocomplete="new-password">
+          <p class="field-hint" id="u_password_hint">Mínimo recomendado: 8 caracteres.</p>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" data-close-modal>Cancelar</button>
+        <button type="submit" class="btn btn-primary" id="userSubmit">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* api-config.js inline — evita cache de script externo */
+(function (global) {
+  const SUPABASE_URL = 'https://supabase.appsbrasil.store';
+  const FUNCTIONS_BASE = `${SUPABASE_URL}/functions/v1`;
+  const host = global.location?.hostname || '';
+  const useEdgeFunctions =
+    host === 'supabase.appsbrasil.store' ||
+    host.endsWith('.appsbrasil.store');
+  if (useEdgeFunctions) {
+    global.FluxoAPI = {
+      base: FUNCTIONS_BASE,
+      auth: `${FUNCTIONS_BASE}/auth`,
+      downloads: `${FUNCTIONS_BASE}/downloads`,
+      contactRequests: `${FUNCTIONS_BASE}/contact-requests`,
+      users: `${FUNCTIONS_BASE}/users`,
+    };
+    return;
+  }
+  global.FluxoAPI = {
+    base: '/api',
+    auth: '/api/auth',
+    downloads: '/api/downloads',
+    contactRequests: '/api/contact-requests',
+    users: '/api/users',
+  };
+})(window);
+</script>
+<script>
+/* auth-client.js inline v20260716b */
+(function (global) {
+  const SUPABASE_FUNCTIONS_AUTH = 'https://supabase.appsbrasil.store/functions/v1/auth';
+  function getSiteBase() {
+    const path = global.location.pathname;
+    const slash = path.lastIndexOf('/');
+    return slash >= 0 ? path.slice(0, slash + 1) : '/';
+  }
+  const LOGIN_URL = `${getSiteBase()}admin.html`;
+  const PANEL_URL = `${getSiteBase()}painel.html`;
+  function authUrl() {
+    if (global.FluxoAPI?.auth) return global.FluxoAPI.auth;
+    if (global.location.hostname === 'supabase.appsbrasil.store' || global.location.hostname.endsWith('.appsbrasil.store')) {
+      return SUPABASE_FUNCTIONS_AUTH;
+    }
+    return '/api/auth';
+  }
+  async function parseJson(response) {
+    try { return await response.json(); } catch { return {}; }
+  }
+  async function getSession() {
+    const response = await fetch(authUrl(), { method: 'GET', headers: { Accept: 'application/json' }, credentials: 'include', cache: 'no-store' });
+    const data = await parseJson(response);
+    if (!response.ok) return { authenticated: false, configured: null, missing: [] };
+    return data;
+  }
+  async function login(email, password) {
+    const response = await fetch(authUrl(), { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify({ email, password }) });
+    const data = await parseJson(response);
+    if (!response.ok) throw new Error(data?.message || 'Não foi possível entrar. Verifique e-mail e senha.');
+    return data;
+  }
+  async function logout() {
+    try { await fetch(authUrl(), { method: 'DELETE', credentials: 'include' }); } catch { /* silencioso */ }
+    global.location.href = LOGIN_URL;
+  }
+  async function requireAuth() {
+    try {
+      const session = await getSession();
+      if (!session?.authenticated) { global.location.href = LOGIN_URL; return null; }
+      return session;
+    } catch { global.location.href = LOGIN_URL; return null; }
+  }
+  function resolveApiUrl(url) {
+    if (!global.FluxoAPI || !url.startsWith('/api/')) return url;
+    return `${global.FluxoAPI.base}/${url.replace(/^\/api\//, '')}`;
+  }
+  async function apiFetch(url, options = {}) {
+    const response = await fetch(resolveApiUrl(url), {
+      ...options,
+      credentials: 'include',
+      headers: { Accept: 'application/json', ...(options.body ? { 'Content-Type': 'application/json' } : {}), ...(options.headers || {}) },
+    });
+    if (response.status === 401) { global.location.href = LOGIN_URL; throw new Error('Sessão expirada. Faça login novamente.'); }
+    const data = await parseJson(response);
+    if (!response.ok) throw new Error(data?.message || 'Falha na requisição.');
+    return data;
+  }
+  global.FluxoAuth = { getSession, login, logout, requireAuth, apiFetch, resolveApiUrl, LOGIN_URL, PANEL_URL, ASSET_VERSION: '20260716c' };
+})(window);
+</script>
+<script>
+  let session = null;
+
+  function esc(v){
+    return String(v ?? '')
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+  function fmtDate(value){
+    if(!value) return '—';
+    const d = new Date(value);
+    if(Number.isNaN(d.getTime())) return esc(value);
+    return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'});
+  }
+  function toast(message, isError){
+    const t = document.getElementById('toast');
+    t.textContent = message;
+    t.className = 'toast show' + (isError ? ' error' : '');
+    setTimeout(() => { t.className = 'toast'; }, 3200);
+  }
+  function storageLabel(el, storage){
+    el.innerHTML = storage
+      ? `Persistência: <b>${esc(storage)}</b>`
+      : '';
+  }
+
+  /* ---------- Tabs ---------- */
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+    });
+  });
+
+  /* ---------- Modais ---------- */
+  function openModal(id){ document.getElementById(id).classList.add('show'); }
+  function closeModal(id){ document.getElementById(id).classList.remove('show'); }
+  document.querySelectorAll('[data-close-modal]').forEach(btn => {
+    btn.addEventListener('click', () => btn.closest('.modal-overlay').classList.remove('show'));
+  });
+  document.querySelectorAll('.modal-overlay').forEach(ov => {
+    ov.addEventListener('click', (e) => { if(e.target === ov) ov.classList.remove('show'); });
+  });
+
+  /* ---------- Downloads ---------- */
+  async function loadDownloads(){
+    const body = document.getElementById('downloadsBody');
+    try{
+      const data = await FluxoAuth.apiFetch('/api/downloads');
+      const list = data.downloads || [];
+      storageLabel(document.getElementById('downloadsStorage'), data.storage);
+      if(list.length === 0){
+        body.innerHTML = '<tr><td colspan="5"><div class="state">Nenhum material cadastrado ainda.</div></td></tr>';
+        return;
+      }
+      body.innerHTML = list.map(d => `
+        <tr>
+          <td><strong>${esc(d.name)}</strong><div class="muted">${esc(d.description || '')}</div></td>
+          <td><span class="pill pill-type">${esc((d.type||'').toUpperCase())}</span></td>
+          <td class="muted">${esc(d.size || '—')}</td>
+          <td class="muted">${Number(d.downloads||0)}</td>
+          <td>
+            <div class="actions">
+              <button class="btn btn-ghost btn-sm" data-edit-download='${esc(JSON.stringify(d))}'>Editar</button>
+              <button class="btn btn-danger btn-sm" data-del-download="${esc(d.id)}">Excluir</button>
+            </div>
+          </td>
+        </tr>`).join('');
+
+      body.querySelectorAll('[data-edit-download]').forEach(btn => {
+        btn.addEventListener('click', () => openDownloadModal(JSON.parse(btn.getAttribute('data-edit-download'))));
+      });
+      body.querySelectorAll('[data-del-download]').forEach(btn => {
+        btn.addEventListener('click', () => deleteDownload(btn.getAttribute('data-del-download')));
+      });
+    }catch(error){
+      body.innerHTML = `<tr><td colspan="5"><div class="state">${esc(error.message)}</div></td></tr>`;
+    }
+  }
+
+  function openDownloadModal(item){
+    document.getElementById('downloadForm').reset();
+    document.getElementById('d_id').value = item?.id || '';
+    document.getElementById('downloadModalTitle').textContent = item ? 'Editar material' : 'Novo material';
+    if(item){
+      document.getElementById('d_name').value = item.name || '';
+      document.getElementById('d_description').value = item.description || '';
+      document.getElementById('d_type').value = item.type || 'pdf';
+      document.getElementById('d_size').value = item.size || '';
+      document.getElementById('d_url').value = item.url || '';
+    }
+    openModal('downloadModal');
+  }
+
+  document.getElementById('newDownloadBtn').addEventListener('click', () => openDownloadModal(null));
+
+  document.getElementById('downloadForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const id = document.getElementById('d_id').value;
+    const payload = {
+      name: document.getElementById('d_name').value.trim(),
+      description: document.getElementById('d_description').value.trim(),
+      type: document.getElementById('d_type').value.trim() || 'pdf',
+      size: document.getElementById('d_size').value.trim() || 'Varia',
+      url: document.getElementById('d_url').value.trim() || '#',
+    };
+    const btn = document.getElementById('downloadSubmit');
+    btn.disabled = true; btn.textContent = 'Salvando...';
+    try{
+      if(id){
+        await FluxoAuth.apiFetch('/api/downloads', { method:'PUT', body: JSON.stringify({ id, updatedData: payload }) });
+        toast('Material atualizado.');
+      }else{
+        await FluxoAuth.apiFetch('/api/downloads', { method:'POST', body: JSON.stringify({ download: payload }) });
+        toast('Material adicionado.');
+      }
+      closeModal('downloadModal');
+      loadDownloads();
+    }catch(error){
+      toast(error.message, true);
+    }finally{
+      btn.disabled = false; btn.textContent = 'Salvar';
+    }
+  });
+
+  async function deleteDownload(id){
+    if(!confirm('Excluir este material?')) return;
+    try{
+      await FluxoAuth.apiFetch('/api/downloads', { method:'DELETE', body: JSON.stringify({ id }) });
+      toast('Material excluído.');
+      loadDownloads();
+    }catch(error){ toast(error.message, true); }
+  }
+
+  /* ---------- Contatos ---------- */
+  const statusPill = { new:'pill-new', in_progress:'pill-progress', done:'pill-done' };
+  const statusLabel = { new:'Novo', in_progress:'Em andamento', done:'Concluído' };
+
+  async function loadContatos(){
+    const body = document.getElementById('contatosBody');
+    try{
+      const data = await FluxoAuth.apiFetch('/api/contact-requests');
+      const list = data.requests || [];
+      storageLabel(document.getElementById('contatosStorage'), data.storage);
+      if(list.length === 0){
+        body.innerHTML = '<tr><td colspan="5"><div class="state">Nenhuma solicitação recebida ainda.</div></td></tr>';
+        return;
+      }
+      body.innerHTML = list.map(r => {
+        const st = r.status || 'new';
+        return `
+        <tr>
+          <td><strong>${esc(r.name)}</strong><div class="muted">${esc(r.phone||'')}<br>${esc(r.email||'')}</div><div class="muted">${fmtDate(r.createdAt)}</div></td>
+          <td class="muted">${esc(r.service||'—')}</td>
+          <td class="muted">${esc(r.message||'—')}</td>
+          <td>
+            <select data-status-for="${esc(r.id)}" class="btn-sm" style="padding:7px 10px;border-radius:8px;">
+              <option value="new" ${st==='new'?'selected':''}>Novo</option>
+              <option value="in_progress" ${st==='in_progress'?'selected':''}>Em andamento</option>
+              <option value="done" ${st==='done'?'selected':''}>Concluído</option>
+            </select>
+          </td>
+          <td><div class="actions"><button class="btn btn-danger btn-sm" data-del-contato="${esc(r.id)}">Excluir</button></div></td>
+        </tr>`;
+      }).join('');
+
+      body.querySelectorAll('[data-status-for]').forEach(sel => {
+        sel.addEventListener('change', () => updateContatoStatus(sel.getAttribute('data-status-for'), sel.value));
+      });
+      body.querySelectorAll('[data-del-contato]').forEach(btn => {
+        btn.addEventListener('click', () => deleteContato(btn.getAttribute('data-del-contato')));
+      });
+    }catch(error){
+      body.innerHTML = `<tr><td colspan="5"><div class="state">${esc(error.message)}</div></td></tr>`;
+    }
+  }
+
+  async function updateContatoStatus(id, status){
+    try{
+      await FluxoAuth.apiFetch('/api/contact-requests', { method:'PUT', body: JSON.stringify({ id, updatedData:{ status } }) });
+      toast('Status atualizado.');
+    }catch(error){ toast(error.message, true); }
+  }
+  async function deleteContato(id){
+    if(!confirm('Excluir esta solicitação?')) return;
+    try{
+      await FluxoAuth.apiFetch('/api/contact-requests', { method:'DELETE', body: JSON.stringify({ id }) });
+      toast('Solicitação excluída.');
+      loadContatos();
+    }catch(error){ toast(error.message, true); }
+  }
+  document.getElementById('reloadContatos').addEventListener('click', loadContatos);
+
+  /* ---------- Usuários ---------- */
+  async function loadUsuarios(){
+    const body = document.getElementById('usuariosBody');
+    try{
+      const data = await FluxoAuth.apiFetch('/api/users');
+      const list = data.users || [];
+      storageLabel(document.getElementById('usuariosStorage'), data.storage);
+      if(list.length === 0){
+        body.innerHTML = '<tr><td colspan="5"><div class="state">Nenhum usuário cadastrado.</div></td></tr>';
+        return;
+      }
+      body.innerHTML = list.map(u => `
+        <tr>
+          <td><strong>${esc(u.name || '—')}</strong></td>
+          <td class="muted">${esc(u.email)}</td>
+          <td><span class="pill pill-type">${esc((u.role||'admin').toUpperCase())}</span></td>
+          <td class="muted">${fmtDate(u.createdAt)}</td>
+          <td>
+            <div class="actions">
+              <button class="btn btn-ghost btn-sm" data-edit-user='${esc(JSON.stringify(u))}'>Editar</button>
+              <button class="btn btn-danger btn-sm" data-del-user="${esc(u.id)}">Excluir</button>
+            </div>
+          </td>
+        </tr>`).join('');
+
+      body.querySelectorAll('[data-edit-user]').forEach(btn => {
+        btn.addEventListener('click', () => openUserModal(JSON.parse(btn.getAttribute('data-edit-user'))));
+      });
+      body.querySelectorAll('[data-del-user]').forEach(btn => {
+        btn.addEventListener('click', () => deleteUser(btn.getAttribute('data-del-user')));
+      });
+    }catch(error){
+      body.innerHTML = `<tr><td colspan="5"><div class="state">${esc(error.message)}</div></td></tr>`;
+    }
+  }
+
+  function openUserModal(item){
+    document.getElementById('userForm').reset();
+    document.getElementById('u_id').value = item?.id || '';
+    document.getElementById('userModalTitle').textContent = item ? 'Editar usuário' : 'Novo usuário';
+    document.getElementById('u_password_hint').textContent = item
+      ? 'Deixe em branco para manter a senha atual.'
+      : 'Mínimo recomendado: 8 caracteres.';
+    if(item){
+      document.getElementById('u_name').value = item.name || '';
+      document.getElementById('u_email').value = item.email || '';
+      document.getElementById('u_role').value = item.role || 'admin';
+    }
+    openModal('userModal');
+  }
+
+  document.getElementById('newUserBtn').addEventListener('click', () => openUserModal(null));
+
+  document.getElementById('userForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const id = document.getElementById('u_id').value;
+    const password = document.getElementById('u_password').value;
+    const payload = {
+      name: document.getElementById('u_name').value.trim(),
+      email: document.getElementById('u_email').value.trim(),
+      role: document.getElementById('u_role').value,
+    };
+    if(password) payload.password = password;
+
+    if(!id && !password){ toast('Defina uma senha para o novo usuário.', true); return; }
+
+    const btn = document.getElementById('userSubmit');
+    btn.disabled = true; btn.textContent = 'Salvando...';
+    try{
+      if(id){
+        await FluxoAuth.apiFetch('/api/users', { method:'PUT', body: JSON.stringify({ id, updatedData: payload }) });
+        toast('Usuário atualizado.');
+      }else{
+        await FluxoAuth.apiFetch('/api/users', { method:'POST', body: JSON.stringify({ user: payload }) });
+        toast('Usuário criado.');
+      }
+      closeModal('userModal');
+      loadUsuarios();
+    }catch(error){
+      toast(error.message, true);
+    }finally{
+      btn.disabled = false; btn.textContent = 'Salvar';
+    }
+  });
+
+  async function deleteUser(id){
+    if(!confirm('Excluir este usuário?')) return;
+    try{
+      await FluxoAuth.apiFetch('/api/users', { method:'DELETE', body: JSON.stringify({ id }) });
+      toast('Usuário excluído.');
+      loadUsuarios();
+    }catch(error){ toast(error.message, true); }
+  }
+
+  /* ---------- Init ---------- */
+  // ÚNICO lugar que encerra a sessão neste painel.
+  document.getElementById('logoutBtn').addEventListener('click', () => FluxoAuth.logout());
+  // "Voltar ao site": só navega — nunca chama logout.
+  const backLink = document.getElementById('back-to-site');
+  if (backLink) {
+    backLink.addEventListener('click', function () {
+      /* intencional: sem logout */
+    });
+  }
+
+  (async function init(){
+    session = await FluxoAuth.requireAuth();
+    if(!session) return;
+    document.getElementById('who').textContent = session.email || '';
+    loadDownloads();
+    loadContatos();
+    loadUsuarios();
+  })();
+</script>
+</body>
+</html>

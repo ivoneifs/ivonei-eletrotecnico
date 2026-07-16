@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Painel Admin · Ivonei Eletrotécnico</title>
   <meta name="robots" content="noindex,nofollow" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="ivonei-build" content="20260716c" />
   <link rel="canonical" href="https://supabase.appsbrasil.store/storage/v1/object/public/website/admin.html" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -31,10 +35,25 @@
       border-color: var(--accent);
       background: #fff;
     }
+    #back-to-site {
+      box-shadow: 0 2px 0 rgba(0, 51, 102, 0.15);
+    }
+    #back-to-site:hover {
+      filter: brightness(1.05);
+    }
+    body.is-logged-in #back-to-site {
+      outline: 2px solid #FF8C00;
+      outline-offset: 2px;
+    }
   </style>
 </head>
-<body class="text-slate-800">
-  <header class="border-b border-slate-200/80 bg-white/80 backdrop-blur sticky top-0 z-20">
+<body class="text-slate-800" data-ivonei-build="20260716c">
+  <div id="build-banner" class="bg-[#001c37] text-white text-center text-[11px] font-mono tracking-wide py-1.5 px-3">
+    Ivonei Admin · build <strong class="text-[#FF8C00]">20260716c</strong>
+    · só este URL é o painel Ivonei
+    · <span class="opacity-80">“Voltar ao site” NÃO encerra a sessão — use “Sair”</span>
+  </div>
+  <header class="border-b border-slate-200/80 bg-white/90 backdrop-blur sticky top-0 z-20">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-3">
       <div>
         <p class="font-display text-xl tracking-wide text-[#003366] uppercase">Ivonei Eletrotécnico</p>
@@ -44,16 +63,20 @@
         <!-- Navegação pura: NÃO chama signOut. Sessão permanece até o botão Sair. -->
         <a id="back-to-site"
            href="index.html"
-           class="inline-flex items-center gap-1.5 border border-[#003366]/30 hover:border-[#FF8C00] hover:text-[#FF8C00] text-[#003366] bg-white px-3 py-2 text-[11px] font-bold uppercase tracking-wider rounded-sm no-underline transition-colors"
+           class="inline-flex items-center gap-2 bg-[#FF8C00] hover:bg-[#e67e00] text-[#001c37] px-4 py-2.5 text-xs font-bold uppercase tracking-wider rounded-sm no-underline transition-colors shadow-sm"
            title="Voltar ao site sem encerrar a sessão">
           ← Voltar ao site
         </a>
         <div id="session-chip" class="hidden text-[11px] font-mono text-slate-600 bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-sm"></div>
-        <button id="logout-btn" type="button" class="hidden bg-transparent border border-slate-300 hover:border-red-400 hover:text-red-700 text-slate-600 px-3 py-2 text-[11px] font-bold uppercase tracking-wider rounded-sm cursor-pointer">
+        <button id="logout-btn" type="button" class="hidden bg-white border-2 border-red-500 hover:bg-red-50 text-red-700 px-4 py-2.5 text-xs font-bold uppercase tracking-wider rounded-sm cursor-pointer">
           Sair
         </button>
       </div>
     </div>
+    <p id="session-hint" class="hidden max-w-6xl mx-auto px-4 sm:px-6 pb-3 text-[11px] text-slate-600">
+      Logado: <strong class="text-[#003366]">← Voltar ao site</strong> mantém a sessão.
+      Só o botão <strong class="text-red-700">Sair</strong> encerra o login.
+    </p>
   </header>
 
   <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
@@ -299,9 +322,9 @@
       SUPABASE_ANON_KEY: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc4Mjk0NTM2MCwiZXhwIjo0OTM4NjE4OTYwLCJyb2xlIjoiYW5vbiJ9.e7p-Y4Un7z2oyKwrIX5NytQrntTgcqyUT9PLoyU3ZaU'
     };
   </script>
-  <script src="js/supabase-config.js"></script>
+  <script src="js/supabase-config.js?v=20260716c"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabase-client.js"></script>
+  <script src="js/supabase-client.js?v=20260716c"></script>
   <script>
     (function () {
       var api = window.supabaseApi;
@@ -327,20 +350,26 @@
       }
 
       function showLogin() {
+        document.body.classList.remove('is-logged-in');
         $('login-view').classList.remove('hidden');
         $('dashboard-view').classList.add('hidden');
         $('logout-btn').classList.add('hidden');
         $('session-chip').classList.add('hidden');
+        var hint = $('session-hint');
+        if (hint) hint.classList.add('hidden');
       }
 
       function showDashboard(profile) {
         currentProfile = profile;
+        document.body.classList.add('is-logged-in');
         $('login-view').classList.add('hidden');
         $('dashboard-view').classList.remove('hidden');
         $('logout-btn').classList.remove('hidden');
         var chip = $('session-chip');
         chip.textContent = (profile.email || '') + ' · ' + profile.role;
         chip.classList.remove('hidden');
+        var hint = $('session-hint');
+        if (hint) hint.classList.remove('hidden');
         var usersTab = $('users-tab-btn');
         if (profile.role === 'admin') {
           usersTab.classList.remove('hidden');
