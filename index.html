@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRM Secretária — Gestão de Clientes</title>
+  <meta name="description" content="CRM profissional com pipeline Kanban e agenda integrada ao Supabase" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/app.css" />
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+  <!-- Sidebar Overlay (mobile) -->
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+  <!-- ==================== SIDEBAR ==================== -->
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">CRM</span>
+        <span class="brand-sub">Secretária</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-group">
+        <span class="nav-group-label">Principal</span>
+
+        <div class="nav-item active" data-page="dashboard">
+          <div class="nav-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
+          </div>
+          <span class="nav-label">Dashboard</span>
+        </div>
+
+        <div class="nav-item" data-page="contacts">
+          <div class="nav-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+          </div>
+          <span class="nav-label">Contatos</span>
+          <span class="nav-badge" id="badge-contacts"></span>
+        </div>
+
+        <div class="nav-item" data-page="kanban">
+          <div class="nav-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="5" height="18" rx="1" />
+              <rect x="10" y="3" width="5" height="12" rx="1" />
+              <rect x="17" y="3" width="5" height="15" rx="1" />
+            </svg>
+          </div>
+          <span class="nav-label">Pipeline</span>
+        </div>
+
+        <div class="nav-item" data-page="calendar">
+          <div class="nav-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" />
+              <line x1="16" y1="2" x2="16" y2="6" />
+              <line x1="8" y1="2" x2="8" y2="6" />
+              <line x1="3" y1="10" x2="21" y2="10" />
+            </svg>
+          </div>
+          <span class="nav-label">Agenda</span>
+          <span class="nav-badge" id="badge-calendar"></span>
+        </div>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar">S</div>
+        <div class="user-info">
+          <span class="user-name">Secretária</span>
+          <span class="user-role">CRM v1.0</span>
+        </div>
+        <div class="status-dot online"></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==================== MAIN ==================== -->
+  <main class="main-content">
+
+    <!-- Header (mobile) -->
+    <header class="top-header">
+      <button id="hamburger" class="hamburger" aria-label="Menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </button>
+      <div class="header-brand">CRM Secretária</div>
+      <div></div>
+    </header>
+
+    <!-- ====== DASHBOARD ====== -->
+    <section id="page-dashboard" class="page active">
+      <div style="text-align:center;padding:80px;color:var(--text-muted)">
+        <div class="spinner"></div>
+      </div>
+    </section>
+
+    <!-- ====== CONTACTS ====== -->
+    <section id="page-contacts" class="page"></section>
+
+    <!-- ====== KANBAN ====== -->
+    <section id="page-kanban" class="page"></section>
+
+    <!-- ====== CALENDAR ====== -->
+    <section id="page-calendar" class="page"></section>
+
+  </main>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- Contact Modal -->
+  <div id="contactModal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="contactModalTitle">Novo Contato</h3>
+        <button class="modal-close" onclick="closeModal('contactModal')">✕</button>
+      </div>
+      <form id="contactForm" class="modal-body" onsubmit="return false">
+        <input type="hidden" id="contact-id" />
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nome *</label>
+            <input type="text" id="contact-name" placeholder="Nome completo" required />
+          </div>
+          <div class="form-group">
+            <label>Empresa</label>
+            <input type="text" id="contact-company" placeholder="Nome da empresa" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>WhatsApp</label>
+            <input type="text" id="contact-phone" placeholder="+55 (00) 00000-0000" />
+          </div>
+          <div class="form-group">
+            <label>E-mail</label>
+            <input type="email" id="contact-email" placeholder="email@exemplo.com" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Status</label>
+            <select id="contact-status">
+              <option value="lead">Lead</option>
+              <option value="prospect">Prospect</option>
+              <option value="cliente">Cliente</option>
+              <option value="inativo">Inativo</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Responsável</label>
+            <input type="text" id="contact-owner" placeholder="Nome do responsável" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Tags <small style="color:var(--text-muted)">(separadas por vírgula)</small></label>
+          <input type="text" id="contact-tags" placeholder="vip, indicação, urgente" />
+        </div>
+        <div class="form-group">
+          <label>Observações</label>
+          <textarea id="contact-notes" rows="3" placeholder="Notas sobre este contato..."></textarea>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('contactModal')">Cancelar</button>
+        <button class="btn-primary" id="saveContactBtn">Salvar Contato</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deal Modal -->
+  <div id="dealModal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="dealModalTitle">Nova Oportunidade</h3>
+        <button class="modal-close" onclick="closeModal('dealModal')">✕</button>
+      </div>
+      <form id="dealForm" class="modal-body" onsubmit="return false">
+        <input type="hidden" id="deal-id" />
+        <div class="form-group">
+          <label>Título *</label>
+          <input type="text" id="deal-title" placeholder="Ex: Consultoria mensal – João" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Contato</label>
+            <select id="deal-contact">
+              <option value="">— Nenhum —</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Valor (R$)</label>
+            <input type="number" id="deal-value" placeholder="0,00" step="0.01" min="0" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Etapa</label>
+            <select id="deal-stage">
+              <option value="contato">Contato</option>
+              <option value="qualificacao">Qualificação</option>
+              <option value="proposta">Proposta</option>
+              <option value="negociacao">Negociação</option>
+              <option value="fechado-ganho">Fechado (Ganho)</option>
+              <option value="fechado-perdido">Fechado (Perdido)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Prioridade</label>
+            <select id="deal-priority">
+              <option value="baixa">🟢 Baixa</option>
+              <option value="normal" selected>🟡 Normal</option>
+              <option value="alta">🔴 Alta</option>
+              <option value="urgente">🚨 Urgente</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Descrição</label>
+          <textarea id="deal-desc" rows="3" placeholder="Detalhes desta oportunidade..."></textarea>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('dealModal')">Cancelar</button>
+        <button class="btn-primary" id="saveDealBtn">Salvar Oportunidade</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Event Modal -->
+  <div id="eventModal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="eventModalTitle">Novo Agendamento</h3>
+        <button class="modal-close" onclick="closeModal('eventModal')">✕</button>
+      </div>
+      <form id="eventForm" class="modal-body" onsubmit="return false">
+        <input type="hidden" id="event-id" />
+        <div class="form-group">
+          <label>Título *</label>
+          <input type="text" id="event-title" placeholder="Ex: Consulta inicial – Maria" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tipo</label>
+            <select id="event-type">
+              <option value="consulta">🏥 Consulta</option>
+              <option value="reuniao">📋 Reunião</option>
+              <option value="ligacao">📞 Ligação</option>
+              <option value="followup">🔔 Follow-up</option>
+              <option value="outro">📅 Outro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Contato</label>
+            <select id="event-contact">
+              <option value="">— Nenhum —</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Data *</label>
+            <input type="date" id="event-date" required />
+          </div>
+          <div class="form-group">
+            <label>Horário início</label>
+            <input type="time" id="event-start" value="09:00" />
+          </div>
+          <div class="form-group">
+            <label>Horário fim</label>
+            <input type="time" id="event-end" value="09:30" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Observações</label>
+          <textarea id="event-notes" rows="2" placeholder="Notas sobre este agendamento..."></textarea>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('eventModal')">Cancelar</button>
+        <button class="btn-primary" id="saveEventBtn">Salvar Agendamento</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Detail Modal -->
+  <div id="contactDetailModal" class="modal-overlay">
+    <div class="modal modal-lg">
+      <div class="modal-header">
+        <h3 id="contactDetailName">Detalhes do Contato</h3>
+        <button class="modal-close" onclick="closeModal('contactDetailModal')">✕</button>
+      </div>
+      <div id="contactDetailBody" class="modal-body"></div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('contactDetailModal')">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script src="js/data.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/contacts.js"></script>
+  <script src="js/kanban.js"></script>
+  <script src="js/calendar.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+
+</html>
